@@ -1,0 +1,51 @@
+@import 'theme';
+
+
+.btn:hover {
+  color: $link-color;
+  background: none;
+}
+
+.nav-item {
+  .link-icon, .icon-label {
+    color: $icon-color;
+  }
+
+  a.active {
+    .link-icon, .icon-label {
+      font-weight: bold;
+      color: $highlight-color;
+    }
+
+    .btn:hover {
+      color: $highlight-color;
+    }
+  }
+}
+
+.navbar-bottom {
+  height: $navbar-height;
+
+  .btn {
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .nav-item {
+    .link-icon, .icon-label {
+      color: $dark-mode-icon-color;
+    }
+
+    a.active {
+      .link-icon, .icon-label {
+        color: $highlight-color;
+      }
+
+      .btn:hover {
+        color: $highlight-color;
+      }
+    }
+  }
+}

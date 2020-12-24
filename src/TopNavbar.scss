@@ -1,0 +1,33 @@
+@import 'theme';
+
+.navbar-left-link {
+  .btn {
+    font-size: 1.5em;
+
+    &:hover, &:active {
+      color: $highlight-color;
+    }
+  }
+}
+
+.navbar-top {
+  padding-right: 1em;
+  height: $navbar-height;
+  .col-image {
+    img {
+      height: 3em;
+    }
+  }
+}
+
+.navbar-content {
+  text-align: center;
+  font-size: 1.25em;
+  font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+  .navbar-top {
+    background-color: black;
+  }
+}

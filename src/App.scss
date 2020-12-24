@@ -1,0 +1,198 @@
+@import 'theme';
+
+body {
+  background-color: transparent;
+  -webkit-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+}
+
+.jumbotron-fluid {
+  background-color: white;
+}
+
+.header-row {
+  top: $navbar-height;
+  margin: 0;
+  height: $header-height;
+  background-color: #CCCCCC !important;
+
+  .btn {
+    color: black;
+    padding: 0 0.5em 0 0;
+    background: none;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    svg {
+      margin-left: 0.25em;
+    }
+  }
+}
+
+.container {
+  .col {
+    overflow-x: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .header-row {
+    background-color: #333333 !important;
+
+    .btn {
+      color: white;
+    }
+  }
+}
+
+.spacer {
+  background-color: white;
+  height: $navbar-height;
+}
+
+.spacer-for-header {
+  background-color: white;
+  height: $header-height;
+}
+
+.nav-item {
+  a {
+    color: $icon-color;
+  }
+}
+
+a {
+  color: $link-color;
+
+  &.btn-link {
+    color: $highlight-color;
+    text-decoration: none;
+
+    &:hover {
+      color: $highlight-color;
+      text-decoration: underline;
+    }
+  }
+
+  &:hover {
+    color: $highlight-color;
+    text-decoration: none;
+  }
+}
+
+.nav-item {
+  .link-icon {
+    font-size: 1em;
+    vertical-align: -0.25em;
+  }
+
+  .icon-label {
+    margin-top: 0;
+    font-size: 0.75em;
+  }
+}
+
+.btn {
+  color: black;
+  background: none;
+  border: none;
+
+  &:hover {
+    color: white;
+    background: black;
+  }
+}
+
+
+.page {
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: fixed;
+  width: 100vw;
+}
+
+@media (prefers-color-scheme: dark) {
+  body {
+    background-color: black;
+    color: white;
+  }
+
+  .navbar-brand {
+    color: white !important;
+  }
+
+  .jumbotron-fluid {
+    background-color: black;
+  }
+
+  .jumbotron-fluid.border-bottom {
+    border-bottom-color: $navbar-separator-color !important;
+  }
+
+  .jumbotron-fluid.border-top {
+    border-top-color: $navbar-separator-color !important;
+  }
+
+  .nav-item {
+    a {
+      color: $dark-mode-icon-color;
+    }
+  }
+
+  a {
+    color: $invert-link-color;
+  }
+
+  .spacer, .spacer-for-header {
+    background-color: black;
+  }
+
+  .btn {
+    color: white;
+
+    &:hover {
+      color: white;
+      background: black;
+    }
+  }
+}
+
+.spinner-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -ms-flex-pack: distribute;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  min-width: 300px;
+  width: 100%;
+}
+
+// All landscape
+@media only screen and (orientation: landscape)  {
+  .spinner-container {
+    max-width: 100%;
+  }
+}
+
+// iPad
+@media only screen
+and (min-device-width : 768px)
+and (max-device-width : 1024px)
+and (orientation: portrait)
+{
+  .spinner-container {
+    max-width: 100%;
+  }
+}
+
