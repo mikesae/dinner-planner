@@ -101,7 +101,7 @@ a {
 
   &:hover {
     color: white;
-    background: black;
+    //background: black;
   }
 }
 
@@ -176,6 +176,10 @@ a {
   align-items: center;
   min-width: 300px;
   width: 100%;
+}
+
+.img-thumbnail {
+  border: none;
 }
 
 // All landscape

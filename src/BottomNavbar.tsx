@@ -6,6 +6,7 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
 import { NavLink } from 'react-router-dom';
 import './BottomNavbar.scss';
 import { faUtensils } from '@fortawesome/free-solid-svg-icons/faUtensils';
+import { faCheese as SideIcon } from '@fortawesome/free-solid-svg-icons/faCheese';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 export default class BottomNavbar extends Component {
@@ -58,7 +59,7 @@ export default class BottomNavbar extends Component {
                          activeClassName="active"
                     >
                         <div className="btn">
-                            <FontAwesomeIcon className="link-icon" icon={faUtensils}/>
+                            <FontAwesomeIcon className="link-icon" icon={SideIcon}/>
                             <div className="icon-label">Sides</div>
                         </div>
                     </NavLink>
