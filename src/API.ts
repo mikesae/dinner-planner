@@ -2,18 +2,20 @@
 /* eslint-disable */
 //  This file was automatically generated and should not be edited.
 
-export type CreateTodoInput = {
+export type CreateItemInput = {
   id?: string | null,
   name: string,
   description?: string | null,
+  image: string,
 };
 
-export type ModelTodoConditionInput = {
+export type ModelItemConditionInput = {
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  and?: Array< ModelTodoConditionInput | null > | null,
-  or?: Array< ModelTodoConditionInput | null > | null,
-  not?: ModelTodoConditionInput | null,
+  image?: ModelStringInput | null,
+  and?: Array< ModelItemConditionInput | null > | null,
+  or?: Array< ModelItemConditionInput | null > | null,
+  not?: ModelItemConditionInput | null,
 };
 
 export type ModelStringInput = {
@@ -56,23 +58,25 @@ export type ModelSizeInput = {
   between?: Array< number | null > | null,
 };
 
-export type UpdateTodoInput = {
+export type UpdateItemInput = {
   id: string,
   name?: string | null,
   description?: string | null,
+  image?: string | null,
 };
 
-export type DeleteTodoInput = {
+export type DeleteItemInput = {
   id?: string | null,
 };
 
-export type ModelTodoFilterInput = {
+export type ModelItemFilterInput = {
   id?: ModelIDInput | null,
   name?: ModelStringInput | null,
   description?: ModelStringInput | null,
-  and?: Array< ModelTodoFilterInput | null > | null,
-  or?: Array< ModelTodoFilterInput | null > | null,
-  not?: ModelTodoFilterInput | null,
+  image?: ModelStringInput | null,
+  and?: Array< ModelItemFilterInput | null > | null,
+  or?: Array< ModelItemFilterInput | null > | null,
+  not?: ModelItemFilterInput | null,
 };
 
 export type ModelIDInput = {
@@ -91,83 +95,88 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
-export type CreateTodoMutationVariables = {
-  input: CreateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type CreateItemMutationVariables = {
+  input: CreateItemInput,
+  condition?: ModelItemConditionInput | null,
 };
 
-export type CreateTodoMutation = {
-  createTodo:  {
-    __typename: "Todo",
+export type CreateItemMutation = {
+  createItem:  {
+    __typename: "Item",
     id: string,
     name: string,
     description: string | null,
+    image: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type UpdateTodoMutationVariables = {
-  input: UpdateTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type UpdateItemMutationVariables = {
+  input: UpdateItemInput,
+  condition?: ModelItemConditionInput | null,
 };
 
-export type UpdateTodoMutation = {
-  updateTodo:  {
-    __typename: "Todo",
+export type UpdateItemMutation = {
+  updateItem:  {
+    __typename: "Item",
     id: string,
     name: string,
     description: string | null,
+    image: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type DeleteTodoMutationVariables = {
-  input: DeleteTodoInput,
-  condition?: ModelTodoConditionInput | null,
+export type DeleteItemMutationVariables = {
+  input: DeleteItemInput,
+  condition?: ModelItemConditionInput | null,
 };
 
-export type DeleteTodoMutation = {
-  deleteTodo:  {
-    __typename: "Todo",
+export type DeleteItemMutation = {
+  deleteItem:  {
+    __typename: "Item",
     id: string,
     name: string,
     description: string | null,
+    image: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type GetTodoQueryVariables = {
+export type GetItemQueryVariables = {
   id: string,
 };
 
-export type GetTodoQuery = {
-  getTodo:  {
-    __typename: "Todo",
+export type GetItemQuery = {
+  getItem:  {
+    __typename: "Item",
     id: string,
     name: string,
     description: string | null,
+    image: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type ListTodosQueryVariables = {
-  filter?: ModelTodoFilterInput | null,
+export type ListItemsQueryVariables = {
+  filter?: ModelItemFilterInput | null,
   limit?: number | null,
   nextToken?: string | null,
 };
 
-export type ListTodosQuery = {
-  listTodos:  {
-    __typename: "ModelTodoConnection",
+export type ListItemsQuery = {
+  listItems:  {
+    __typename: "ModelItemConnection",
     items:  Array< {
-      __typename: "Todo",
+      __typename: "Item",
       id: string,
       name: string,
       description: string | null,
+      image: string,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -175,34 +184,37 @@ export type ListTodosQuery = {
   } | null,
 };
 
-export type OnCreateTodoSubscription = {
-  onCreateTodo:  {
-    __typename: "Todo",
+export type OnCreateItemSubscription = {
+  onCreateItem:  {
+    __typename: "Item",
     id: string,
     name: string,
     description: string | null,
+    image: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnUpdateTodoSubscription = {
-  onUpdateTodo:  {
-    __typename: "Todo",
+export type OnUpdateItemSubscription = {
+  onUpdateItem:  {
+    __typename: "Item",
     id: string,
     name: string,
     description: string | null,
+    image: string,
     createdAt: string,
     updatedAt: string,
   } | null,
 };
 
-export type OnDeleteTodoSubscription = {
-  onDeleteTodo:  {
-    __typename: "Todo",
+export type OnDeleteItemSubscription = {
+  onDeleteItem:  {
+    __typename: "Item",
     id: string,
     name: string,
     description: string | null,
+    image: string,
     createdAt: string,
     updatedAt: string,
   } | null,
