@@ -3,6 +3,7 @@
   "version": "1.0",
   "private": true,
   "dependencies": {
+    "@aws-amplify/ui-react": "^0.2.34",
     "@fortawesome/fontawesome-svg-core": "^1.2.32",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.14",
@@ -15,6 +16,7 @@
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.6",
     "@types/react-transition-group": "^1.1.6",
+    "aws-amplify": "^3.3.14",
     "bootstrap": "^4.5.3",
     "css-loader": "^5.0.1",
     "node-sass": "4.13.1",
