@@ -12,6 +12,8 @@ export const createItem = /* GraphQL */ `
       name
       description
       image
+      category
+      rating
       createdAt
       updatedAt
     }
@@ -27,6 +29,8 @@ export const updateItem = /* GraphQL */ `
       name
       description
       image
+      category
+      rating
       createdAt
       updatedAt
     }
@@ -42,6 +46,8 @@ export const deleteItem = /* GraphQL */ `
       name
       description
       image
+      category
+      rating
       createdAt
       updatedAt
     }

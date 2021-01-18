@@ -3,4 +3,6 @@ type Item @model {
   name: String!
   description: String
   image: String!
+  category: String!
+  rating: Int
 }
