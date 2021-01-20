@@ -16,11 +16,8 @@ const {
 export default class Mains extends Component {
     state = {
         file: null,
-        updateFile: null,
         itemName: '',
-        updateItemName: '',
-        items: [],
-        updateItems: []
+        items: []
     };
 
     componentDidMount() {
@@ -40,7 +37,15 @@ export default class Mains extends Component {
     async listItems() {
         const items = await API.graphql(graphqlOperation(ListItems));
         // @ts-ignore
-        this.setState({ updateItems: items.data.listItems.items });
+        this.setState({ items: items.data.listItems.items });
+    }
+
+    async removeItem() {
+        try {
+            // TODO: remove from storage and graphql.
+        } catch(error) {
+            console.log('error: ', error);
+        }
     }
 
     async addItem() {
@@ -52,7 +57,10 @@ export default class Mains extends Component {
             const { type: mimeType } = file;
             const key = `images/${uuid()}${this.state.itemName}.${extension}`;
             const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
-            const inputData = { name: this.state.itemName, image: url };
+            const inputData = {
+                name: this.state.itemName,
+                category: 'Mains',
+                image: url };
 
             try {
                 await Storage.put(key, file, {
@@ -77,12 +85,22 @@ export default class Mains extends Component {
                         <button className="btn-primary" onClick={() => this.addItem()}>Add</button>
                         {
                             this.state.items.map((p: any, i) => (
-                                <img
-                                    style={{ width: 100}}
-                                    key={i}
-                                    src={p.image}
-                                    alt=""
-                                />
+                                <div className="row" key={i}>
+                                    <div className="col-3">
+                                        <img
+                                            style={{ width: 32}}
+                                            src={p.image}
+                                            alt=""
+                                        />
+                                    </div>
+                                    <div className="col-6">
+                                        <div>{p.name}</div>
+                                    </div>
+                                    <div className="col-2">
+                                        <button className="btn btn-secondary" onClick={() => this.removeItem()}>del</button>
+                                    </div>
+
+                                </div>
                             ))
                         }
                     </FormGroup>

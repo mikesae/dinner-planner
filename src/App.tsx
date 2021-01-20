@@ -4,13 +4,14 @@ import BottomNavbar from './BottomNavbar';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import './App.scss';
 import './transitions.scss';
+import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
 
 const Planner = lazy(() => import('./Planner'));
 const Mains = lazy(() => import('./Mains'));
 const Sides = lazy(() => import('./Sides'));
 const Profile = lazy(() => import('./Profile'));
 
-export default class App extends Component {
+class App extends Component {
     render() {
         return (
             <Suspense fallback={<div>Loading...</div>}>
@@ -36,6 +37,8 @@ export default class App extends Component {
                     <BottomNavbar/>
                 </BrowserRouter>
             </Suspense>
-        );
+         );
     }
 }
+
+export default withAuthenticator(App);
