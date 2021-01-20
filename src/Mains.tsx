@@ -3,7 +3,6 @@ import TopNavbar from './TopNavbar';
 import { Container, FormGroup } from 'react-bootstrap';
 import { Storage, API, graphqlOperation} from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
-//import { withAuthenticator } from '@aws-amplify/ui-react';
 
 import { createItem as CreateItem } from './graphql/mutations';
 import { listItems as ListItems } from './graphql/queries';
@@ -33,8 +32,8 @@ export default class Mains extends Component {
         const fileForUpload = files[0];
 
         this.setState({
-            updateItemName: fileForUpload.name.split(".")[0],
-            updateFile: fileForUpload || value
+            itemName: fileForUpload.name.split(".")[0],
+            file: fileForUpload || value
         });
     }
 
@@ -45,21 +44,22 @@ export default class Mains extends Component {
     }
 
     async addItem() {
-        if (this.state.file) {
+        const file = this.state.file;
+        if (file) {
             // @ts-ignore
-            const extension = this.state.file.name.split(".")[1];
+            const extension = file.name.split(".")[1];
             // @ts-ignore
-            const { type: mimeType } = this.state.file;
+            const { type: mimeType } = file;
             const key = `images/${uuid()}${this.state.itemName}.${extension}`;
             const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
             const inputData = { name: this.state.itemName, image: url };
 
             try {
-                await Storage.put(key, this.state.file, {
+                await Storage.put(key, file, {
                     contentType: mimeType
                 })
                 await API.graphql(graphqlOperation(CreateItem, { input: inputData }))
-                this.listItems();
+                await this.listItems();
             } catch (error) {
                 console.log('error: ', error);
             }
@@ -72,8 +72,8 @@ export default class Mains extends Component {
                 <TopNavbar title="Mains" showBackNav={true}/>
                 <Container className="container">
                     <FormGroup>
-                        <input type="file" onChange={event => this.handleChange(event)} style={{margin: '10px 0px'}}/>
-                        <input placeholder="Name" value={this.state.itemName} onChange={e => this.setState({updateItemName: e.target.value})}/>
+                        <input type="file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg" style={{margin: '10px 0px'}}/>
+                        <input placeholder="Name" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
                         <button className="btn-primary" onClick={() => this.addItem()}>Add</button>
                         {
                             this.state.items.map((p: any, i) => (
