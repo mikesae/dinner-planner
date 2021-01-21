@@ -4,7 +4,7 @@ import BottomNavbar from './BottomNavbar';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import './App.scss';
 import './transitions.scss';
-import { withAuthenticator, AmplifySignOut } from '@aws-amplify/ui-react'
+import { withAuthenticator } from '@aws-amplify/ui-react'
 
 const Planner = lazy(() => import('./Planner'));
 const Mains = lazy(() => import('./Mains'));

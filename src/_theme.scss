@@ -1,4 +1,4 @@
-$highlight-color: #000080;
+$highlight-color: #008F8F;
 $highlight-color-background: rgba(0, 128, 0, 0.5);
 $icon-color: #444444;
 $dark-mode-icon-color: #cccccc;
@@ -9,3 +9,13 @@ $player-thumbnail-background-color: white;
 
 $navbar-height: 4em;
 $header-height: 2.5em;
+
+:root {
+  --amplify-primary-color: #008F8F;
+  --amplify-primary-tint: white;
+  --amplify-primary-shade: white;
+  --amplify-white: black;
+  --amplify-secondary-color: white;
+  --amplify-primary-contrast: white;
+  --amplify-grey: white;
+}

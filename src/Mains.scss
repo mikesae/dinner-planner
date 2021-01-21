@@ -1,0 +1,36 @@
+@import 'theme';
+
+.input-file {
+  width: 0.1px;
+  height: 0.1px;
+  opacity: 0;
+  overflow: hidden;
+  position: absolute;
+  z-index: -1;
+}
+
+.input-file + label {
+  color: white;
+  background-color: black;
+  display: inline-block;
+  .link-icon {
+    font-size: 3em;
+  }
+}
+
+.input-file:focus + label,
+.input-file + label:hover {
+  background-color: white;
+}
+
+.row {
+  margin-top: 5px;
+  input[type=text] {
+    width: 100%;
+  }
+  img.img-item {
+    width: 3em;
+    height: 3em;
+    border: 1px solid white;
+  }
+}

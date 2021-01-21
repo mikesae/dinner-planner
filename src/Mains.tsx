@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import TopNavbar from './TopNavbar';
+import './Mains.scss';
 import { Container, FormGroup } from 'react-bootstrap';
 import { Storage, API, graphqlOperation} from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
@@ -85,36 +86,32 @@ export default class Mains extends Component {
                 <Container className="container">
                     <FormGroup>
                         <div className="row">
-                            <div className="col-3">
-                                <input type="file" name="file" id="file" className="input-file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg" style={{margin: '10px 10px'}}/>
+                            <div className="col-2">
+                                <input type="file" name="file" id="file" className="input-file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg"/>
                                 <label htmlFor="file">
-                                        <FontAwesomeIcon className="link-icon" icon={faCameraRetro}/>
+                                    <FontAwesomeIcon className="link-icon" icon={faCameraRetro}/>
                                 </label>
                             </div>
-                            <div className="col-6">
-                                <input placeholder="Name" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
+                            <div className="col-8">
+                                <input type="text" placeholder="Name" className="col-form-label-lg" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
                             </div>
-                            <div className="col-3">
-                                <button className="btn btn-primary" onClick={() => this.addItem()}>
+                            <div className="col-2">
+                                <button className="btn" onClick={() => this.addItem()}>
                                     <FontAwesomeIcon className="link-icon" icon={faPlusCircle}/>
                                 </button>
                             </div>
                         </div>
                         {
-                            this.state.items.map((p: any) => (
-                                <div className="row" key={p.id}>
-                                    <div className="col-3">
-                                        <img
-                                            style={{ width: 32}}
-                                            src={p.image}
-                                            alt=""
-                                        />
+                            this.state.items.map((item: any) => (
+                                <div className="row" key={item.id}>
+                                    <div className="col-2">
+                                        <img className="img-item" src={item.image} alt=""/>
                                     </div>
-                                    <div className="col-6">
-                                        <div>{p.name}</div>
+                                    <div className="col-8">
+                                        <div className="col-form-label-lg">{item.name}</div>
                                     </div>
                                     <div className="col-2">
-                                        <button className="btn btn-danger" onClick={() => this.removeItem(p.id)}>
+                                        <button className="btn" onClick={() => this.removeItem(item.id)}>
                                             <FontAwesomeIcon className="link-icon" icon={faMinusCircle}/>
                                         </button>
                                     </div>
