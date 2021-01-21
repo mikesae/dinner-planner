@@ -3,24 +3,18 @@ import TopNavbar from './TopNavbar';
 import { Container, FormGroup } from 'react-bootstrap';
 import { Storage, API, graphqlOperation} from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
-
 import { createItem, deleteItem } from './graphql/mutations';
 import { listItems } from './graphql/queries';
 import config from './aws-exports';
+import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import { faCameraRetro } from '@fortawesome/free-solid-svg-icons/faCameraRetro';
+import { faMinusCircle } from '@fortawesome/free-solid-svg-icons/faMinusCircle';
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 
 const {
     aws_user_files_s3_bucket_region: region,
     aws_user_files_s3_bucket: bucket
 } = config;
-
-interface Item {
-    id: string;
-    name: string;
-    description: string;
-    image: string;
-    category: string;
-    rating: number;
-}
 
 export default class Mains extends Component {
     state = {
@@ -90,9 +84,22 @@ export default class Mains extends Component {
                 <TopNavbar title="Mains" showBackNav={true}/>
                 <Container className="container">
                     <FormGroup>
-                        <input type="file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg" style={{margin: '10px 0px'}}/>
-                        <input placeholder="Name" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
-                        <button className="btn small btn-primary" onClick={() => this.addItem()}>Add</button>
+                        <div className="row">
+                            <div className="col-3">
+                                <input type="file" name="file" id="file" className="input-file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg" style={{margin: '10px 10px'}}/>
+                                <label htmlFor="file">
+                                        <FontAwesomeIcon className="link-icon" icon={faCameraRetro}/>
+                                </label>
+                            </div>
+                            <div className="col-6">
+                                <input placeholder="Name" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
+                            </div>
+                            <div className="col-3">
+                                <button className="btn btn-primary" onClick={() => this.addItem()}>
+                                    <FontAwesomeIcon className="link-icon" icon={faPlusCircle}/>
+                                </button>
+                            </div>
+                        </div>
                         {
                             this.state.items.map((p: any) => (
                                 <div className="row" key={p.id}>
@@ -107,7 +114,9 @@ export default class Mains extends Component {
                                         <div>{p.name}</div>
                                     </div>
                                     <div className="col-2">
-                                        <button className="btn btn-secondary" onClick={() => this.removeItem(p.id)}>del</button>
+                                        <button className="btn btn-danger" onClick={() => this.removeItem(p.id)}>
+                                            <FontAwesomeIcon className="link-icon" icon={faMinusCircle}/>
+                                        </button>
                                     </div>
 
                                 </div>
