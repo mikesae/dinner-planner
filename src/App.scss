@@ -151,11 +151,19 @@ a {
   }
 
   .btn {
+    background-color: darkblue;
     color: white;
+  }
 
-    &:hover {
+  .navbar {
+    .btn {
+      background-color: transparent;
       color: white;
-      background: black;
+
+      &:hover {
+        color: white;
+        background: black;
+      }
     }
   }
 }

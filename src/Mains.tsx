@@ -4,14 +4,23 @@ import { Container, FormGroup } from 'react-bootstrap';
 import { Storage, API, graphqlOperation} from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
 
-import { createItem as CreateItem } from './graphql/mutations';
-import { listItems as ListItems } from './graphql/queries';
+import { createItem, deleteItem } from './graphql/mutations';
+import { listItems } from './graphql/queries';
 import config from './aws-exports';
 
 const {
     aws_user_files_s3_bucket_region: region,
     aws_user_files_s3_bucket: bucket
 } = config;
+
+interface Item {
+    id: string;
+    name: string;
+    description: string;
+    image: string;
+    category: string;
+    rating: number;
+}
 
 export default class Mains extends Component {
     state = {
@@ -35,14 +44,15 @@ export default class Mains extends Component {
     }
 
     async listItems() {
-        const items = await API.graphql(graphqlOperation(ListItems));
+        const items = await API.graphql(graphqlOperation(listItems));
         // @ts-ignore
         this.setState({ items: items.data.listItems.items });
     }
 
-    async removeItem() {
+    async removeItem(id: number) {
         try {
-            // TODO: remove from storage and graphql.
+            await API.graphql(graphqlOperation(deleteItem, { input: { id: id }}));
+            await this.listItems();
         } catch(error) {
             console.log('error: ', error);
         }
@@ -66,7 +76,7 @@ export default class Mains extends Component {
                 await Storage.put(key, file, {
                     contentType: mimeType
                 })
-                await API.graphql(graphqlOperation(CreateItem, { input: inputData }))
+                await API.graphql(graphqlOperation(createItem, { input: inputData }))
                 await this.listItems();
             } catch (error) {
                 console.log('error: ', error);
@@ -82,10 +92,10 @@ export default class Mains extends Component {
                     <FormGroup>
                         <input type="file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg" style={{margin: '10px 0px'}}/>
                         <input placeholder="Name" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
-                        <button className="btn-primary" onClick={() => this.addItem()}>Add</button>
+                        <button className="btn small btn-primary" onClick={() => this.addItem()}>Add</button>
                         {
-                            this.state.items.map((p: any, i) => (
-                                <div className="row" key={i}>
+                            this.state.items.map((p: any) => (
+                                <div className="row" key={p.id}>
                                     <div className="col-3">
                                         <img
                                             style={{ width: 32}}
@@ -97,7 +107,7 @@ export default class Mains extends Component {
                                         <div>{p.name}</div>
                                     </div>
                                     <div className="col-2">
-                                        <button className="btn btn-secondary" onClick={() => this.removeItem()}>del</button>
+                                        <button className="btn btn-secondary" onClick={() => this.removeItem(p.id)}>del</button>
                                     </div>
 
                                 </div>
