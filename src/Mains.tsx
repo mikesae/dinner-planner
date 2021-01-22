@@ -11,6 +11,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons/faCameraRetro';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons/faMinusCircle';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
+import { faEdit as editIcon } from '@fortawesome/free-solid-svg-icons/faEdit';
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -85,6 +86,28 @@ export default class Mains extends Component {
                 <TopNavbar title="Mains" showBackNav={true}/>
                 <Container className="container">
                     <FormGroup>
+                        {
+                            this.state.items.map((item: any) => (
+                                <div className="row" key={item.id}>
+                                    <div className="col-2">
+                                        <img className="img-item" src={item.image} alt=""/>
+                                    </div>
+                                    <div className="col-8">
+                                        <div className="col-form-label-lg">{item.name}</div>
+                                    </div>
+                                    <div className="col-1">
+                                        <button className="btn" onClick={() => this.removeItem(item.id)}>
+                                            <FontAwesomeIcon className="link-icon" icon={faMinusCircle}/>
+                                        </button>
+                                    </div>
+                                    <div className="col-1">
+                                        <button className="btn" onClick={() => this.removeItem(item.id)}>
+                                            <FontAwesomeIcon className="link-icon" icon={editIcon}/>
+                                        </button>
+                                    </div>
+                                </div>
+                            ))
+                        }
                         <div className="row">
                             <div className="col-2">
                                 <input type="file" name="file" id="file" className="input-file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg"/>
@@ -101,24 +124,6 @@ export default class Mains extends Component {
                                 </button>
                             </div>
                         </div>
-                        {
-                            this.state.items.map((item: any) => (
-                                <div className="row" key={item.id}>
-                                    <div className="col-2">
-                                        <img className="img-item" src={item.image} alt=""/>
-                                    </div>
-                                    <div className="col-8">
-                                        <div className="col-form-label-lg">{item.name}</div>
-                                    </div>
-                                    <div className="col-2">
-                                        <button className="btn" onClick={() => this.removeItem(item.id)}>
-                                            <FontAwesomeIcon className="link-icon" icon={faMinusCircle}/>
-                                        </button>
-                                    </div>
-
-                                </div>
-                            ))
-                        }
                     </FormGroup>
                     <div className="spacer"/>
                 </Container>
