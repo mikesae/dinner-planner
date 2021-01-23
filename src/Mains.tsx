@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import TopNavbar from './TopNavbar';
-import './Mains.scss';
+import './MainsAndSides.scss';
 import { Container, FormGroup } from 'react-bootstrap';
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
 import { Storage, API, graphqlOperation} from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
 import { createItem, deleteItem } from './graphql/mutations';
-import { listItems } from './graphql/queries';
 import config from './aws-exports';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faCameraRetro } from '@fortawesome/free-solid-svg-icons/faCameraRetro';
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons/faMinusCircle';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import { faEdit as editIcon } from '@fortawesome/free-solid-svg-icons/faEdit';
+import * as queries from './graphql/queries';
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -40,7 +42,12 @@ export default class Mains extends Component {
     }
 
     async listItems() {
-        const items = await API.graphql(graphqlOperation(listItems));
+        const filter = {
+            category: {
+                eq: 'Mains'
+            }
+        };
+        const items = await API.graphql({query: queries.listItems, variables: { filter: filter}});
         // @ts-ignore
         this.setState({ items: items.data.listItems.items });
     }
@@ -88,42 +95,38 @@ export default class Mains extends Component {
                     <FormGroup>
                         {
                             this.state.items.map((item: any) => (
-                                <div className="row" key={item.id}>
-                                    <div className="col-2">
+                                <Row key={item.id}>
+                                    <Col className="col-2 img-col">
                                         <img className="img-item" src={item.image} alt=""/>
-                                    </div>
-                                    <div className="col-8">
-                                        <div className="col-form-label-lg">{item.name}</div>
-                                    </div>
-                                    <div className="col-1">
-                                        <button className="btn" onClick={() => this.removeItem(item.id)}>
-                                            <FontAwesomeIcon className="link-icon" icon={faMinusCircle}/>
-                                        </button>
-                                    </div>
-                                    <div className="col-1">
-                                        <button className="btn" onClick={() => this.removeItem(item.id)}>
-                                            <FontAwesomeIcon className="link-icon" icon={editIcon}/>
-                                        </button>
-                                    </div>
-                                </div>
+                                    </Col>
+                                    <Col className="col-8 px-2 my-auto">
+                                        <div className="text-md-left">{item.name}</div>
+                                    </Col>
+                                    <Col className="col-1 px-0 my-auto">
+                                        <FontAwesomeIcon className="link-icon" icon={faMinusCircle}  onClick={() => this.removeItem(item.id)}/>
+                                    </Col>
+                                    <Col className="col-1 px-0 my-auto">
+                                        <FontAwesomeIcon className="link-icon" icon={editIcon}  onClick={() => this.removeItem(item.id)}/>
+                                    </Col>
+                                </Row>
                             ))
                         }
-                        <div className="row">
-                            <div className="col-2">
+                        <Row>
+                            <Col className="col-2 img-col">
                                 <input type="file" name="file" id="file" className="input-file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg"/>
                                 <label htmlFor="file">
                                     <FontAwesomeIcon className="link-icon" icon={faCameraRetro}/>
                                 </label>
-                            </div>
-                            <div className="col-8">
-                                <input type="text" placeholder="Name" className="col-form-label-lg" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
-                            </div>
-                            <div className="col-2">
-                                <button className="btn" onClick={() => this.addItem()}>
-                                    <FontAwesomeIcon className="link-icon" icon={faPlusCircle}/>
-                                </button>
-                            </div>
-                        </div>
+                            </Col>
+                            <Col className="col-8 px-2 my-auto">
+                                <input type="text" placeholder="Name" className="" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
+                            </Col>
+                            <Col className="col-1 px-0 my-auto">
+                                <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.addItem()}/>
+                            </Col>
+                            <Col className="col-1 px-0 my-auto">
+                            </Col>
+                        </Row>
                     </FormGroup>
                     <div className="spacer"/>
                 </Container>
