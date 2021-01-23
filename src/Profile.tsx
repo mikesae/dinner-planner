@@ -8,13 +8,14 @@ import { Auth } from 'aws-amplify';
 
 export default class Profile extends Component {
     state = {
-        userName: ''
+        userName: '',
+        email: ''
     };
 
     componentDidMount() {
         Auth.currentAuthenticatedUser({
             bypassCache: true
-        }).then(user => this.setState({userName: user.username}));
+        }).then(user => this.setState({userName: user.username, email: user.attributes.email}));
     }
 
     render() {
@@ -23,7 +24,10 @@ export default class Profile extends Component {
                 <TopNavbar title="Profile" showBackNav={true}/>
                 <Container className="container">
                     <FormGroup>
-                        <div className="form-label">User Name: <b>{this.state.userName}</b></div>
+                        <div className="form-label">Username: <b>{this.state.userName}</b></div>
+                    </FormGroup>
+                    <FormGroup>
+                        <div className="form-label">Email: <b>{this.state.email}</b></div>
                     </FormGroup>
                     <FormGroup>
                         <AmplifySignOut/>
