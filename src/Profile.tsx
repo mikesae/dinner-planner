@@ -1,23 +1,36 @@
-import React from "react";
+import React, { Component } from 'react';
 import TopNavbar from './TopNavbar';
 import './Profile.scss';
-import { Container, FormGroup } from 'react-bootstrap';
-import {AmplifySignOut} from "@aws-amplify/ui-react";
+import Row from "react-bootstrap/Row";
+import { Col, Container, FormGroup } from 'react-bootstrap';
+import {AmplifySignOut} from '@aws-amplify/ui-react';
+import { Auth } from 'aws-amplify';
 
-const Profile: React.FC = () => (
-    <div className="page">
-        <TopNavbar title="Profile" showBackNav={true}/>
-        <Container className="container">
-            <FormGroup>
-                <div className="row">
-                    <div className="col-2 offset-4">
+export default class Profile extends Component {
+    state = {
+        userName: ''
+    };
+
+    componentDidMount() {
+        Auth.currentAuthenticatedUser({
+            bypassCache: true
+        }).then(user => this.setState({userName: user.username}));
+    }
+
+    render() {
+        return (
+            <div className="page">
+                <TopNavbar title="Profile" showBackNav={true}/>
+                <Container className="container">
+                    <FormGroup>
+                        <div className="form-label">User Name: <b>{this.state.userName}</b></div>
+                    </FormGroup>
+                    <FormGroup>
                         <AmplifySignOut/>
-                    </div>
-                </div>
-            </FormGroup>
-            <div className="spacer"/>
-        </Container>
-    </div>
-);
-
-export default Profile;
+                    </FormGroup>
+                    <div className="spacer"/>
+                </Container>
+            </div>
+        )
+    }
+}
