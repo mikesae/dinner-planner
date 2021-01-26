@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import TopNavbar from './TopNavbar';
 import './Profile.scss';
-import Row from "react-bootstrap/Row";
-import { Col, Container, FormGroup } from 'react-bootstrap';
+import { Container, FormGroup } from 'react-bootstrap';
 import {AmplifySignOut} from '@aws-amplify/ui-react';
 import { Auth } from 'aws-amplify';
 
