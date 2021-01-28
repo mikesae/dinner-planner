@@ -96,10 +96,10 @@ export default class Sides extends Component {
                         {
                             this.state.items.map((item: any) => (
                                 <Row key={item.id}>
-                                    <Col className="col-2 img-col">
+                                    <Col className="col-3 img-col">
                                         <img className="img-item" src={item.image} alt=""/>
                                     </Col>
-                                    <Col className="col-8 px-2 my-auto">
+                                    <Col className="col-7 px-2 my-auto">
                                         <div className="text-md-left">{item.name}</div>
                                     </Col>
                                     <Col className="col-1 px-0 my-auto">
@@ -112,13 +112,13 @@ export default class Sides extends Component {
                             ))
                         }
                         <Row>
-                            <Col className="col-2 img-col">
+                            <Col className="col-3 img-col">
                                 <input type="file" name="file" id="file" className="input-file" onChange={event => this.handleChange(event)} accept="image/png, image/jpeg"/>
                                 <label htmlFor="file">
                                     <FontAwesomeIcon className="link-icon" icon={faCameraRetro}/>
                                 </label>
                             </Col>
-                            <Col className="col-8 px-2 my-auto">
+                            <Col className="col-7 px-2 my-auto">
                                 <input type="text" placeholder="Name" className="" value={this.state.itemName} onChange={e => this.setState({itemName: e.target.value})}/>
                             </Col>
                             <Col className="col-1 px-0 my-auto">

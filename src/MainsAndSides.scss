@@ -1,5 +1,7 @@
 @import 'theme';
 
+$image-size: 48px;
+
 .input-file {
   width: 0.1px;
   height: 0.1px;
@@ -14,7 +16,7 @@
   background-color: black;
   display: inline-block;
   .link-icon {
-    font-size: 2.5em;
+    font-size: $image-size;
   }
 }
 
@@ -29,9 +31,9 @@
     width: 100%;
   }
   img.img-item {
-    width: 2.5em;
-    height: 2.5em;
-    border: 1px solid white;
+    width: $image-size;
+    height: $image-size;
+    border: 1px solid lightslategray;
   }
   .img-col {
     text-overflow: clip;
