@@ -11,6 +11,7 @@ export const getItem = /* GraphQL */ `
       image
       category
       rating
+      userName
       createdAt
       updatedAt
     }
@@ -30,6 +31,7 @@ export const listItems = /* GraphQL */ `
         image
         category
         rating
+        userName
         createdAt
         updatedAt
       }

@@ -5,4 +5,5 @@ type Item @model {
   image: String!
   category: String!
   rating: Int
+  userName: String!
 }

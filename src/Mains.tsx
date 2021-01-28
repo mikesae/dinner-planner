@@ -4,7 +4,7 @@ import './MainsAndSides.scss';
 import { Container, FormGroup } from 'react-bootstrap';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { Storage, API, graphqlOperation} from 'aws-amplify';
+import {Storage, API, graphqlOperation, Auth} from 'aws-amplify';
 import { v4 as uuid } from 'uuid';
 import { createItem, deleteItem } from './graphql/mutations';
 import config from './aws-exports';
@@ -24,11 +24,18 @@ export default class Mains extends Component {
     state = {
         file: null,
         itemName: '',
-        items: []
+        items: [],
+        userName: ''
     };
 
-    componentDidMount() {
-        this.listItems();
+    async componentDidMount() {
+        try {
+            const user = await Auth.currentAuthenticatedUser({bypassCache: true});
+            this.setState({userName: user.username, email: user.attributes.email});
+            await this.listItems();
+        } catch (error) {
+            console.log('error: ', error);
+        }
     }
 
     handleChange(event: any) {
@@ -45,6 +52,9 @@ export default class Mains extends Component {
         const filter = {
             category: {
                 eq: 'Mains'
+            },
+            userName: {
+                eq: this.state.userName
             }
         };
         const items = await API.graphql({query: queries.listItems, variables: { filter: filter}});
@@ -68,12 +78,14 @@ export default class Mains extends Component {
             const extension = file.name.split(".")[1];
             // @ts-ignore
             const { type: mimeType } = file;
-            const key = `images/${uuid()}${this.state.itemName}.${extension}`;
+            const key = `images/${uuid()}${this.state.userName}-${this.state.itemName}.${extension}`;
             const url = `https://${bucket}.s3.${region}.amazonaws.com/public/${key}`;
             const inputData = {
                 name: this.state.itemName,
                 category: 'Mains',
-                image: url };
+                image: url,
+                userName: this.state.userName
+            };
 
             try {
                 await Storage.put(key, file, {

@@ -14,6 +14,7 @@ export const createItem = /* GraphQL */ `
       image
       category
       rating
+      userName
       createdAt
       updatedAt
     }
@@ -31,6 +32,7 @@ export const updateItem = /* GraphQL */ `
       image
       category
       rating
+      userName
       createdAt
       updatedAt
     }
@@ -48,6 +50,7 @@ export const deleteItem = /* GraphQL */ `
       image
       category
       rating
+      userName
       createdAt
       updatedAt
     }
