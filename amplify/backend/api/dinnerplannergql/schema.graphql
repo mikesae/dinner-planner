@@ -7,3 +7,11 @@ type Item @model {
   rating: Int
   userName: String!
 }
+
+type Meal @model {
+  id: ID!
+  date: AWSDate!
+  userName: String!
+  type: String!
+  items: [Item]
+}

@@ -47,3 +47,72 @@ export const onDeleteItem = /* GraphQL */ `
     }
   }
 `;
+export const onCreateMeal = /* GraphQL */ `
+  subscription OnCreateMeal {
+    onCreateMeal {
+      id
+      date
+      userName
+      type
+      items {
+        id
+        name
+        description
+        image
+        category
+        rating
+        userName
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onUpdateMeal = /* GraphQL */ `
+  subscription OnUpdateMeal {
+    onUpdateMeal {
+      id
+      date
+      userName
+      type
+      items {
+        id
+        name
+        description
+        image
+        category
+        rating
+        userName
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const onDeleteMeal = /* GraphQL */ `
+  subscription OnDeleteMeal {
+    onDeleteMeal {
+      id
+      date
+      userName
+      type
+      items {
+        id
+        name
+        description
+        image
+        category
+        rating
+        userName
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;

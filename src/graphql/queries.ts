@@ -39,3 +39,56 @@ export const listItems = /* GraphQL */ `
     }
   }
 `;
+export const getMeal = /* GraphQL */ `
+  query GetMeal($id: ID!) {
+    getMeal(id: $id) {
+      id
+      date
+      userName
+      type
+      items {
+        id
+        name
+        description
+        image
+        category
+        rating
+        userName
+        createdAt
+        updatedAt
+      }
+      createdAt
+      updatedAt
+    }
+  }
+`;
+export const listMeals = /* GraphQL */ `
+  query ListMeals(
+    $filter: ModelMealFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    listMeals(filter: $filter, limit: $limit, nextToken: $nextToken) {
+      items {
+        id
+        date
+        userName
+        type
+        items {
+          id
+          name
+          description
+          image
+          category
+          rating
+          userName
+          createdAt
+          updatedAt
+        }
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
