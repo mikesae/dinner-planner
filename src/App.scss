@@ -124,10 +124,6 @@ a {
     color: white !important;
   }
 
-  .jumbotron-fluid {
-    background-color: black;
-  }
-
   .jumbotron-fluid.border-bottom {
     border-bottom-color: $navbar-separator-color !important;
   }
@@ -156,13 +152,14 @@ a {
   }
 
   .navbar {
+    background-color: $navbar-dark-background;
     .btn {
       background-color: transparent;
       color: white;
 
       &:hover {
         color: white;
-        background: black;
+        background: $navbar-dark-background;
       }
     }
   }
