@@ -1,0 +1,32 @@
+@import 'theme';
+
+.row {
+  margin-top: 5px;
+}
+
+.navbar-top {
+  label {
+    font-size: smaller;
+  }
+}
+
+.date-picker {
+  font-size: smaller;
+}
+
+.btn-date-picker {
+  cursor: pointer;
+  padding: 0 5px;
+  border: 0;
+  border-radius: 4px;
+  background-color: $highlight-color;
+  color: white;
+}
+
+.row {
+  .react-datepicker-wrapper {
+    input[type=text] {
+
+    }
+  }
+}
