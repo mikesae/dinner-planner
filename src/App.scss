@@ -158,7 +158,7 @@ a {
       color: white;
 
       &:hover {
-        color: white;
+        color: $highlight-color;
         background: $navbar-dark-background;
       }
     }

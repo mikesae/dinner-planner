@@ -22,15 +22,15 @@ export default class Planner extends Component {
     {
         return(
             <div className="date-picker" ref={ref}>
-                <button className="btn-date-picker" onClick={() => this.onPreviousWeek()}>
+                <button className="btn btn-date-picker" onClick={() => this.onPreviousWeek()}>
                     <FontAwesomeIcon className="link-icon" icon={faChevronLeft}/>
                 </button>
                 &nbsp;{props.value}&nbsp;
-                <button className="btn-date-picker" onClick={() => this.onNextWeek()}>
+                <button className="btn btn-date-picker" onClick={() => this.onNextWeek()}>
                     <FontAwesomeIcon className="link-icon" icon={faChevronRight}/>
                 </button>
                 &nbsp;
-                <button className="btn-date-picker" onClick={props.onClick}>
+                <button className="btn btn-date-picker" onClick={props.onClick}>
                     <FontAwesomeIcon className="link-icon" icon={faCalendar}/>
                 </button>
             </div>

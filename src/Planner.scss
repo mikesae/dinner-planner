@@ -10,17 +10,12 @@
   }
 }
 
-.date-picker {
-  font-size: smaller;
-}
-
 .btn-date-picker {
   cursor: pointer;
   padding: 0 5px;
   border: 0;
   border-radius: 4px;
-  background-color: $highlight-color;
-  color: white;
+  font-size: 2em;
 }
 
 .row {
