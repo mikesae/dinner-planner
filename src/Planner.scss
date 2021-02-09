@@ -24,4 +24,26 @@
 
     }
   }
+
+  &.planner-row {
+    height: 4em;
+    font-size: 1.25em;
+    label {
+      font-weight: bold;
+      margin-top: 0.8em;
+    }
+  }
+
+  .meal-placeholder {
+    height: 3.5em;
+    border: 1px dashed gray;
+    background: transparent;
+
+    .link-icon {
+      height: 100%;
+      color: gray;
+      vertical-align: center;
+      margin-left: 1.2em;
+    }
+  }
 }

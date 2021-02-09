@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from 'react-bootstrap';
+import { Col, Container, Row } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Planner.scss';
@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
+import PlannerRow from './PlannerRow';
 
 export default class Planner extends Component {
     state = {
@@ -49,18 +50,43 @@ export default class Planner extends Component {
         this.setState({startDate: date});
     }
 
+    dayNames = [
+        'Sun',
+        'Mon',
+        'Tue',
+        'Wed',
+        'Thu',
+        'Fri',
+        'Sat',
+    ]
+
+    dayName(date: Date, offset: number):string {
+        let offsetDate = new Date();
+
+        offsetDate.setDate(date.getDate() + offset);
+        return this.dayNames[offsetDate.getDay()];
+    }
+
     render() {
+        const startDate = this.state.startDate;
+
         return (
             <div className="page">
                 <TopNavbar title={""} showBackNav={false}>
                     <DatePicker
-                        selected={this.state.startDate}
+                        selected={startDate}
                         onChange={(date:Date) => this.changeStartDate(date)}
                         customInput={<this.CustomInput/>}
                     />
                 </TopNavbar>
-                <div className="spacer"/>
                 <Container className="container">
+                    <PlannerRow title={this.dayName(startDate, 0)}/>
+                    <PlannerRow title={this.dayName(startDate, 1)}/>
+                    <PlannerRow title={this.dayName(startDate, 2)}/>
+                    <PlannerRow title={this.dayName(startDate, 3)}/>
+                    <PlannerRow title={this.dayName(startDate, 4)}/>
+                    <PlannerRow title={this.dayName(startDate, 5)}/>
+                    <PlannerRow title={this.dayName(startDate, 6)}/>
                     <div className="spacer"/>
                 </Container>
             </div>
