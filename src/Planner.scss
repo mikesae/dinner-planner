@@ -36,14 +36,14 @@
 
   .meal-placeholder {
     height: 3.5em;
+    width: 3.5em;
     border: 1px dashed gray;
     background: transparent;
+    text-align: center; // horizontal center contents
 
     .link-icon {
-      height: 100%;
+      height: 100%;   // vertical center within container
       color: gray;
-      vertical-align: center;
-      margin-left: 1.2em;
     }
   }
 }
