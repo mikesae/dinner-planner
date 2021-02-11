@@ -1,0 +1,16 @@
+@import 'theme';
+
+.customOverlay {
+  background: rgba(128, 128, 128, 0.25);
+}
+
+.customModal {
+  background-color: black;
+  color: white;
+  width: 90%;
+  height: 90%;
+}
+
+.close-icon {
+  color: white;
+}
