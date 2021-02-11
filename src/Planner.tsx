@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Col, Container, Row } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Planner.scss';
@@ -50,21 +50,11 @@ export default class Planner extends Component {
         this.setState({startDate: date});
     }
 
-    dayNames = [
-        'Sun',
-        'Mon',
-        'Tue',
-        'Wed',
-        'Thu',
-        'Fri',
-        'Sat',
-    ]
 
-    dayName(date: Date, offset: number):string {
-        let offsetDate = new Date();
-
-        offsetDate.setDate(date.getDate() + offset);
-        return this.dayNames[offsetDate.getDay()];
+    datePlus(date: Date, offset: number): Date {
+        let result = new Date();
+        result.setDate(date.getDate() + offset);
+        return result;
     }
 
     render() {
@@ -80,13 +70,13 @@ export default class Planner extends Component {
                     />
                 </TopNavbar>
                 <Container className="container">
-                    <PlannerRow title={this.dayName(startDate, 0)}/>
-                    <PlannerRow title={this.dayName(startDate, 1)}/>
-                    <PlannerRow title={this.dayName(startDate, 2)}/>
-                    <PlannerRow title={this.dayName(startDate, 3)}/>
-                    <PlannerRow title={this.dayName(startDate, 4)}/>
-                    <PlannerRow title={this.dayName(startDate, 5)}/>
-                    <PlannerRow title={this.dayName(startDate, 6)}/>
+                    <PlannerRow date={this.datePlus(startDate, 0)}/>
+                    <PlannerRow date={this.datePlus(startDate, 1)}/>
+                    <PlannerRow date={this.datePlus(startDate, 2)}/>
+                    <PlannerRow date={this.datePlus(startDate, 3)}/>
+                    <PlannerRow date={this.datePlus(startDate, 4)}/>
+                    <PlannerRow date={this.datePlus(startDate, 5)}/>
+                    <PlannerRow date={this.datePlus(startDate, 6)}/>
                     <div className="spacer"/>
                 </Container>
             </div>
