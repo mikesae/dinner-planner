@@ -1,16 +1,15 @@
 @import 'theme';
 
-.customOverlay {
-  background: rgba(128, 128, 128, 0.25);
-}
-
-.customModal {
-  background-color: black;
+.planner-modal {
+  margin: 4em 0;
+  width: 100%;
+  height: 85%;
+  background: black;
   color: white;
-  width: 90%;
-  height: 90%;
 }
 
 .close-icon {
+  margin: 16px;
+  float: right;
   color: white;
 }

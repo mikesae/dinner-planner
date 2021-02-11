@@ -4,9 +4,7 @@ import Col from "react-bootstrap/Col";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import { faWindowClose } from '@fortawesome/free-solid-svg-icons/faWindowClose';
-import 'react-responsive-modal/styles.css';
-// @ts-ignore
-import { Modal } from 'react-responsive-modal';
+import Modal from 'react-modal';
 import './PlannerRow.scss';
 import {Container, FormGroup} from "react-bootstrap";
 
@@ -16,7 +14,7 @@ export interface IPlannerRowProps {
 
 export default class PlannerRow extends Component<IPlannerRowProps> {
     state = {
-        modalOpen : false
+        modalIsOpen : false
     };
 
     addMeal() {
@@ -24,32 +22,28 @@ export default class PlannerRow extends Component<IPlannerRowProps> {
     }
 
     onOpenModal() {
-        this.setState({modalOpen: true});
+        this.setState({modalIsOpen: true});
     }
 
     onCloseModal() {
-        this.setState({modalOpen: false});
+        this.setState({modalIsOpen: false});
     }
-
-    closeIcon = (
-        <FontAwesomeIcon className="close-icon" icon={faWindowClose}/>
-    )
 
     render() {
         return (
             <Row className="planner-row">
                 <Modal
-                    open={this.state.modalOpen}
-                    onClose={() => this.onCloseModal()}
-                    center
-                    closeIcon={this.closeIcon}
-                    classNames={{
-                        overlay: 'customOverlay',
-                        modal: 'customModal',
-                    }}>
+                    ariaHideApp={false}
+                    isOpen={this.state.modalIsOpen}
+                    onRequestClose={() => this.onCloseModal()}
+                    className="planner-modal"
+                    >
+                    <div>
+                        <FontAwesomeIcon className="close-icon link-icon" size="2x" icon={faWindowClose}  onClick={() => this.onCloseModal()}/>
+                    </div>
+                    <div className="spacer"/>
                     <Container className="container">
                         <FormGroup>
-                            <div className="spacer"/>
                             <div>Choose a main:</div>
                             <div>Choose a side:</div>
                         </FormGroup>
