@@ -19,7 +19,7 @@ export default class TopNavbar extends Component<ITopNavBarProps> {
             <>
             <Navbar className="jumbotron-fluid border-bottom navbar-top" fixed="top">
                 <Row className="container-fluid no-gutters">
-                    <Col className="col-2">
+                    <Col className="col-1">
                         {this.props.showBackNav &&
                         <Link to="/" className="navbar-left-link">
                             <div className="btn">
@@ -28,7 +28,7 @@ export default class TopNavbar extends Component<ITopNavBarProps> {
                         </Link>
                         }
                     </Col>
-                    <Col className="col-8 navbar-content">
+                    <Col className="col-10 navbar-content">
                         <span>{this.props.title}</span>
                         <div>
                             {this.props.children}
