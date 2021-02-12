@@ -90,7 +90,7 @@ export default class Mains extends Component {
             try {
                 await Storage.put(key, file, {
                     contentType: mimeType
-                })
+                });
                 await API.graphql(graphqlOperation(createItem, { input: inputData }))
                 await this.listItems();
             } catch (error) {
@@ -103,7 +103,7 @@ export default class Mains extends Component {
         return (
             <div className="page">
                 <TopNavbar title="Mains" showBackNav={true}/>
-                <Container className="container">
+                <Container>
                     <FormGroup>
                         {
                             this.state.items.map((item: any) => (

@@ -6,6 +6,38 @@
   height: 85%;
   background: black;
   color: white;
+
+
+  $image-size: 48px;
+
+  img.img-item {
+    width: $image-size;
+    height: $image-size;
+    border: 1px solid lightslategray;
+    margin-right: 1em;
+  }
+
+  .dropdown-menu {
+    background: black;
+    border: 1px solid lightslategray;
+
+    .dropdown-item {
+      background: black;
+      color: white;
+    }
+  }
+
+  .btn-on-bottom {
+    left: 5%;
+    width: 90%;
+    position: absolute;
+    bottom: $navbar-height;
+  }
+
+  button {
+    width: 100%;
+  }
+
 }
 
 .close-icon {

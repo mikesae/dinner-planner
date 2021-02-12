@@ -14,7 +14,7 @@ export default class PlannerRow extends Component<IPlannerRowProps> {
     state = {
         modalIsOpen: false,
         addingFor: 0
-    }
+    };
 
     dayNames = [
         'Sun',
@@ -24,7 +24,7 @@ export default class PlannerRow extends Component<IPlannerRowProps> {
         'Thu',
         'Fri',
         'Sat',
-    ]
+    ];
 
     addMeal() {
         this.setState({modalIsOpen: false});
