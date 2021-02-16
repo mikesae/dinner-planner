@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import Modal from "react-modal";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWindowClose} from "@fortawesome/free-solid-svg-icons/faWindowClose";
-import {Container, Dropdown, FormGroup } from "react-bootstrap";
+import {Container, Dropdown, FormGroup, FormLabel} from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {API, Auth} from "aws-amplify";
 import * as queries from "./graphql/queries";
@@ -13,13 +13,30 @@ export interface IAddToPlannerModalProps {
     OnClose: () => void;
 }
 
-export default class AddToPlannerModal extends Component<IAddToPlannerModalProps> {
-    state = {
-        mainTitle: 'Choose Main',
-        sideTitle: 'Choose Side',
-        mains: [],
-        sides: []
-    };
+interface IMealItem {
+    id: number;
+    name: string;
+    image: string;
+}
+
+interface IAddToPlannerModalState {
+    selectedMain: number;
+    selectedSide: number;
+    mains: IMealItem[];
+    sides: IMealItem[]
+}
+
+export default class AddToPlannerModal extends Component<IAddToPlannerModalProps, IAddToPlannerModalState> {
+    constructor(props: IAddToPlannerModalProps) {
+        super(props);
+        this.state = {
+            selectedMain: -1,
+            selectedSide: -1,
+            mains: [],
+            sides: []
+        };
+    }
+
 
     async componentDidMount() {
         try {
@@ -46,15 +63,32 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
         return items.data.listItems.items;
     }
 
-    onMainPicked(value: string) {
-        this.setState({mainTitle: value});
+    onMainPicked(idxItem: number) {
+        this.setState({selectedMain: idxItem, selectedSide: -1});
     }
 
-    onSidePicked(value: string) {
-        this.setState({sideTitle: value});
+    onSidePicked(idxItem: number) {
+        this.setState({selectedMain: -1, selectedSide: idxItem});
     }
 
     render() {
+        let mainTitle;
+        let sideTitle;
+
+        const idxMain = this.state.selectedMain;
+        const idxSide = this.state.selectedSide;
+
+        if (idxMain === -1) {
+            mainTitle = <span><img src="" alt=""/>Choose a Main</span>;
+        } else {
+            mainTitle = <span><img className="img-item" src={this.state.mains[idxMain].image} alt=""/>{this.state.mains[idxMain].name}</span>;
+        }
+        if (idxSide === -1) {
+            sideTitle = <span><img src="" alt=""/>Choose a Side</span>;
+        } else {
+            sideTitle = <span><img className="img-item" src={this.state.sides[idxSide].image} alt=""/>{this.state.sides[idxSide].name}</span>;
+        }
+
         return (
             <Modal
                 ariaHideApp={false}
@@ -72,21 +106,24 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
                 <div className="spacer"/>
                 <Container>
                     <FormGroup>
-                        <DropdownButton title={this.state.mainTitle}>
+                        <DropdownButton title={mainTitle}>
                             {
-                                this.state.mains.map((item: any) => (
-                                    <Dropdown.Item key={item.id} onSelect={() => this.onMainPicked(item.name)}>
+                                this.state.mains.map((item: any, index: number) => (
+                                    <Dropdown.Item key={item.id} onSelect={() => this.onMainPicked(index)}>
                                         <img className="img-item" src={item.image} alt=""/>{item.name}
                                     </Dropdown.Item>
                                 ))
                             }
                         </DropdownButton>
                     </FormGroup>
+                    <FormGroup className="text-center">
+                        <FormLabel>OR</FormLabel>
+                    </FormGroup>
                     <FormGroup>
-                        <DropdownButton title={this.state.sideTitle}>
+                        <DropdownButton title={sideTitle}>
                             {
-                                this.state.sides.map((item: any) => (
-                                    <Dropdown.Item key={item.id} onSelect={() => this.onSidePicked(item.name)}>
+                                this.state.sides.map((item: any, index: number) => (
+                                    <Dropdown.Item key={item.id} onSelect={() => this.onSidePicked(index)}>
                                         <img className="img-item" src={item.image} alt=""/>{item.name}
                                     </Dropdown.Item>
                                 ))
