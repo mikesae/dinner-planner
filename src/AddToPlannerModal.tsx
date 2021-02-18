@@ -79,12 +79,12 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
         const idxSide = this.state.selectedSide;
 
         if (idxMain === -1) {
-            mainTitle = <span><img src="" alt=""/>Choose a Main</span>;
+            mainTitle = <span>Choose a Main</span>;
         } else {
             mainTitle = <span><img className="img-item" src={this.state.mains[idxMain].image} alt=""/>{this.state.mains[idxMain].name}</span>;
         }
         if (idxSide === -1) {
-            sideTitle = <span><img src="" alt=""/>Choose a Side</span>;
+            sideTitle = <span>Choose a Side</span>;
         } else {
             sideTitle = <span><img className="img-item" src={this.state.sides[idxSide].image} alt=""/>{this.state.sides[idxSide].name}</span>;
         }

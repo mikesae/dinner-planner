@@ -17,13 +17,19 @@
     margin-right: 1em;
   }
 
-  .dropdown-menu {
-    background: black;
-    border: 1px solid lightslategray;
+  .dropdown {
+    button {
+      height: 64px;
+    }
 
-    .dropdown-item {
+    .dropdown-menu {
       background: black;
-      color: white;
+      border: 1px solid lightslategray;
+
+      .dropdown-item {
+        background: black;
+        color: white;
+      }
     }
   }
 
