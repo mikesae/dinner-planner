@@ -28,7 +28,6 @@ export default class PlannerRow extends Component<IPlannerRowProps> {
 
     addMeal() {
         this.setState({modalIsOpen: false});
-       // add meal for addingfor
     }
 
     onOpenModal(addingFor: number) {
@@ -47,7 +46,7 @@ export default class PlannerRow extends Component<IPlannerRowProps> {
         return (
             <Row className="planner-row">
                 <AddToPlannerModal isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
-                <Col className="col-2">
+                <Col className="col-3">
                     <label>{this.dayName(this.props.date)}</label>
                 </Col>
                 <Col className="col-3">

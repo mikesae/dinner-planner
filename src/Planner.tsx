@@ -38,23 +38,18 @@ export default class Planner extends Component {
         );
     });
 
+    offsetDate(date: Date, offset: number): Date {
+        let result = new Date(date);
+        result.setDate(result.getDate() + offset);
+        return result;
+    }
+
     onPreviousWeek() {
-        let date = this.state.startDate;
-        date.setDate(date.getDate() - 7);
-        this.setState({startDate: date});
+        this.setState({startDate: this.offsetDate(this.state.startDate, -7)});
     }
 
     onNextWeek() {
-        let date = this.state.startDate;
-        date.setDate(date.getDate() + 7);
-        this.setState({startDate: date});
-    }
-
-
-    datePlus(date: Date, offset: number): Date {
-        let result = new Date();
-        result.setDate(date.getDate() + offset);
-        return result;
+        this.setState({startDate: this.offsetDate(this.state.startDate, 7)});
     }
 
     render() {
@@ -70,13 +65,13 @@ export default class Planner extends Component {
                     />
                 </TopNavbar>
                 <Container className="container">
-                    <PlannerRow date={this.datePlus(startDate, 0)}/>
-                    <PlannerRow date={this.datePlus(startDate, 1)}/>
-                    <PlannerRow date={this.datePlus(startDate, 2)}/>
-                    <PlannerRow date={this.datePlus(startDate, 3)}/>
-                    <PlannerRow date={this.datePlus(startDate, 4)}/>
-                    <PlannerRow date={this.datePlus(startDate, 5)}/>
-                    <PlannerRow date={this.datePlus(startDate, 6)}/>
+                    <PlannerRow date={this.offsetDate(startDate, 0)}/>
+                    <PlannerRow date={this.offsetDate(startDate, 1)}/>
+                    <PlannerRow date={this.offsetDate(startDate, 2)}/>
+                    <PlannerRow date={this.offsetDate(startDate, 3)}/>
+                    <PlannerRow date={this.offsetDate(startDate, 4)}/>
+                    <PlannerRow date={this.offsetDate(startDate, 5)}/>
+                    <PlannerRow date={this.offsetDate(startDate, 6)}/>
                     <div className="spacer"/>
                 </Container>
             </div>
