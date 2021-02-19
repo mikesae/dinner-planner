@@ -76,6 +76,19 @@ export type ModelIntInput = {
   attributeType?: ModelAttributeTypes | null,
 };
 
+export type Item = {
+  __typename: "Item",
+  id?: string,
+  name?: string,
+  description?: string | null,
+  image?: string,
+  category?: string,
+  rating?: number | null,
+  userName?: string,
+  createdAt?: string,
+  updatedAt?: string,
+};
+
 export type UpdateItemInput = {
   id: string,
   name?: string | null,
@@ -94,7 +107,7 @@ export type CreateMealInput = {
   id?: string | null,
   date: string,
   userName: string,
-  type: string,
+  type?: string | null,
 };
 
 export type ModelMealConditionInput = {
@@ -104,6 +117,17 @@ export type ModelMealConditionInput = {
   and?: Array< ModelMealConditionInput | null > | null,
   or?: Array< ModelMealConditionInput | null > | null,
   not?: ModelMealConditionInput | null,
+};
+
+export type Meal = {
+  __typename: "Meal",
+  id?: string,
+  date?: string,
+  userName?: string,
+  type?: string | null,
+  items?:  Array<Item > | null,
+  createdAt?: string,
+  updatedAt?: string,
 };
 
 export type UpdateMealInput = {
@@ -146,6 +170,12 @@ export type ModelIDInput = {
   size?: ModelSizeInput | null,
 };
 
+export type ModelItemConnection = {
+  __typename: "ModelItemConnection",
+  items?:  Array<Item | null > | null,
+  nextToken?: string | null,
+};
+
 export type ModelMealFilterInput = {
   id?: ModelIDInput | null,
   date?: ModelStringInput | null,
@@ -156,20 +186,26 @@ export type ModelMealFilterInput = {
   not?: ModelMealFilterInput | null,
 };
 
+export type ModelMealConnection = {
+  __typename: "ModelMealConnection",
+  items?:  Array<Meal | null > | null,
+  nextToken?: string | null,
+};
+
 export type CreateItemMutationVariables = {
-  input: CreateItemInput,
+  input?: CreateItemInput,
   condition?: ModelItemConditionInput | null,
 };
 
 export type CreateItemMutation = {
-  createItem:  {
+  createItem?:  {
     __typename: "Item",
     id: string,
     name: string,
-    description: string | null,
+    description?: string | null,
     image: string,
     category: string,
-    rating: number | null,
+    rating?: number | null,
     userName: string,
     createdAt: string,
     updatedAt: string,
@@ -177,19 +213,19 @@ export type CreateItemMutation = {
 };
 
 export type UpdateItemMutationVariables = {
-  input: UpdateItemInput,
+  input?: UpdateItemInput,
   condition?: ModelItemConditionInput | null,
 };
 
 export type UpdateItemMutation = {
-  updateItem:  {
+  updateItem?:  {
     __typename: "Item",
     id: string,
     name: string,
-    description: string | null,
+    description?: string | null,
     image: string,
     category: string,
-    rating: number | null,
+    rating?: number | null,
     userName: string,
     createdAt: string,
     updatedAt: string,
@@ -197,19 +233,19 @@ export type UpdateItemMutation = {
 };
 
 export type DeleteItemMutationVariables = {
-  input: DeleteItemInput,
+  input?: DeleteItemInput,
   condition?: ModelItemConditionInput | null,
 };
 
 export type DeleteItemMutation = {
-  deleteItem:  {
+  deleteItem?:  {
     __typename: "Item",
     id: string,
     name: string,
-    description: string | null,
+    description?: string | null,
     image: string,
     category: string,
-    rating: number | null,
+    rating?: number | null,
     userName: string,
     createdAt: string,
     updatedAt: string,
@@ -217,25 +253,25 @@ export type DeleteItemMutation = {
 };
 
 export type CreateMealMutationVariables = {
-  input: CreateMealInput,
+  input?: CreateMealInput,
   condition?: ModelMealConditionInput | null,
 };
 
 export type CreateMealMutation = {
-  createMeal:  {
+  createMeal?:  {
     __typename: "Meal",
     id: string,
     date: string,
     userName: string,
-    type: string,
-    items:  Array< {
+    type?: string | null,
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,
@@ -246,25 +282,25 @@ export type CreateMealMutation = {
 };
 
 export type UpdateMealMutationVariables = {
-  input: UpdateMealInput,
+  input?: UpdateMealInput,
   condition?: ModelMealConditionInput | null,
 };
 
 export type UpdateMealMutation = {
-  updateMeal:  {
+  updateMeal?:  {
     __typename: "Meal",
     id: string,
     date: string,
     userName: string,
-    type: string,
-    items:  Array< {
+    type?: string | null,
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,
@@ -275,25 +311,25 @@ export type UpdateMealMutation = {
 };
 
 export type DeleteMealMutationVariables = {
-  input: DeleteMealInput,
+  input?: DeleteMealInput,
   condition?: ModelMealConditionInput | null,
 };
 
 export type DeleteMealMutation = {
-  deleteMeal:  {
+  deleteMeal?:  {
     __typename: "Meal",
     id: string,
     date: string,
     userName: string,
-    type: string,
-    items:  Array< {
+    type?: string | null,
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,
@@ -304,18 +340,18 @@ export type DeleteMealMutation = {
 };
 
 export type GetItemQueryVariables = {
-  id: string,
+  id?: string,
 };
 
 export type GetItemQuery = {
-  getItem:  {
+  getItem?:  {
     __typename: "Item",
     id: string,
     name: string,
-    description: string | null,
+    description?: string | null,
     image: string,
     category: string,
-    rating: number | null,
+    rating?: number | null,
     userName: string,
     createdAt: string,
     updatedAt: string,
@@ -329,43 +365,43 @@ export type ListItemsQueryVariables = {
 };
 
 export type ListItemsQuery = {
-  listItems:  {
+  listItems?:  {
     __typename: "ModelItemConnection",
-    items:  Array< {
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
-    nextToken: string | null,
+    nextToken?: string | null,
   } | null,
 };
 
 export type GetMealQueryVariables = {
-  id: string,
+  id?: string,
 };
 
 export type GetMealQuery = {
-  getMeal:  {
+  getMeal?:  {
     __typename: "Meal",
     id: string,
     date: string,
     userName: string,
-    type: string,
-    items:  Array< {
+    type?: string | null,
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,
@@ -382,22 +418,22 @@ export type ListMealsQueryVariables = {
 };
 
 export type ListMealsQuery = {
-  listMeals:  {
+  listMeals?:  {
     __typename: "ModelMealConnection",
-    items:  Array< {
+    items?:  Array< {
       __typename: "Meal",
       id: string,
       date: string,
       userName: string,
-      type: string,
-      items:  Array< {
+      type?: string | null,
+      items?:  Array< {
         __typename: "Item",
         id: string,
         name: string,
-        description: string | null,
+        description?: string | null,
         image: string,
         category: string,
-        rating: number | null,
+        rating?: number | null,
         userName: string,
         createdAt: string,
         updatedAt: string,
@@ -405,19 +441,19 @@ export type ListMealsQuery = {
       createdAt: string,
       updatedAt: string,
     } | null > | null,
-    nextToken: string | null,
+    nextToken?: string | null,
   } | null,
 };
 
 export type OnCreateItemSubscription = {
-  onCreateItem:  {
+  onCreateItem?:  {
     __typename: "Item",
     id: string,
     name: string,
-    description: string | null,
+    description?: string | null,
     image: string,
     category: string,
-    rating: number | null,
+    rating?: number | null,
     userName: string,
     createdAt: string,
     updatedAt: string,
@@ -425,14 +461,14 @@ export type OnCreateItemSubscription = {
 };
 
 export type OnUpdateItemSubscription = {
-  onUpdateItem:  {
+  onUpdateItem?:  {
     __typename: "Item",
     id: string,
     name: string,
-    description: string | null,
+    description?: string | null,
     image: string,
     category: string,
-    rating: number | null,
+    rating?: number | null,
     userName: string,
     createdAt: string,
     updatedAt: string,
@@ -440,14 +476,14 @@ export type OnUpdateItemSubscription = {
 };
 
 export type OnDeleteItemSubscription = {
-  onDeleteItem:  {
+  onDeleteItem?:  {
     __typename: "Item",
     id: string,
     name: string,
-    description: string | null,
+    description?: string | null,
     image: string,
     category: string,
-    rating: number | null,
+    rating?: number | null,
     userName: string,
     createdAt: string,
     updatedAt: string,
@@ -455,20 +491,20 @@ export type OnDeleteItemSubscription = {
 };
 
 export type OnCreateMealSubscription = {
-  onCreateMeal:  {
+  onCreateMeal?:  {
     __typename: "Meal",
     id: string,
     date: string,
     userName: string,
-    type: string,
-    items:  Array< {
+    type?: string | null,
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,
@@ -479,20 +515,20 @@ export type OnCreateMealSubscription = {
 };
 
 export type OnUpdateMealSubscription = {
-  onUpdateMeal:  {
+  onUpdateMeal?:  {
     __typename: "Meal",
     id: string,
     date: string,
     userName: string,
-    type: string,
-    items:  Array< {
+    type?: string | null,
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,
@@ -503,20 +539,20 @@ export type OnUpdateMealSubscription = {
 };
 
 export type OnDeleteMealSubscription = {
-  onDeleteMeal:  {
+  onDeleteMeal?:  {
     __typename: "Meal",
     id: string,
     date: string,
     userName: string,
-    type: string,
-    items:  Array< {
+    type?: string | null,
+    items?:  Array< {
       __typename: "Item",
       id: string,
       name: string,
-      description: string | null,
+      description?: string | null,
       image: string,
       category: string,
-      rating: number | null,
+      rating?: number | null,
       userName: string,
       createdAt: string,
       updatedAt: string,

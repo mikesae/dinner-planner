@@ -12,6 +12,6 @@ type Meal @model {
   id: ID!
   date: AWSDate!
   userName: String!
-  type: String!
+  type: String
   items: [Item!]
 }

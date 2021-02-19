@@ -4080,6 +4080,13 @@ aws-amplify@^3.3.14:
     "@aws-amplify/ui" "2.0.2"
     "@aws-amplify/xr" "2.2.17"
 
+aws-date-utils@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/aws-date-utils/-/aws-date-utils-1.0.0.tgz#1e45ec43d1491b3df2831d6b6ea79a95226f9b9f"
+  integrity sha512-3VqUo/DqIPyiJrPTFuhj0hrM1hKWM7ews8gPTfGimdeXlFPY+UFWY86rRW1uyBk/5ebJtmgJRbw+/uAg4znolA==
+  dependencies:
+    date-fns "^2.11.0"
+
 aws-sign2@~0.7.0:
   version "0.7.0"
   resolved "https://registry.yarnpkg.com/aws-sign2/-/aws-sign2-0.7.0.tgz#b46e890934a9591f2d2f6f86d7e6a9f1b3fe76a8"
@@ -5669,6 +5676,11 @@ date-fns@^2.0.1:
   version "2.16.1"
   resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.16.1.tgz#05775792c3f3331da812af253e1a935851d3834b"
   integrity sha512-sAJVKx/FqrLYHAQeN7VpJrPhagZc9R4ImZIWYRFZaaohR3KzmuK88touwsSwSVT8Qcbd4zoDsnGfX4GFB4imyQ==
+
+date-fns@^2.11.0:
+  version "2.17.0"
+  resolved "https://registry.yarnpkg.com/date-fns/-/date-fns-2.17.0.tgz#afa55daea539239db0a64e236ce716ef3d681ba1"
+  integrity sha512-ZEhqxUtEZeGgg9eHNSOAJ8O9xqSgiJdrL0lzSSfMF54x6KXWJiOH/xntSJ9YomJPrYH/p08t6gWjGWq1SDJlSA==
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0, debug@^2.6.9:
   version "2.6.9"

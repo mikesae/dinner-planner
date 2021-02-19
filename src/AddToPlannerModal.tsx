@@ -7,6 +7,7 @@ import DropdownButton from "react-bootstrap/DropdownButton";
 import {API, Auth, graphqlOperation} from "aws-amplify";
 import { createMeal } from './graphql/mutations';
 import * as queries from "./graphql/queries";
+import {dateToExtendedISODate} from 'aws-date-utils'
 
 export interface IAddToPlannerModalProps {
     isOpen: boolean;
@@ -95,14 +96,17 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
 
     async onAdd() {
         const meal = {
-            date: this.props.date,
+            date: dateToExtendedISODate(this.props.date),
             userName: this.state.userName,
-            type: 'Dinner',
-            items: this.getSelectedItem()
+            type: 'Dinner'
         };
 
-        await API.graphql(graphqlOperation(createMeal, { input: meal }));
-        this.props.OnOK();
+        try {
+            const result = await API.graphql(graphqlOperation(createMeal, {input: meal}));
+            this.props.OnOK();
+        } catch (e) {
+            console.log(`Error: ${e.toString()}`);
+        }
     }
 
     render() {
