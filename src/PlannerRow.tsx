@@ -5,16 +5,53 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import './PlannerRow.scss';
 import AddToPlannerModal from "./AddToPlannerModal";
+import {API, Auth} from "aws-amplify";
+import * as queries from "./graphql/queries";
 
 export interface IPlannerRowProps {
     date: Date;
 }
 
-export default class PlannerRow extends Component<IPlannerRowProps> {
-    state = {
-        modalIsOpen: false,
-        addingFor: 0
-    };
+interface IPlannerRowState {
+    modalIsOpen: boolean;
+    userName: string;
+    items: any[];
+}
+
+export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowState> {
+    constructor(props: IPlannerRowProps) {
+        super(props);
+
+        this.state = {
+            modalIsOpen: false,
+            userName: '',
+            items: []
+        };
+    }
+
+    async listItems(date: Date) {
+        const filter = {
+            date: {
+                eq: date
+            },
+            userName: {
+                eq: this.state.userName
+            }
+        };
+        const items = await API.graphql({query: queries.listMeals, variables: { filter: filter}});
+        // @ts-ignore
+        this.setState({ items: items.data.listMeals.items });
+    }
+
+    async componentDidMount() {
+        try {
+            const user = await Auth.currentAuthenticatedUser({bypassCache: true});
+            this.setState({userName: user.username});
+            await this.listItems(this.props.date);
+        } catch (error) {
+            console.log('error: ', error);
+        }
+    }
 
     dayNames = [
         'Sun',
@@ -31,7 +68,7 @@ export default class PlannerRow extends Component<IPlannerRowProps> {
     }
 
     onOpenModal(addingFor: number) {
-        this.setState({modalIsOpen: true, addingFor: addingFor});
+        this.setState({modalIsOpen: true});
     }
 
     onCloseModal() {
@@ -45,7 +82,7 @@ export default class PlannerRow extends Component<IPlannerRowProps> {
     render() {
         return (
             <Row className="planner-row">
-                <AddToPlannerModal isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
+                <AddToPlannerModal date={this.props.date} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
                 <Col className="col-3">
                     <label>{this.dayName(this.props.date)}</label>
                 </Col>

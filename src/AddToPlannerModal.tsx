@@ -4,32 +4,36 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faWindowClose} from "@fortawesome/free-solid-svg-icons/faWindowClose";
 import {Container, Dropdown, FormGroup, FormLabel} from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import {API, Auth} from "aws-amplify";
+import {API, Auth, graphqlOperation} from "aws-amplify";
+import { createMeal } from './graphql/mutations';
 import * as queries from "./graphql/queries";
 
 export interface IAddToPlannerModalProps {
     isOpen: boolean;
     OnOK: () => void;
     OnClose: () => void;
+    date: Date;
 }
 
 interface IMealItem {
     id: number;
     name: string;
-    image: string;
+    image?: string;
 }
 
 interface IAddToPlannerModalState {
+    userName: string;
     selectedMain: number;
     selectedSide: number;
     mains: IMealItem[];
-    sides: IMealItem[]
+    sides: IMealItem[];
 }
 
 export default class AddToPlannerModal extends Component<IAddToPlannerModalProps, IAddToPlannerModalState> {
     constructor(props: IAddToPlannerModalProps) {
         super(props);
         this.state = {
+            userName: '',
             selectedMain: -1,
             selectedSide: -1,
             mains: [],
@@ -37,10 +41,10 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
         };
     }
 
-
     async componentDidMount() {
         try {
             const user = await Auth.currentAuthenticatedUser({bypassCache: true});
+            this.setState({userName: user.username});
             const mains = await this.getItems('Mains', user.username);
             this.setState({mains: mains});
             const sides = await this.getItems('Sides', user.username);
@@ -69,6 +73,36 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
 
     onSidePicked(idxItem: number) {
         this.setState({selectedMain: -1, selectedSide: idxItem});
+    }
+
+    getSelectedItem(): IMealItem {
+        if (this.state.selectedMain !== -1) {
+            return {
+                id: this.state.mains[this.state.selectedMain].id,
+                name: this.state.mains[this.state.selectedMain].name
+            };
+        } else if (this.state.selectedMain !== -1) {
+            return {
+                id: this.state.mains[this.state.selectedMain].id,
+                name: this.state.mains[this.state.selectedMain].name
+            }
+        }
+        return {
+            id: 0,
+            name: ''
+        }
+    }
+
+    async onAdd() {
+        const meal = {
+            date: this.props.date,
+            userName: this.state.userName,
+            type: 'Dinner',
+            items: this.getSelectedItem()
+        };
+
+        await API.graphql(graphqlOperation(createMeal, { input: meal }));
+        this.props.OnOK();
     }
 
     render() {
@@ -131,7 +165,7 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
                         </DropdownButton>
                     </FormGroup>
                     <FormGroup className="text-center">
-                        <button className="btn btn-primary btn-on-bottom" onClick={() => this.props.OnOK()}>Add</button>
+                        <button className="btn btn-primary btn-on-bottom" onClick={() => this.onAdd()}>Add</button>
                     </FormGroup>
                 </Container>
             </Modal>
