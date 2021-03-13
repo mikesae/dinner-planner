@@ -54,17 +54,7 @@ export const onCreateMeal = /* GraphQL */ `
       date
       userName
       type
-      items {
-        id
-        name
-        description
-        image
-        category
-        rating
-        userName
-        createdAt
-        updatedAt
-      }
+      items
       createdAt
       updatedAt
     }
@@ -77,17 +67,7 @@ export const onUpdateMeal = /* GraphQL */ `
       date
       userName
       type
-      items {
-        id
-        name
-        description
-        image
-        category
-        rating
-        userName
-        createdAt
-        updatedAt
-      }
+      items
       createdAt
       updatedAt
     }
@@ -100,17 +80,7 @@ export const onDeleteMeal = /* GraphQL */ `
       date
       userName
       type
-      items {
-        id
-        name
-        description
-        image
-        category
-        rating
-        userName
-        createdAt
-        updatedAt
-      }
+      items
       createdAt
       updatedAt
     }

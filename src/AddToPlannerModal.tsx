@@ -95,14 +95,20 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
     }
 
     async onAdd() {
+        let selectedItem = this.getSelectedItem();
+        if (selectedItem.id === 0) {
+            return;
+        }
+
         const meal = {
             date: dateToExtendedISODate(this.props.date),
             userName: this.state.userName,
-            type: 'Dinner'
+            type: 'Dinner',
+            items: [ selectedItem.id]
         };
 
         try {
-            const result = await API.graphql(graphqlOperation(createMeal, {input: meal}));
+            await API.graphql(graphqlOperation(createMeal, {input: meal}));
             this.props.OnOK();
         } catch (e) {
             console.log(`Error: ${e.toString()}`);

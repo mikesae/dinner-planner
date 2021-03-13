@@ -46,17 +46,7 @@ export const getMeal = /* GraphQL */ `
       date
       userName
       type
-      items {
-        id
-        name
-        description
-        image
-        category
-        rating
-        userName
-        createdAt
-        updatedAt
-      }
+      items
       createdAt
       updatedAt
     }
@@ -74,17 +64,7 @@ export const listMeals = /* GraphQL */ `
         date
         userName
         type
-        items {
-          id
-          name
-          description
-          image
-          category
-          rating
-          userName
-          createdAt
-          updatedAt
-        }
+        items
         createdAt
         updatedAt
       }

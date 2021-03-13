@@ -1,5 +1,39 @@
 @import 'theme';
 
+$modal-image-size: 48px;
+$image-size: 4em;
+
+.planner-row {
+  .meal-placeholder {
+    height: $image-size;
+    width: $image-size;
+    border: 1px dashed gray;
+    background: transparent;
+    text-align: center; // horizontal center contents
+
+    .link-icon {
+      height: 100%;   // vertical center within container
+      color: gray;
+    }
+  }
+  img.img-item {
+    width: $image-size;
+    height: $image-size;
+  }
+
+  label.label-day {
+    font-weight: bold;
+    margin-top: 0.8em;
+  }
+
+  label.label-item {
+    margin: 0;
+    font-weight: normal;
+    font-size: 0.75em;
+    text-align: center;
+  }
+}
+
 .planner-modal {
   margin: 4em 0;
   width: 100%;
@@ -7,14 +41,9 @@
   background: black;
   color: white;
 
-
-  $image-size: 48px;
-
   img.img-item {
-    width: $image-size;
-    height: $image-size;
-    border: 1px solid lightslategray;
-    margin-right: 1em;
+    width: $modal-image-size;
+    height: $modal-image-size;
   }
 
   .dropdown {

@@ -7,6 +7,7 @@ import './PlannerRow.scss';
 import AddToPlannerModal from "./AddToPlannerModal";
 import {API, Auth} from "aws-amplify";
 import * as queries from "./graphql/queries";
+import {dateToExtendedISODate} from "aws-date-utils";
 
 export interface IPlannerRowProps {
     date: Date;
@@ -32,15 +33,30 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
     async listItems(date: Date) {
         const filter = {
             date: {
-                eq: date
+                eq: dateToExtendedISODate(date)
             },
             userName: {
                 eq: this.state.userName
+            },
+            type: {
+                eq: 'Dinner'
             }
         };
-        const items = await API.graphql({query: queries.listMeals, variables: { filter: filter}});
-        // @ts-ignore
-        this.setState({ items: items.data.listMeals.items });
+        const result:any = await API.graphql({query: queries.listMeals, variables: { filter: filter}});
+        const meals:any = result.data.listMeals.items;
+
+        if (meals.length > 0) {
+            const meal = meals[0];
+            let items = [];
+            for (let i:number = 0; i < meal.items.length; i += 1) {
+                const result:any = await API.graphql({ query: queries.getItem, variables: { id: meal.items[i]}});
+                const item:any = result.data.getItem;
+                if (item !== null) {
+                    items.push(item);
+                }
+            }
+            this.setState({ items: items});
+        }
     }
 
     async componentDidMount() {
@@ -79,27 +95,41 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
         return this.dayNames[date.getDay()];
     }
 
+    renderItem(index: number) {
+        const items = this.state.items;
+        if (items.length === 0) {
+            return(
+                <div className="meal-placeholder">
+                    <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal(0)}/>
+                </div>
+            )
+        }
+        if (index <= items.length-1) {
+            const item = items[index];
+            return(
+                <div>
+                    <img className="img-item" src={item.image} alt=""/>
+                    <label className="label-item">{item.name}</label>
+                </div>
+            )
+        }
+    }
+
     render() {
         return (
             <Row className="planner-row">
                 <AddToPlannerModal date={this.props.date} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
-                <Col className="col-3">
-                    <label>{this.dayName(this.props.date)}</label>
+                <Col className="col-2">
+                    <label className="label-day">{this.dayName(this.props.date)}</label>
                 </Col>
                 <Col className="col-3">
-                    <div className="meal-placeholder">
-                        <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal(0)}/>
-                    </div>
+                    {this.renderItem(0)}
                 </Col>
                 <Col className="col-3">
-                    <div className="meal-placeholder">
-                        <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal(1)}/>
-                    </div>
+                    {this.renderItem(0)}
                 </Col>
                 <Col className="col-3">
-                    <div className="meal-placeholder">
-                        <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal(2)}/>
-                    </div>
+                    {this.renderItem(0)}
                 </Col>
             </Row>
         )
