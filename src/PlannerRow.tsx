@@ -97,19 +97,21 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
 
     renderItem(index: number) {
         const items = this.state.items;
-        if (items.length === 0) {
-            return(
-                <div className="meal-placeholder">
-                    <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal(0)}/>
-                </div>
-            )
-        }
         if (index <= items.length-1) {
             const item = items[index];
             return(
                 <div>
                     <img className="img-item" src={item.image} alt=""/>
                     <label className="label-item">{item.name}</label>
+                </div>
+            )
+        } else {
+            return(
+                <div>
+                    <div className="meal-placeholder">
+                        <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal(0)}/>
+                    </div>
+                    <label className="label-item">&nbsp;</label>
                 </div>
             )
         }
