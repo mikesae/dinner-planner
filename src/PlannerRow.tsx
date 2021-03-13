@@ -126,10 +126,10 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
                     {this.renderItem(0)}
                 </Col>
                 <Col className="col-3">
-                    {this.renderItem(0)}
+                    {this.renderItem(1)}
                 </Col>
                 <Col className="col-3">
-                    {this.renderItem(0)}
+                    {this.renderItem(2)}
                 </Col>
             </Row>
         )
