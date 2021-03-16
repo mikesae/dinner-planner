@@ -35,6 +35,7 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
     }
 
     async listItems(date: Date) {
+        this.setState({loading: true});
         const filter = {
             date: {
                 eq: dateToExtendedISODate(date)
@@ -67,13 +68,19 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
 
     async componentDidMount() {
         try {
-            this.setState({mealDate: this.props.date});
             this.setState({loading: true});
             const user = await Auth.currentAuthenticatedUser({bypassCache: true});
             this.setState({userName: user.username});
             await this.listItems(this.state.mealDate);
         } catch (error) {
             console.log('error: ', error);
+        }
+    }
+
+    async componentDidUpdate(prevProps: IPlannerRowProps) {
+        if (prevProps.date !== this.props.date) {
+            this.setState({mealDate: this.props.date});
+            await this.listItems(this.props.date);
         }
     }
 
