@@ -78,20 +78,11 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
 
     getSelectedItem(): IMealItem {
         if (this.state.selectedMain !== -1) {
-            return {
-                id: this.state.mains[this.state.selectedMain].id,
-                name: this.state.mains[this.state.selectedMain].name
-            };
-        } else if (this.state.selectedMain !== -1) {
-            return {
-                id: this.state.mains[this.state.selectedMain].id,
-                name: this.state.mains[this.state.selectedMain].name
-            }
+            return {...this.state.mains[this.state.selectedMain]};
+        } else if (this.state.selectedSide !== -1) {
+            return {...this.state.sides[this.state.selectedSide]};
         }
-        return {
-            id: 0,
-            name: ''
-        }
+        return {id: 0, name: ''};
     }
 
     async onAdd() {

@@ -22,7 +22,7 @@ interface IPlannerRowState {
     mealDate: Date;
 }
 
-export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowState> {
+export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowState> {
     constructor(props: IPlannerRowProps) {
         super(props);
         this.state = {
@@ -34,7 +34,7 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
         };
     }
 
-    async listItems(date: Date) {
+    async updateItems(date: Date) {
         this.setState({loading: true});
         const filter = {
             date: {
@@ -71,7 +71,7 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
             this.setState({loading: true});
             const user = await Auth.currentAuthenticatedUser({bypassCache: true});
             this.setState({userName: user.username});
-            await this.listItems(this.state.mealDate);
+            await this.updateItems(this.state.mealDate);
         } catch (error) {
             console.log('error: ', error);
         }
@@ -80,7 +80,7 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
     async componentDidUpdate(prevProps: IPlannerRowProps) {
         if (prevProps.date !== this.props.date) {
             this.setState({mealDate: this.props.date});
-            await this.listItems(this.props.date);
+            await this.updateItems(this.props.date);
         }
     }
 
@@ -94,8 +94,9 @@ export default class PlannerRow extends Component<IPlannerRowProps,IPlannerRowSt
         'Sat',
     ];
 
-    addMeal() {
+    async addMeal() {
         this.setState({modalIsOpen: false});
+        await this.updateItems(this.props.date);
     }
 
     onOpenModal(addingFor: number) {
