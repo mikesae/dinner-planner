@@ -19,7 +19,6 @@ interface IPlannerRowState {
     userName: string;
     items: any[];
     loading: boolean;
-    mealDate: Date;
 }
 
 export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowState> {
@@ -29,16 +28,15 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             modalIsOpen: false,
             userName: '',
             items: [],
-            mealDate: props.date,
             loading: true
         };
     }
 
-    async updateItems(date: Date) {
+    async updateItems() {
         this.setState({loading: true});
         const filter = {
             date: {
-                eq: dateToExtendedISODate(date)
+                eq: dateToExtendedISODate(this.props.date)
             },
             userName: {
                 eq: this.state.userName
@@ -49,7 +47,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         };
         const result:any = await API.graphql({query: queries.listMeals, variables: { filter: filter}});
         const meals:any = result.data.listMeals.items;
-        let items = [{ id: 0}, {id: 0}, {id: 0}];
+        let items = [];
 
         if (meals.length > 0) {
             const meal = meals[0];
@@ -58,7 +56,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                 const result:any = await API.graphql({ query: queries.getItem, variables: { id: meal.items[i]}});
                 const item:any = result.data.getItem;
                 if (item !== null) {
-                    items[i] = Object.assign({}, item);
+                    items.push(item);
                 }
             }
         }
@@ -71,7 +69,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             this.setState({loading: true});
             const user = await Auth.currentAuthenticatedUser({bypassCache: true});
             this.setState({userName: user.username});
-            await this.updateItems(this.state.mealDate);
+            await this.updateItems();
         } catch (error) {
             console.log('error: ', error);
         }
@@ -79,8 +77,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     async componentDidUpdate(prevProps: IPlannerRowProps) {
         if (prevProps.date !== this.props.date) {
-            this.setState({mealDate: this.props.date});
-            await this.updateItems(this.props.date);
+            await this.updateItems();
         }
     }
 
@@ -96,10 +93,10 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     async addMeal() {
         this.setState({modalIsOpen: false});
-        await this.updateItems(this.props.date);
+        await this.updateItems();
     }
 
-    onOpenModal(addingFor: number) {
+    onOpenModal() {
         this.setState({modalIsOpen: true});
     }
 
@@ -112,31 +109,11 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     }
 
     renderItem(item: any) {
-        if (this.state.loading) {
-            return(
-                <div>
-                    <div className="meal-placeholder">
-                        <FontAwesomeIcon className="link-icon" icon={faEllipsisH}/>
-                    </div>
-                    <label className="label-item">Loading...</label>
-                </div>
-            );
-        }
-        if (item.id === 0) {
-            return(
-                <div>
-                    <div className="meal-placeholder">
-                        <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal(0)}/>
-                    </div>
-                    <label className="label-item">&nbsp;</label>
-                </div>
-            );
-        }
-        return(
-            <div>
+        return (
+            <Col className="col-3" key={item.id}>
                 <img className="img-item" src={item.image} alt=""/>
                 <label className="label-item">{item.name}</label>
-            </div>
+            </Col>
         );
     }
 
@@ -148,15 +125,20 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                 <Col className="col-2">
                     <label className="label-day">{this.dayName(this.props.date)}</label>
                 </Col>
-                <Col className="col-3">
-                    {this.renderItem(items[0])}
-                </Col>
-                <Col className="col-3">
-                    {this.renderItem(items[1])}
-                </Col>
-                <Col className="col-3">
-                    {this.renderItem(items[2])}
-                </Col>
+                {
+                    items.map((item:any) => (
+                        this.renderItem(item)
+                    ))
+                }
+                {
+                    items.length < 3 &&
+                    <Col className="col-3">
+                        <div className="meal-placeholder">
+                            <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal()}/>
+                        </div>
+                        <label className="label-item">&nbsp;</label>
+                    </Col>
+                }
             </Row>
         )
     }
