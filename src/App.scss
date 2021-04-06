@@ -35,6 +35,9 @@ body {
     overflow-x: hidden;
     text-overflow: ellipsis;
   }
+  .img-col {
+    text-overflow: clip;
+  }
 }
 
 @media (prefers-color-scheme: dark) {

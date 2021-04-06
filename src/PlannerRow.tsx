@@ -3,12 +3,12 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons/faPlusCircle';
-import {faEllipsisH} from '@fortawesome/free-solid-svg-icons/faEllipsisH';
 import './PlannerRow.scss';
 import AddToPlannerModal from "./AddToPlannerModal";
-import {API, Auth} from "aws-amplify";
+import {API, Auth, graphqlOperation} from "aws-amplify";
 import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from "aws-date-utils";
+import {updateMeal} from "./graphql/mutations";
 
 export interface IPlannerRowProps {
     date: Date;
@@ -18,6 +18,7 @@ interface IPlannerRowState {
     modalIsOpen: boolean;
     userName: string;
     items: any[];
+    meal: any;
     loading: boolean;
 }
 
@@ -28,11 +29,25 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             modalIsOpen: false,
             userName: '',
             items: [],
+            meal: {},
             loading: true
         };
     }
 
-    async updateItems() {
+    async updateItems(meal: any) {
+        let items = [];
+        for (let i:number = 0; i < meal.items.length; i += 1) {
+            const result:any = await API.graphql({ query: queries.getItem, variables: { id: meal.items[i]}});
+            const item:any = result.data.getItem;
+            if (item !== null) {
+                items.push(item);
+            }
+        }
+        this.setState({ items: items});
+    }
+
+
+    async updateMeal() {
         this.setState({loading: true});
         const filter = {
             date: {
@@ -47,20 +62,13 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         };
         const result:any = await API.graphql({query: queries.listMeals, variables: { filter: filter}});
         const meals:any = result.data.listMeals.items;
-        let items = [];
 
         if (meals.length > 0) {
             const meal = meals[0];
-
-            for (let i:number = 0; i < meal.items.length; i += 1) {
-                const result:any = await API.graphql({ query: queries.getItem, variables: { id: meal.items[i]}});
-                const item:any = result.data.getItem;
-                if (item !== null) {
-                    items.push(item);
-                }
-            }
+            this.setState({ meal: meal});
+            await this.updateItems(meal);
         }
-        this.setState({ items: items});
+
         this.setState({loading: false});
     }
 
@@ -69,7 +77,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             this.setState({loading: true});
             const user = await Auth.currentAuthenticatedUser({bypassCache: true});
             this.setState({userName: user.username});
-            await this.updateItems();
+            await this.updateMeal();
         } catch (error) {
             console.log('error: ', error);
         }
@@ -77,7 +85,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     async componentDidUpdate(prevProps: IPlannerRowProps) {
         if (prevProps.date !== this.props.date) {
-            await this.updateItems();
+            await this.updateMeal();
         }
     }
 
@@ -93,7 +101,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     async addMeal() {
         this.setState({modalIsOpen: false});
-        await this.updateItems();
+        await this.updateMeal();
     }
 
     onOpenModal() {
@@ -108,10 +116,39 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         return this.dayNames[date.getDay()];
     }
 
+    async removeItemFromMeal(id: string) {
+        try {
+            let meal = this.state.meal;
+            let updatedMeal = {
+                id: meal.id,
+                date: meal.date,
+                userName: meal.userName,
+                type: meal.type,
+                items: []
+            };
+
+            meal.items.forEach((item:string) => {
+                if (item !== id) {
+                    // @ts-ignore
+                    updatedMeal.items.push(item);
+                }
+            });
+            await API.graphql(graphqlOperation(updateMeal, {input: updatedMeal}));
+            await this.updateMeal();
+        } catch (e) {
+            console.log(`Error: ${e.toString()}`);
+        }
+    }
+
+    async onItemClick(id: string) {
+        // TODO: Put up menu for delete / view.
+        await this.removeItemFromMeal(id);
+    }
+
     renderItem(item: any) {
         return (
-            <Col className="col-3" key={item.id}>
-                <img className="img-item" src={item.image} alt=""/>
+            <Col className="col-3 img-col" key={item.id}>
+                <img className="img-item" src={item.image} alt="" onClick={() => this.onItemClick(item.id)}/>
                 <label className="label-item">{item.name}</label>
             </Col>
         );
@@ -121,7 +158,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         const items:any = this.state.items;
         return (
             <Row className="planner-row">
-                <AddToPlannerModal date={this.props.date} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
+                <AddToPlannerModal date={this.props.date} mealId={this.state.meal.id} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
                 <Col className="col-2">
                     <label className="label-day">{this.dayName(this.props.date)}</label>
                 </Col>

@@ -5,15 +5,17 @@ import {faWindowClose} from "@fortawesome/free-solid-svg-icons/faWindowClose";
 import {Container, Dropdown, FormGroup, FormLabel} from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {API, Auth, graphqlOperation} from "aws-amplify";
-import { createMeal } from './graphql/mutations';
+import {createMeal, updateMeal} from './graphql/mutations';
 import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from 'aws-date-utils'
+import {getMeal} from "./graphql/queries";
 
 export interface IAddToPlannerModalProps {
     isOpen: boolean;
     OnOK: () => void;
     OnClose: () => void;
     date: Date;
+    mealId?: string;
 }
 
 interface IMealItem {
@@ -91,15 +93,30 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
             return;
         }
 
-        const meal = {
-            date: dateToExtendedISODate(this.props.date),
-            userName: this.state.userName,
-            type: 'Dinner',
-            items: [ selectedItem.id]
-        };
+
 
         try {
-            await API.graphql(graphqlOperation(createMeal, {input: meal}));
+            if (this.props.mealId !== "") {
+                const getResult:any = await API.graphql(graphqlOperation(getMeal, { id: this.props.mealId }));
+                let items = getResult.data.getMeal.items;
+                items.push(selectedItem.id);
+                const meal = {
+                    id: this.props.mealId,
+                    date: dateToExtendedISODate(this.props.date),
+                    userName: this.state.userName,
+                    type: 'Dinner',
+                    items: items
+                };
+                await API.graphql(graphqlOperation(updateMeal, {input: meal}));
+            } else {
+                const meal = {
+                    date: dateToExtendedISODate(this.props.date),
+                    userName: this.state.userName,
+                    type: 'Dinner',
+                    items: [ selectedItem.id]
+                };
+                await API.graphql(graphqlOperation(createMeal, {input: meal}));
+            }
             this.props.OnOK();
         } catch (e) {
             console.log(`Error: ${e.toString()}`);
