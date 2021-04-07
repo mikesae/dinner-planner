@@ -146,9 +146,9 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         await this.removeItemFromMeal(id);
     }
 
-    renderItem(item: any) {
+    renderItem(item: any, key: number) {
         return (
-            <Col className="col-3 img-col" key={item.id}>
+            <Col className="col-3 img-col" key={key}>
                 <img className="img-item" src={item.image} alt="" onClick={() => this.onItemClick(item.id)}/>
                 <label className="label-item">{item.name}</label>
             </Col>
@@ -164,8 +164,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                     <label className="label-day">{this.dayName(this.props.date)}</label>
                 </Col>
                 {
-                    items.map((item:any) => (
-                        this.renderItem(item)
+                    items.map((item:any, index:number) => (
+                        this.renderItem(item, index)
                     ))
                 }
                 {
