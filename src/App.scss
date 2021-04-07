@@ -31,12 +31,8 @@ body {
 }
 
 .container {
-  .col {
-    overflow-x: hidden;
-    text-overflow: ellipsis;
-  }
   .img-col {
-    text-overflow: clip;
+    text-align: center;
   }
 }
 

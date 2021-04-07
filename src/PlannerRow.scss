@@ -27,9 +27,14 @@
     margin: 0;
     font-weight: normal;
     font-size: 0.75em;
-    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
   }
 }
+
+$button-height: 64px;
 
 .planner-modal {
   margin: 0;
@@ -41,13 +46,10 @@
   img.img-item {
     width: $modal-image-size;
     height: $modal-image-size;
+    margin-right: 10px;
   }
 
   .dropdown {
-    button {
-      height: 64px;
-    }
-
     .dropdown-menu {
       background: black;
       border: 1px solid lightslategray;
@@ -63,11 +65,12 @@
     left: 5%;
     width: 90%;
     position: absolute;
-    bottom: $navbar-height;
+    bottom: $navbar-height + 0.5em;
   }
 
   button {
     width: 100%;
+    height: $button-height;
   }
 
 }
