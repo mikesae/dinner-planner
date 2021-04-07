@@ -96,7 +96,7 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
 
 
         try {
-            if (this.props.mealId !== "") {
+            if (typeof this.props.mealId !== 'undefined') {
                 const getResult:any = await API.graphql(graphqlOperation(getMeal, { id: this.props.mealId }));
                 let items = getResult.data.getMeal.items;
                 items.push(selectedItem.id);
@@ -117,10 +117,10 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
                 };
                 await API.graphql(graphqlOperation(createMeal, {input: meal}));
             }
-            this.props.OnOK();
         } catch (e) {
             console.log(`Error: ${e.toString()}`);
         }
+        this.props.OnOK();
     }
 
     render() {

@@ -34,18 +34,17 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         };
     }
 
-    async updateItems(meal: any) {
-        let items = [];
-        for (let i:number = 0; i < meal.items.length; i += 1) {
-            const result:any = await API.graphql({ query: queries.getItem, variables: { id: meal.items[i]}});
+    async updateMealItemIds(items: any) {
+        let updatedItems = [];
+        for (let i:number = 0; i < items.length; i += 1) {
+            const result:any = await API.graphql({ query: queries.getItem, variables: { id: items[i]}});
             const item:any = result.data.getItem;
             if (item !== null) {
-                items.push(item);
+                updatedItems.push(item);
             }
         }
-        this.setState({ items: items});
+        this.setState({ items: updatedItems});
     }
-
 
     async updateMeal() {
         this.setState({loading: true});
@@ -66,7 +65,9 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         if (meals.length > 0) {
             const meal = meals[0];
             this.setState({ meal: meal});
-            await this.updateItems(meal);
+            await this.updateMealItemIds(meal.items);
+        } else {
+            await this.updateMealItemIds([]);
         }
 
         this.setState({loading: false});
