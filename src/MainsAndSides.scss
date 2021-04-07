@@ -14,7 +14,8 @@
   background-color: black;
   display: inline-block;
   .link-icon {
-    font-size: $image-size;
+    height: $image-height;
+    width: $image-width;
   }
 }
 
@@ -29,8 +30,8 @@
     width: 100%;
   }
   img.img-item {
-    width: $image-size;
-    height: $image-size;
+    width: $image-width;
+    height: $image-height;
     border: 1px solid lightslategray;
   }
   .img-col {

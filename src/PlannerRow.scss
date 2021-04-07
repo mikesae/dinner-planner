@@ -2,8 +2,8 @@
 
 .planner-row {
   .meal-placeholder {
-    height: $image-size;
-    width: $image-size;
+    height: $image-height;
+    width: $image-width;
     border: 1px dashed gray;
     background: transparent;
     text-align: center; // horizontal center contents
@@ -14,8 +14,8 @@
     }
   }
   img.img-item {
-    width: $image-size;
-    height: $image-size;
+    width: $image-width;
+    height: $image-height;
   }
 
   label.label-day {
@@ -44,8 +44,8 @@ $button-height: 64px;
   color: white;
 
   img.img-item {
-    width: $modal-image-size;
-    height: $modal-image-size;
+    width: $image-width;
+    height: $image-height;
     margin-right: 10px;
   }
 
