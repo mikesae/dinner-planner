@@ -161,6 +161,14 @@ a {
         background: $navbar-dark-background;
       }
     }
+
+    .btn-primary {
+      color: $highlight-color;
+      &:hover {
+        color: white;
+      }
+    }
+
   }
 }
 

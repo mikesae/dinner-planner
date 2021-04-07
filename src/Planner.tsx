@@ -31,7 +31,7 @@ export default class Planner extends Component {
                     <FontAwesomeIcon className="link-icon" icon={faChevronUp}/>
                 </button>
                 <span>&nbsp;{props.value}&nbsp;</span>
-                <button className="btn btn-date-picker" onClick={props.onClick}>
+                <button className="btn btn-primary btn-date-picker" onClick={props.onClick}>
                     <FontAwesomeIcon className="link-icon" icon={faCalendar}/>
                 </button>
                 <button className="btn btn-date-picker" onClick={() => this.onNextWeek()}>
