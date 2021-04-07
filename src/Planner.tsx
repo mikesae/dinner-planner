@@ -5,8 +5,8 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './Planner.scss';
 import TopNavbar from './TopNavbar';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
-import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';
+import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 import PlannerRow from './PlannerRow';
 
@@ -28,15 +28,14 @@ export default class Planner extends Component {
         return(
             <div className="date-picker" ref={ref}>
                 <button className="btn btn-date-picker" onClick={() => this.onPreviousWeek()}>
-                    <FontAwesomeIcon className="link-icon" icon={faChevronLeft}/>
+                    <FontAwesomeIcon className="link-icon" icon={faChevronUp}/>
                 </button>
                 <span>&nbsp;{props.value}&nbsp;</span>
-                <button className="btn btn-date-picker" onClick={() => this.onNextWeek()}>
-                    <FontAwesomeIcon className="link-icon" icon={faChevronRight}/>
-                </button>
-                &nbsp;
                 <button className="btn btn-date-picker" onClick={props.onClick}>
                     <FontAwesomeIcon className="link-icon" icon={faCalendar}/>
+                </button>
+                <button className="btn btn-date-picker" onClick={() => this.onNextWeek()}>
+                    <FontAwesomeIcon className="link-icon" icon={faChevronDown}/>
                 </button>
             </div>
         );
