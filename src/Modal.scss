@@ -1,0 +1,12 @@
+.ReactModal__Overlay {
+  margin-top: 100%;
+  transition: margin-top 1000ms ease-in-out;
+}
+
+.ReactModal__Overlay--after-open{
+  margin-top: 0;
+}
+
+.ReactModal__Overlay--before-close{
+  margin-top: 100%;
+}

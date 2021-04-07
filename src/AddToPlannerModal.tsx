@@ -9,6 +9,7 @@ import {createMeal, updateMeal} from './graphql/mutations';
 import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from 'aws-date-utils'
 import {getMeal} from "./graphql/queries";
+import './Modal.scss';
 
 export interface IAddToPlannerModalProps {
     isOpen: boolean;
@@ -93,8 +94,6 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
             return;
         }
 
-
-
         try {
             if (typeof this.props.mealId !== 'undefined') {
                 const getResult:any = await API.graphql(graphqlOperation(getMeal, { id: this.props.mealId }));
@@ -147,6 +146,7 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
                 isOpen={this.props.isOpen}
                 onRequestClose={() => this.props.OnClose()}
                 className="planner-modal"
+                closeTimeoutMS={1000}
             >
                 <div>
                     <FontAwesomeIcon
