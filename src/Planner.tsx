@@ -11,12 +11,16 @@ import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 import PlannerRow from './PlannerRow';
 
 export default class Planner extends Component {
+    getPreviousMonday(date:Date) {
+        date.setDate(date.getDate() + 1 - (date.getDay() || 7));
+        return date;
+    }
     state = {
-        startDate : new Date()
+        startDate : this.getPreviousMonday(new Date())
     };
 
     changeStartDate(date: Date) {
-        this.setState({startDate: date})
+        this.setState({startDate: this.getPreviousMonday(date)})
     }
 
     CustomInput = React.forwardRef<HTMLInputElement>((props: any, ref: any) =>
