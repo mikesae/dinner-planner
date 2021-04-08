@@ -6,7 +6,8 @@
     width: $image-width;
     border: 1px dashed gray;
     background: transparent;
-    text-align: center; // horizontal center contents
+    margin: 0 auto;   // horizontal align within container
+    text-align: center; // center its contents (a link icon)
 
     .link-icon {
       height: 100%;   // vertical center within container
