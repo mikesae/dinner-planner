@@ -148,7 +148,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     renderItem(item: any, key: number) {
         return (
-            <Col className="col-3 img-col" key={key}>
+            <Col className="col-3-10th img-col" key={key}>
                 <img className="img-item" src={item.image} alt="" onClick={() => this.onItemClick(item.id)}/>
                 <label className="label-item">{item.name}</label>
             </Col>
@@ -160,7 +160,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         return (
             <Row className="planner-row">
                 <AddToPlannerModal date={this.props.date} mealId={this.state.meal.id} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
-                <Col className="col-2">
+                <Col className="col-1-10th">
                     <label className="label-day">{this.dayName(this.props.date)}</label>
                 </Col>
                 {
@@ -170,7 +170,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                 }
                 {
                     items.length < 3 &&
-                    <Col className="col-3">
+                    <Col className="col-3-10th">
                         <div className="meal-placeholder">
                             <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal()}/>
                         </div>
