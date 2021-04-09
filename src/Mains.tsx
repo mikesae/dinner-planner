@@ -14,6 +14,7 @@ import { faMinusCircle } from '@fortawesome/free-solid-svg-icons/faMinusCircle';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import { faEdit as editIcon } from '@fortawesome/free-solid-svg-icons/faEdit';
 import * as queries from './graphql/queries';
+import ImageComponent from "./ImageComponent";
 
 const {
     aws_user_files_s3_bucket_region: region,
@@ -109,7 +110,7 @@ export default class Mains extends Component {
                             this.state.items.map((item: any) => (
                                 <Row key={item.id}>
                                     <Col className="col-3 img-col">
-                                        <img className="img-item" src={item.image} alt=""/>
+                                        <ImageComponent src={item.image}/>
                                     </Col>
                                     <Col className="col-7 px-2 my-auto">
                                         <div className="text-md-left">{item.name}</div>

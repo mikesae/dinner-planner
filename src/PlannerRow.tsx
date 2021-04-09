@@ -9,6 +9,7 @@ import {API, Auth, graphqlOperation} from "aws-amplify";
 import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from "aws-date-utils";
 import {updateMeal} from "./graphql/mutations";
+import ImageComponent from "./ImageComponent";
 
 export interface IPlannerRowProps {
     date: Date;
@@ -148,8 +149,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     renderItem(item: any, key: number) {
         return (
-            <Col className="col-3-10th img-col" key={key}>
-                <img className="img-item" src={item.image} alt="" onClick={() => this.onItemClick(item.id)}/>
+            <Col className="col-3-10th img-col" key={key}  onClick={() => this.onItemClick(item.id)}>
+                <ImageComponent src={item.image}/>
                 <label className="label-item">{item.name}</label>
             </Col>
         );
