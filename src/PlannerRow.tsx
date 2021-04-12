@@ -21,6 +21,7 @@ interface IPlannerRowState {
     items: any[];
     meal: any;
     loading: boolean;
+    today: Date;
 }
 
 export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowState> {
@@ -31,7 +32,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             userName: '',
             items: [],
             meal: {},
-            loading: true
+            loading: true,
+            today: new Date()
         };
     }
 
@@ -156,13 +158,20 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         );
     }
 
+    sameDay(dateA: Date, dateB: Date) {
+        return dateA.getDate() === dateB.getDate()
+            && dateA.getMonth() === dateB.getMonth()
+            && dateA.getFullYear() === dateB.getFullYear()
+    }
+
     render() {
         const items:any = this.state.items;
+        const isToday:boolean = this.sameDay(this.props.date, this.state.today);
         return (
             <Row className="planner-row">
                 <AddToPlannerModal date={this.props.date} mealId={this.state.meal.id} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
                 <Col className="col-1-10th">
-                    <label className="label-day">{this.dayName(this.props.date)}</label>
+                    <label className={"label-day" + (isToday ? " label-day-today" : "")}>{this.dayName(this.props.date)}</label>
                 </Col>
                 {
                     items.map((item:any, index:number) => (

@@ -20,8 +20,12 @@
   }
 
   label.label-day {
-    font-weight: bold;
     margin-top: 0.8em;
+
+    &.label-day-today {
+      font-weight: bold;
+      color: $highlight-color;
+    }
   }
 
   label.label-item {
