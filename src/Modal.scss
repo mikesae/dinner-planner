@@ -1,5 +1,8 @@
-.rodal-dialog {
-  background: black;
+
+@media (prefers-color-scheme: dark) {
+  .rodal-dialog {
+    background: black;
+  }
 }
 
 .rodal-close {

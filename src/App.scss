@@ -93,14 +93,20 @@ a {
   }
 }
 
-.btn {
-  color: black;
-  background: none;
-  border: none;
+.btn-primary {
+  background: $highlight-color;
+}
 
-  &:hover {
-    color: white;
-    //background: black;
+@media (prefers-color-scheme: dark) {
+  .btn {
+    color: black;
+    background: none;
+    border: none;
+
+    &:hover {
+      color: white;
+      //background: black;
+    }
   }
 }
 

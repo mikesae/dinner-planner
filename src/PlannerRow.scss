@@ -41,29 +41,33 @@
 
 $button-height: 64px;
 
+@media (prefers-color-scheme: dark) {
+  .planner-modal {
+    background: black;
+    color: white;
+    .dropdown {
+      .dropdown-menu {
+        background: black;
+        border: 1px solid lightslategray;
+
+        .dropdown-item {
+          background: black;
+          color: white;
+        }
+      }
+    }
+  }
+}
+
 .planner-modal {
   margin: 0;
   width: 100%;
   height: 100%;
-  background: black;
-  color: white;
 
   img.img-item {
     width: $image-width;
     height: $image-height;
     margin-right: 10px;
-  }
-
-  .dropdown {
-    .dropdown-menu {
-      background: black;
-      border: 1px solid lightslategray;
-
-      .dropdown-item {
-        background: black;
-        color: white;
-      }
-    }
   }
 
   .btn-on-bottom {
@@ -74,11 +78,4 @@ $button-height: 64px;
     width: 100%;
     height: $button-height;
   }
-
-}
-
-.close-icon {
-  margin: 16px;
-  float: right;
-  color: white;
 }
