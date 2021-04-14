@@ -9,6 +9,7 @@ import {API, Auth, graphqlOperation} from "aws-amplify";
 import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from "aws-date-utils";
 import {updateMeal} from "./graphql/mutations";
+import ImageComponent from "./ImageComponent";
 
 export interface IPlannerRowProps {
     date: Date;
@@ -20,6 +21,7 @@ interface IPlannerRowState {
     items: any[];
     meal: any;
     loading: boolean;
+    today: Date;
 }
 
 export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowState> {
@@ -30,7 +32,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             userName: '',
             items: [],
             meal: {},
-            loading: true
+            loading: true,
+            today: new Date()
         };
     }
 
@@ -148,20 +151,27 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     renderItem(item: any, key: number) {
         return (
-            <Col className="col-3 img-col" key={key}>
-                <img className="img-item" src={item.image} alt="" onClick={() => this.onItemClick(item.id)}/>
+            <Col className="col-3-10th img-col" key={key}  onClick={() => this.onItemClick(item.id)}>
+                <ImageComponent src={item.image}/>
                 <label className="label-item">{item.name}</label>
             </Col>
         );
     }
 
+    sameDay(dateA: Date, dateB: Date) {
+        return dateA.getDate() === dateB.getDate()
+            && dateA.getMonth() === dateB.getMonth()
+            && dateA.getFullYear() === dateB.getFullYear()
+    }
+
     render() {
         const items:any = this.state.items;
+        const isToday:boolean = this.sameDay(this.props.date, this.state.today);
         return (
             <Row className="planner-row">
                 <AddToPlannerModal date={this.props.date} mealId={this.state.meal.id} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
-                <Col className="col-2">
-                    <label className="label-day">{this.dayName(this.props.date)}</label>
+                <Col className="col-1-10th">
+                    <label className={"label-day" + (isToday ? " label-day-today" : "")}>{this.dayName(this.props.date)}</label>
                 </Col>
                 {
                     items.map((item:any, index:number) => (
@@ -170,7 +180,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                 }
                 {
                     items.length < 3 &&
-                    <Col className="col-3">
+                    <Col className="col-3-10th">
                         <div className="meal-placeholder">
                             <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal()}/>
                         </div>

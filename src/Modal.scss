@@ -2,6 +2,15 @@
   background: black;
 }
 
-.rodal-mask {
-  background: rgba(0, 0, 0, 0.7);
+.ReactModal__Overlay--after-open{
+  margin-top: 0;
+}
+
+.ReactModal__Overlay--before-close{
+  margin-top: 100%;
+}
+
+.dropdown-menu {
+  height: 300px;
+  overflow-y: scroll;
 }

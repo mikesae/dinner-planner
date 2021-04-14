@@ -156,19 +156,13 @@ a {
       background-color: transparent;
       color: white;
 
-      &:hover {
+      &:active {
         color: $highlight-color;
-        background: $navbar-dark-background;
       }
     }
-
-    .btn-primary {
+    .btn-date-picker:focus {
       color: $highlight-color;
-      &:hover {
-        color: white;
-      }
     }
-
   }
 }
 
