@@ -63,10 +63,7 @@ $button-height: 64px;
   }
 
   .btn-on-bottom {
-    left: 5%;
-    width: 90%;
-    position: absolute;
-    bottom: $navbar-height + 0.5em;
+    margin-top: $button-height;
   }
 
   button {

@@ -1,12 +1,7 @@
-.ReactModal__Overlay {
-  margin-top: 100%;
-  transition: margin-top 1000ms ease-in-out;
+.rodal-dialog {
+  background: black;
 }
 
-.ReactModal__Overlay--after-open{
-  margin-top: 0;
-}
-
-.ReactModal__Overlay--before-close{
-  margin-top: 100%;
+.rodal-mask {
+  background: rgba(0, 0, 0, 0.7);
 }

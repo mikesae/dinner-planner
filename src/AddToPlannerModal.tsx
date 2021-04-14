@@ -1,7 +1,6 @@
 import React, {Component} from "react";
-import Modal from "react-modal";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faWindowClose} from "@fortawesome/free-solid-svg-icons/faWindowClose";
+import Rodal from "rodal";
+import 'rodal/lib/rodal.css';
 import {Container, Dropdown, FormGroup, FormLabel} from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {API, Auth, graphqlOperation} from "aws-amplify";
@@ -141,22 +140,17 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
         }
 
         return (
-            <Modal
-                ariaHideApp={false}
-                isOpen={this.props.isOpen}
-                onRequestClose={() => this.props.OnClose()}
-                className="planner-modal"
-                closeTimeoutMS={1000}
+            <Rodal
+                visible={this.props.isOpen}
+                onClose={() => this.props.OnClose()}
+                animation="slideUp"
+                duration={1000}
+                measure="%"
+                width={100}
+                height={88}
             >
-                <div>
-                    <FontAwesomeIcon
-                        className="close-icon link-icon"
-                        size="2x"
-                        icon={faWindowClose}
-                        onClick={() => this.props.OnClose()}/>
-                </div>
                 <div className="spacer"/>
-                <Container>
+                <Container className="planner-modal">
                     <FormGroup>
                         <DropdownButton title={mainTitle}>
                             {
@@ -186,7 +180,7 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
                         <button className="btn btn-primary btn-on-bottom" onClick={() => this.onAdd()}>Add</button>
                     </FormGroup>
                 </Container>
-            </Modal>
+            </Rodal>
         )
     }
 }
