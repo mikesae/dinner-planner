@@ -9,6 +9,7 @@ import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from 'aws-date-utils'
 import {getMeal} from "./graphql/queries";
 import './Modal.scss';
+import ImageComponent from "./ImageComponent";
 
 export interface IAddToPlannerModalProps {
     isOpen: boolean;
@@ -21,7 +22,7 @@ export interface IAddToPlannerModalProps {
 interface IMealItem {
     id: number;
     name: string;
-    image?: string;
+    image: string;
 }
 
 interface IAddToPlannerModalState {
@@ -84,7 +85,7 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
         } else if (this.state.selectedSide !== -1) {
             return {...this.state.sides[this.state.selectedSide]};
         }
-        return {id: 0, name: ''};
+        return {id: 0, name: '', image: ''};
     }
 
     async onAdd() {
@@ -131,12 +132,12 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
         if (idxMain === -1) {
             mainTitle = <span>Choose a Main</span>;
         } else {
-            mainTitle = <span><img className="img-item" src={this.state.mains[idxMain].image} alt=""/>{this.state.mains[idxMain].name}</span>;
+            mainTitle = <span><ImageComponent src={this.state.mains[idxMain].image}/>{this.state.mains[idxMain].name}</span>;
         }
         if (idxSide === -1) {
             sideTitle = <span>Choose a Side</span>;
         } else {
-            sideTitle = <span><img className="img-item" src={this.state.sides[idxSide].image} alt=""/>{this.state.sides[idxSide].name}</span>;
+            sideTitle = <span><ImageComponent src={this.state.sides[idxSide].image}/>{this.state.sides[idxSide].name}</span>;
         }
 
         return (
