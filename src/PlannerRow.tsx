@@ -70,6 +70,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             this.setState({ meal: meal});
             await this.updateMealItemIds(meal.items);
         } else {
+            this.setState({ meal: {}});
             await this.updateMealItemIds([]);
         }
 
