@@ -38,3 +38,17 @@
     text-overflow: clip;
   }
 }
+
+.add-item-placeholder {
+  height: $image-height;
+  width: $image-width;
+  border: 1px dashed gray;
+  background: transparent;
+  margin: 0 auto; // horizontal align within container
+  text-align: center; // center its contents (a link icon)
+
+  .link-icon {
+    height: 100%; // vertical center within container
+    color: gray;
+  }
+}
