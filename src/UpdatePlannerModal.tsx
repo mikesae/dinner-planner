@@ -11,12 +11,13 @@ import {getMeal} from "./graphql/queries";
 import './Modal.scss';
 import ImageComponent from "./ImageComponent";
 
-export interface IAddToPlannerModalProps {
+export interface IUpdatePlannerModalProps {
     isOpen: boolean;
     OnOK: () => void;
     OnClose: () => void;
     date: Date;
     mealId?: string;
+    itemId: string;
 }
 
 interface IMealItem {
@@ -25,23 +26,25 @@ interface IMealItem {
     image: string;
 }
 
-interface IAddToPlannerModalState {
+interface IUpdatePlannerModalState {
     userName: string;
     selectedMain: number;
     selectedSide: number;
     mains: IMealItem[];
     sides: IMealItem[];
+    addingItem: boolean;
 }
 
-export default class AddToPlannerModal extends Component<IAddToPlannerModalProps, IAddToPlannerModalState> {
-    constructor(props: IAddToPlannerModalProps) {
+export default class UpdatePlannerModal extends Component<IUpdatePlannerModalProps, IUpdatePlannerModalState> {
+    constructor(props: IUpdatePlannerModalProps) {
         super(props);
         this.state = {
             userName: '',
             selectedMain: -1,
             selectedSide: -1,
             mains: [],
-            sides: []
+            sides: [],
+            addingItem: false
         };
     }
 
@@ -55,6 +58,12 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
             this.setState({sides: sides});
         } catch (error) {
             console.log('error: ', error);
+        }
+    }
+
+    async componentDidUpdate(prevProps: IUpdatePlannerModalProps) {
+        if (prevProps.mealId !== this.props.mealId || prevProps.itemId !== this.props.itemId) {
+            this.setState({addingItem: this.props.itemId === ''});
         }
     }
 
@@ -88,6 +97,56 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
         return {id: 0, name: '', image: ''};
     }
 
+    async getMealItemIds() {
+        const result:any = await API.graphql(graphqlOperation(getMeal, { id: this.props.mealId }));
+        return result.data.getMeal.items;
+    }
+
+    async updateMealItems(items: any) {
+        const meal = {
+            id: this.props.mealId,
+            date: dateToExtendedISODate(this.props.date),
+            userName: this.state.userName,
+            type: 'Dinner',
+            items: items
+        };
+        await API.graphql(graphqlOperation(updateMeal, {input: meal}));
+    }
+
+    async onReplace() {
+        let selectedItem = this.getSelectedItem();
+        if (selectedItem.id === 0) {
+            return;
+        }
+        const itemIds:string[] = await this.getMealItemIds();
+        let newItemIds:string[] = [];
+        itemIds.forEach((itemId:string) => {
+            if (itemId === this.props.itemId) {
+                newItemIds.push(String(selectedItem.id));
+            } else {
+                newItemIds.push(itemId);
+            }
+        })
+        await this.updateMealItems(newItemIds);
+        this.props.OnOK();
+    }
+
+    async onRemove() {
+        try {
+            const itemIds = await this.getMealItemIds();
+            let newItemIds:string[] = [];
+            itemIds.forEach((itemId:string) => {
+                if (itemId !== this.props.itemId) {
+                    newItemIds.push(itemId);
+                }
+            });
+            await this.updateMealItems(newItemIds);
+        } catch (e) {
+            console.log(`Error: ${e.toString()}`);
+        }
+        this.props.OnOK();
+    }
+
     async onAdd() {
         let selectedItem = this.getSelectedItem();
         if (selectedItem.id === 0) {
@@ -96,17 +155,9 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
 
         try {
             if (typeof this.props.mealId !== 'undefined') {
-                const getResult:any = await API.graphql(graphqlOperation(getMeal, { id: this.props.mealId }));
-                let items = getResult.data.getMeal.items;
-                items.push(selectedItem.id);
-                const meal = {
-                    id: this.props.mealId,
-                    date: dateToExtendedISODate(this.props.date),
-                    userName: this.state.userName,
-                    type: 'Dinner',
-                    items: items
-                };
-                await API.graphql(graphqlOperation(updateMeal, {input: meal}));
+                const itemIds = await this.getMealItemIds();
+                itemIds.push(selectedItem.id);
+                await this.updateMealItems(itemIds);
             } else {
                 const meal = {
                     date: dateToExtendedISODate(this.props.date),
@@ -152,6 +203,11 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
             >
                 <div className="spacer"/>
                 <Container className="planner-modal">
+                    { !this.state.addingItem &&
+                        <FormGroup>
+                            <button className="btn btn-primary btn-on-bottom" onClick={() => this.onRemove()}>Remove</button>
+                        </FormGroup>
+                    }
                     <FormGroup>
                         <DropdownButton title={mainTitle}>
                             {
@@ -178,7 +234,12 @@ export default class AddToPlannerModal extends Component<IAddToPlannerModalProps
                         </DropdownButton>
                     </FormGroup>
                     <FormGroup className="text-center">
-                        <button className="btn btn-primary btn-on-bottom" onClick={() => this.onAdd()}>Add</button>
+                        {this.state.addingItem
+                                ? <button className="btn btn-primary btn-on-bottom"
+                                          onClick={() => this.onAdd()}>Add</button>
+                                : <button className="btn btn-primary btn-on-bottom"
+                                          onClick={() => this.onReplace()}>Replace</button>
+                        }
                     </FormGroup>
                 </Container>
             </Rodal>

@@ -4,7 +4,7 @@ import Col from "react-bootstrap/Col";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import './PlannerRow.scss';
-import AddToPlannerModal from "./AddToPlannerModal";
+import UpdatePlannerModal from "./UpdatePlannerModal";
 import {API, Auth, graphqlOperation} from "aws-amplify";
 import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from "aws-date-utils";
@@ -22,6 +22,7 @@ interface IPlannerRowState {
     meal: any;
     loading: boolean;
     today: Date;
+    clickedItemId: string;
 }
 
 export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowState> {
@@ -33,7 +34,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             items: [],
             meal: {},
             loading: true,
-            today: new Date()
+            today: new Date(),
+            clickedItemId: ''
         };
     }
 
@@ -121,33 +123,14 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         return this.dayNames[date.getDay()];
     }
 
-    async removeItemFromMeal(id: string) {
-        try {
-            let meal = this.state.meal;
-            let updatedMeal = {
-                id: meal.id,
-                date: meal.date,
-                userName: meal.userName,
-                type: meal.type,
-                items: []
-            };
-
-            meal.items.forEach((item:string) => {
-                if (item !== id) {
-                    // @ts-ignore
-                    updatedMeal.items.push(item);
-                }
-            });
-            await API.graphql(graphqlOperation(updateMeal, {input: updatedMeal}));
-            await this.updateMeal();
-        } catch (e) {
-            console.log(`Error: ${e.toString()}`);
-        }
+    onItemClick(id: string) {
+        this.setState({clickedItemId: id});
+        this.onOpenModal();
     }
 
-    async onItemClick(id: string) {
-        // TODO: Put up menu for delete / view.
-        await this.removeItemFromMeal(id);
+    onAddItemClick() {
+        this.setState({clickedItemId: ''});
+        this.onOpenModal();
     }
 
     renderItem(item: any, key: number) {
@@ -170,7 +153,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         const isToday:boolean = this.sameDay(this.props.date, this.state.today);
         return (
             <Row className="planner-row">
-                <AddToPlannerModal date={this.props.date} mealId={this.state.meal.id} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
+                <UpdatePlannerModal date={this.props.date} mealId={this.state.meal.id} itemId={this.state.clickedItemId} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
                 <Col className="col-1-10th">
                     <label className={"label-day" + (isToday ? " label-day-today" : "")}>{this.dayName(this.props.date)}</label>
                 </Col>
@@ -183,7 +166,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                     items.length < 3 &&
                     <Col className="col-3-10th">
                         <div className="meal-placeholder">
-                            <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onOpenModal()}/>
+                            <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onAddItemClick()}/>
                         </div>
                         <label className="label-item">&nbsp;</label>
                     </Col>
