@@ -10,6 +10,7 @@ import {dateToExtendedISODate} from 'aws-date-utils'
 import {getMeal} from "./graphql/queries";
 import './Modal.scss';
 import ImageComponent from "./ImageComponent";
+import Row from "react-bootstrap/Row";
 
 export interface IUpdatePlannerModalProps {
     isOpen: boolean;
@@ -32,7 +33,6 @@ interface IUpdatePlannerModalState {
     selectedSide: number;
     mains: IMealItem[];
     sides: IMealItem[];
-    addingItem: boolean;
 }
 
 export default class UpdatePlannerModal extends Component<IUpdatePlannerModalProps, IUpdatePlannerModalState> {
@@ -44,7 +44,6 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             selectedSide: -1,
             mains: [],
             sides: [],
-            addingItem: false
         };
     }
 
@@ -58,12 +57,6 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             this.setState({sides: sides});
         } catch (error) {
             console.log('error: ', error);
-        }
-    }
-
-    async componentDidUpdate(prevProps: IUpdatePlannerModalProps) {
-        if (prevProps.mealId !== this.props.mealId || prevProps.itemId !== this.props.itemId) {
-            this.setState({addingItem: this.props.itemId === ''});
         }
     }
 
@@ -179,6 +172,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
 
         const idxMain = this.state.selectedMain;
         const idxSide = this.state.selectedSide;
+        const addingItem = this.props.itemId === '';
 
         if (idxMain === -1) {
             mainTitle = <span>Choose a Main</span>;
@@ -203,9 +197,10 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             >
                 <div className="spacer"/>
                 <Container className="planner-modal">
-                    { !this.state.addingItem &&
+                    { !addingItem &&
                         <FormGroup>
                             <button className="btn btn-primary btn-on-bottom" onClick={() => this.onRemove()}>Remove</button>
+                            <Row></Row>
                         </FormGroup>
                     }
                     <FormGroup>
@@ -234,7 +229,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                         </DropdownButton>
                     </FormGroup>
                     <FormGroup className="text-center">
-                        {this.state.addingItem
+                        {addingItem
                                 ? <button className="btn btn-primary btn-on-bottom"
                                           onClick={() => this.onAdd()}>Add</button>
                                 : <button className="btn btn-primary btn-on-bottom"
