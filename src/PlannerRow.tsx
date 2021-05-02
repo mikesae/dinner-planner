@@ -5,10 +5,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlusCircle} from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import './PlannerRow.scss';
 import UpdatePlannerModal from "./UpdatePlannerModal";
-import {API, Auth, graphqlOperation} from "aws-amplify";
+import {API, Auth} from "aws-amplify";
 import * as queries from "./graphql/queries";
 import {dateToExtendedISODate} from "aws-date-utils";
-import {updateMeal} from "./graphql/mutations";
 import ImageComponent from "./ImageComponent";
 
 export interface IPlannerRowProps {

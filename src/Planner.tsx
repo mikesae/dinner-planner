@@ -10,14 +10,26 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faCalendar } from '@fortawesome/free-solid-svg-icons/faCalendar';
 import PlannerRow from './PlannerRow';
 
-export default class Planner extends Component {
+interface IPlannerState {
+    startDate:Date;
+}
+
+interface IPlannerProps {
+}
+
+export default class Planner extends Component<IPlannerProps, IPlannerState> {
+    constructor(props: IPlannerProps) {
+        super(props);
+        this.state = {
+            startDate : this.getPreviousMonday(new Date())
+        };
+    }
+
     getPreviousMonday(date:Date) {
         date.setDate(date.getDate() + 1 - (date.getDay() || 7));
         return date;
     }
-    state = {
-        startDate : this.getPreviousMonday(new Date())
-    };
+
 
     changeStartDate(date: Date) {
         this.setState({startDate: this.getPreviousMonday(date)})
