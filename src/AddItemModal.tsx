@@ -4,7 +4,6 @@ import 'rodal/lib/rodal.css';
 import './Modal.scss';
 import {API, graphqlOperation, Storage} from "aws-amplify";
 import {createItem} from './graphql/mutations';
-import ImageComponent from "./ImageComponent";
 import {Container, FormGroup} from "react-bootstrap";
 import {v4 as uuid} from "uuid";
 import config from "./aws-exports";
