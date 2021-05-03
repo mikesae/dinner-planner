@@ -12,16 +12,9 @@ const Mains = lazy(() => import('./Mains'));
 const Sides = lazy(() => import('./Sides'));
 const Profile = lazy(() => import('./Profile'));
 
-interface IAppState {
-    startDate: Date;
-}
-
-class App extends Component<null, IAppState> {
-    constructor(props:any) {
-        super(props);
-        this.state = {
-            startDate: getPreviousMonday(new Date())
-        }
+class App extends Component {
+    state = {
+        startDate: getPreviousMonday(new Date())
     }
 
     startDateUpdater(date:Date):void {
