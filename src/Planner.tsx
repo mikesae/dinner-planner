@@ -9,7 +9,7 @@ import {faChevronUp} from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import {faChevronDown} from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import {faCalendar} from '@fortawesome/free-solid-svg-icons/faCalendar';
 import PlannerRow from './PlannerRow';
-import {offsetDate} from "./DateFunctions";
+import {getPreviousMonday, offsetDate} from "./DateFunctions";
 
 export interface IPlannerProps {
     startDate: Date;
@@ -51,7 +51,7 @@ export default class Planner extends Component<IPlannerProps> {
                 <TopNavbar title={""} showBackNav={false}>
                     <DatePicker
                         selected={startDate}
-                        onChange={(date:Date) => this.props.startDateUpdater(date)}
+                        onChange={(date:Date) => this.props.startDateUpdater(getPreviousMonday(date))}
                         customInput={<this.CustomInput/>}
                     />
                 </TopNavbar>
