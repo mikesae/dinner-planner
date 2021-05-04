@@ -16,21 +16,21 @@
   transition: opacity 1s ease-in;
 }
 
-.slide-leave {
-  transform: translateX(0%);
-  transition: .3s linear;
-}
-
-.slide-leave.slide-leave-active {
-  transform: translateX(-100%);
-  transition: transform 1s linear;
-}
-
-.slide-enter {
+.slide-left-to-right-enter {
   transform: translateX(-100%);
 }
 
-.slide-enter.slide-enter-active {
+.slide-left-to-right-enter.slide-left-to-right-enter-active {
   transform: translateX(0%);
-  transition: transform 1s linear;
+  transition: transform 1s ease-in;
+}
+
+.slide-left-to-right-leave {
+  transform: translateX(0%);
+  transition: 1s ease-in;
+}
+
+.slide-left-to-right-leave.slide-left-to-right-leave-active {
+  transform: translateX(100%);
+  transition: transform 1s ease-in;
 }
