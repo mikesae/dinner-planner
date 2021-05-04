@@ -1,4 +1,4 @@
-import React, { lazy, Suspense, Component } from 'react';
+import React, { Suspense, Component } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import BottomNavbar from './BottomNavbar';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -6,11 +6,10 @@ import './App.scss';
 import './transitions.scss';
 import { withAuthenticator } from '@aws-amplify/ui-react'
 import {getPreviousMonday} from "./DateFunctions";
-
 import Planner from './Planner';
-const Mains = lazy(() => import('./Mains'));
-const Sides = lazy(() => import('./Sides'));
-const Profile = lazy(() => import('./Profile'));
+import Mains from './Mains';
+import Sides from './Sides';
+import Profile from './Profile';
 
 class App extends Component {
     state = {
@@ -37,9 +36,7 @@ class App extends Component {
                                             <Route exact path="/">
                                                 <Planner startDate={this.state.startDate} startDateUpdater={(date) => this.startDateUpdater(date)} />
                                             </Route>
-                                            <Route path="/mains">
-                                                <Mains/>
-                                            </Route>
+                                            <Route path="/mains" component={Mains}/>
                                             <Route path="/sides" component={Sides}/>
                                             <Route path="/profile" component={Profile}/>
                                         </Switch>
