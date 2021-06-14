@@ -1,4 +1,5 @@
-type Item @model {
+type Item @model
+  @key(name: "itemsByName", fields: ["userName", "category", "name"], queryField: "itemsByName") {
   id: ID!
   name: String!
   description: String
@@ -14,4 +15,5 @@ type Meal @model {
   userName: String!
   type: String
   items: [ID]
+  note: String
 }
