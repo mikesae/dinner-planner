@@ -1,5 +1,5 @@
 type Item @model
-  @key(name: "itemsByName", fields: ["userName", "category", "name"], queryField: "itemsByName") {
+  @key(name: "itemsByName", fields: ["userName", "category"], queryField: "itemsByName") {
   id: ID!
   name: String!
   description: String

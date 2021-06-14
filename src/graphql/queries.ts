@@ -47,6 +47,7 @@ export const getMeal = /* GraphQL */ `
       userName
       type
       items
+      note
       createdAt
       updatedAt
     }
@@ -65,6 +66,39 @@ export const listMeals = /* GraphQL */ `
         userName
         type
         items
+        note
+        createdAt
+        updatedAt
+      }
+      nextToken
+    }
+  }
+`;
+export const itemsByName = /* GraphQL */ `
+  query ItemsByName(
+    $userName: String
+    $categoryName: ModelItemItemsByNameCompositeKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelItemFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    itemsByName(
+      userName: $userName
+      categoryName: $categoryName
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        description
+        image
+        category
+        rating
+        userName
         createdAt
         updatedAt
       }

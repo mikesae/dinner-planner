@@ -55,6 +55,7 @@ export const onCreateMeal = /* GraphQL */ `
       userName
       type
       items
+      note
       createdAt
       updatedAt
     }
@@ -68,6 +69,7 @@ export const onUpdateMeal = /* GraphQL */ `
       userName
       type
       items
+      note
       createdAt
       updatedAt
     }
@@ -81,6 +83,7 @@ export const onDeleteMeal = /* GraphQL */ `
       userName
       type
       items
+      note
       createdAt
       updatedAt
     }

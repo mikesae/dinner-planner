@@ -13,6 +13,7 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import { faEdit as editIcon } from '@fortawesome/free-solid-svg-icons/faEdit';
 import ImageComponent from "./ImageComponent";
 import AddItemModal from "./AddItemModal";
+import {ModelSortDirection} from "./API";
 
 export default class Sides extends Component {
     state = {
@@ -37,14 +38,17 @@ export default class Sides extends Component {
         const filter = {
             category: {
                 eq: 'Sides'
-            },
-            userName: {
-                eq: this.state.userName
             }
         };
-        const items = await API.graphql({query: queries.listItems, variables: { filter: filter}});
+        const items = await API.graphql({
+            query: queries.itemsByName,
+            variables: {
+                userName: this.state.userName,
+                filter: filter,
+                sortDirection: ModelSortDirection.ASC,
+            }});
         // @ts-ignore
-        this.setState({ items: items.data.listItems.items });
+        this.setState({ items: items.data.itemsByName.items });
     }
 
     async removeItem(id: number) {

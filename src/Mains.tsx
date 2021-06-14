@@ -13,6 +13,7 @@ import * as queries from './graphql/queries';
 import ImageComponent from "./ImageComponent";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons/faPlusCircle";
 import AddItemModal from "./AddItemModal";
+import {ModelSortDirection} from "./API";
 
 export default class Mains extends Component {
     state = {
@@ -38,14 +39,17 @@ export default class Mains extends Component {
         const filter = {
             category: {
                 eq: 'Mains'
-            },
-            userName: {
-                eq: this.state.userName
             }
         };
-        const items = await API.graphql({query: queries.listItems, variables: { filter: filter}});
+        const items = await API.graphql({
+            query: queries.itemsByName,
+            variables: {
+                userName: this.state.userName,
+                filter: filter,
+                sortDirection: ModelSortDirection.ASC,
+            }});
         // @ts-ignore
-        this.setState({ items: items.data.listItems.items });
+        this.setState({ items: items.data.itemsByName.items });
     }
 
     async removeItem(id: number) {

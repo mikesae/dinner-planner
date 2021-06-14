@@ -96,6 +96,7 @@ export type CreateMealInput = {
   userName: string,
   type?: string | null,
   items?: Array< string | null > | null,
+  note?: string | null,
 };
 
 export type ModelMealConditionInput = {
@@ -103,6 +104,7 @@ export type ModelMealConditionInput = {
   userName?: ModelStringInput | null,
   type?: ModelStringInput | null,
   items?: ModelIDInput | null,
+  note?: ModelStringInput | null,
   and?: Array< ModelMealConditionInput | null > | null,
   or?: Array< ModelMealConditionInput | null > | null,
   not?: ModelMealConditionInput | null,
@@ -130,6 +132,7 @@ export type UpdateMealInput = {
   userName?: string | null,
   type?: string | null,
   items?: Array< string | null > | null,
+  note?: string | null,
 };
 
 export type DeleteMealInput = {
@@ -155,10 +158,32 @@ export type ModelMealFilterInput = {
   userName?: ModelStringInput | null,
   type?: ModelStringInput | null,
   items?: ModelIDInput | null,
+  note?: ModelStringInput | null,
   and?: Array< ModelMealFilterInput | null > | null,
   or?: Array< ModelMealFilterInput | null > | null,
   not?: ModelMealFilterInput | null,
 };
+
+export type ModelItemItemsByNameCompositeKeyConditionInput = {
+  eq?: ModelItemItemsByNameCompositeKeyInput | null,
+  le?: ModelItemItemsByNameCompositeKeyInput | null,
+  lt?: ModelItemItemsByNameCompositeKeyInput | null,
+  ge?: ModelItemItemsByNameCompositeKeyInput | null,
+  gt?: ModelItemItemsByNameCompositeKeyInput | null,
+  between?: Array< ModelItemItemsByNameCompositeKeyInput | null > | null,
+  beginsWith?: ModelItemItemsByNameCompositeKeyInput | null,
+};
+
+export type ModelItemItemsByNameCompositeKeyInput = {
+  category?: string | null,
+  name?: string | null,
+};
+
+export enum ModelSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
 
 export type CreateItemMutationVariables = {
   input: CreateItemInput,
@@ -233,6 +258,7 @@ export type CreateMealMutation = {
     userName: string,
     type: string | null,
     items: Array< string | null > | null,
+    note: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -251,6 +277,7 @@ export type UpdateMealMutation = {
     userName: string,
     type: string | null,
     items: Array< string | null > | null,
+    note: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -269,6 +296,7 @@ export type DeleteMealMutation = {
     userName: string,
     type: string | null,
     items: Array< string | null > | null,
+    note: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -330,6 +358,7 @@ export type GetMealQuery = {
     userName: string,
     type: string | null,
     items: Array< string | null > | null,
+    note: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -351,6 +380,35 @@ export type ListMealsQuery = {
       userName: string,
       type: string | null,
       items: Array< string | null > | null,
+      note: string | null,
+      createdAt: string,
+      updatedAt: string,
+    } | null > | null,
+    nextToken: string | null,
+  } | null,
+};
+
+export type ItemsByNameQueryVariables = {
+  userName?: string | null,
+  categoryName?: ModelItemItemsByNameCompositeKeyConditionInput | null,
+  sortDirection?: ModelSortDirection | null,
+  filter?: ModelItemFilterInput | null,
+  limit?: number | null,
+  nextToken?: string | null,
+};
+
+export type ItemsByNameQuery = {
+  itemsByName:  {
+    __typename: "ModelItemConnection",
+    items:  Array< {
+      __typename: "Item",
+      id: string,
+      name: string,
+      description: string | null,
+      image: string,
+      category: string,
+      rating: number | null,
+      userName: string,
       createdAt: string,
       updatedAt: string,
     } | null > | null,
@@ -411,6 +469,7 @@ export type OnCreateMealSubscription = {
     userName: string,
     type: string | null,
     items: Array< string | null > | null,
+    note: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -424,6 +483,7 @@ export type OnUpdateMealSubscription = {
     userName: string,
     type: string | null,
     items: Array< string | null > | null,
+    note: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
@@ -437,6 +497,7 @@ export type OnDeleteMealSubscription = {
     userName: string,
     type: string | null,
     items: Array< string | null > | null,
+    note: string | null,
     createdAt: string,
     updatedAt: string,
   } | null,
