@@ -98,12 +98,9 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     async updateMealItems(items: any) {
         const meal = {
             id: this.props.mealId,
-            date: dateToExtendedISODate(this.props.date),
-            userName: this.state.userName,
-            type: 'Dinner',
             items: items
         };
-        await API.graphql(graphqlOperation(updateMeal, {input: meal}));
+        let result:any = await API.graphql(graphqlOperation(updateMeal, {input: meal}));
     }
 
     async onReplace() {
