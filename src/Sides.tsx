@@ -6,14 +6,13 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import {API, graphqlOperation, Auth} from 'aws-amplify';
 import {deleteItem } from './graphql/mutations';
-import * as queries from './graphql/queries';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons/faMinusCircle';
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import { faEdit as editIcon } from '@fortawesome/free-solid-svg-icons/faEdit';
 import ImageComponent from "./ImageComponent";
 import AddItemModal from "./AddItemModal";
-import {ModelSortDirection} from "./API";
+import {getSortedItems} from "./itemQueries";
 
 export default class Sides extends Component {
     state = {
@@ -30,25 +29,12 @@ export default class Sides extends Component {
             this.setState({userName: user.username, email: user.attributes.email});
             await this.listItems();
         } catch (error) {
-            console.log('error: ', error);
+            console.log('Sides error: ', error);
         }
     }
 
     async listItems() {
-        const filter = {
-            category: {
-                eq: 'Sides'
-            }
-        };
-        const items = await API.graphql({
-            query: queries.itemsByName,
-            variables: {
-                userName: this.state.userName,
-                filter: filter,
-                sortDirection: ModelSortDirection.ASC,
-            }});
-        // @ts-ignore
-        this.setState({ items: items.data.itemsByName.items });
+        this.setState({ items: await getSortedItems(this.state.userName, 'Sides') });
     }
 
     async removeItem(id: number) {
@@ -56,7 +42,7 @@ export default class Sides extends Component {
             await API.graphql(graphqlOperation(deleteItem, { input: { id: id }}));
             await this.listItems();
         } catch(error) {
-            console.log('error: ', error);
+            console.log('removeItem error: ', error);
         }
     }
 

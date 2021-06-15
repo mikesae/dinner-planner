@@ -85,7 +85,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             this.setState({userName: user.username});
             await this.updateMeal();
         } catch (error) {
-            console.log('error: ', error);
+            console.log('PlannerRow error: ', error);
         }
     }
 

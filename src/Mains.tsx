@@ -9,11 +9,10 @@ import { deleteItem } from './graphql/mutations';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import { faMinusCircle } from '@fortawesome/free-solid-svg-icons/faMinusCircle';
 import { faEdit as editIcon } from '@fortawesome/free-solid-svg-icons/faEdit';
-import * as queries from './graphql/queries';
 import ImageComponent from "./ImageComponent";
 import {faPlusCircle} from "@fortawesome/free-solid-svg-icons/faPlusCircle";
 import AddItemModal from "./AddItemModal";
-import {ModelSortDirection} from "./API";
+import {getSortedItems} from './itemQueries';
 
 export default class Mains extends Component {
     state = {
@@ -30,26 +29,13 @@ export default class Mains extends Component {
             this.setState({userName: user.username, email: user.attributes.email});
             await this.listItems();
         } catch (error) {
-            console.log('error: ', error);
+            console.log('Mains error: ', error);
         }
     }
 
 
     async listItems() {
-        const filter = {
-            category: {
-                eq: 'Mains'
-            }
-        };
-        const items = await API.graphql({
-            query: queries.itemsByName,
-            variables: {
-                userName: this.state.userName,
-                filter: filter,
-                sortDirection: ModelSortDirection.ASC,
-            }});
-        // @ts-ignore
-        this.setState({ items: items.data.itemsByName.items });
+        this.setState({ items: await getSortedItems(this.state.userName, 'Mains') });
     }
 
     async removeItem(id: number) {
@@ -57,7 +43,7 @@ export default class Mains extends Component {
             await API.graphql(graphqlOperation(deleteItem, { input: { id: id }}));
             await this.listItems();
         } catch(error) {
-            console.log('error: ', error);
+            console.log('removeItem error: ', error);
         }
     }
 

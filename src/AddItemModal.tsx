@@ -65,7 +65,7 @@ export default class AddItemModal extends Component<IAddItemModalProps, IAddItem
                 });
                 await API.graphql(graphqlOperation(createItem, { input: inputData }))
             } catch (error) {
-                console.log('error: ', error);
+                console.log('AddItemModal error: ', error);
             }
         }
         this.props.onOK();

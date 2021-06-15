@@ -5,12 +5,12 @@ import {Container, Dropdown, FormGroup, FormLabel} from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
 import {API, Auth, graphqlOperation} from "aws-amplify";
 import {createMeal, updateMeal} from './graphql/mutations';
-import * as queries from "./graphql/queries";
-import {dateToExtendedISODate} from 'aws-date-utils'
 import {getMeal} from "./graphql/queries";
+import {dateToExtendedISODate} from 'aws-date-utils'
 import './Modal.scss';
 import ImageComponent from "./ImageComponent";
 import Row from "react-bootstrap/Row";
+import {getSortedItems} from "./itemQueries";
 
 export interface IUpdatePlannerModalProps {
     isOpen: boolean;
@@ -51,26 +51,11 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
         try {
             const user = await Auth.currentAuthenticatedUser({bypassCache: true});
             this.setState({userName: user.username});
-            const mains = await this.getItems('Mains', user.username);
-            this.setState({mains: mains});
-            const sides = await this.getItems('Sides', user.username);
-            this.setState({sides: sides});
+            this.setState({mains: await getSortedItems(user.username, 'Mains')});
+            this.setState({sides: await getSortedItems(user.username, 'Sides')});
         } catch (error) {
             console.log('error: ', error);
         }
-    }
-
-    async getItems(category: string, userName: string) {
-        const filter = {
-            category: {
-                eq: category
-            },
-            userName: {
-                eq: userName
-            }
-        };
-        const items:any = await API.graphql({query: queries.listItems, variables: { filter: filter}});
-        return items.data.listItems.items;
     }
 
     onMainPicked(idxItem: number) {
