@@ -12,8 +12,9 @@ export async function getSortedItems(userName: string, category: string) {
         query: queries.itemsByName,
         variables: {
             userName: userName,
+            category: category,
             filter: filter,
-            sortDirection: ModelSortDirection.ASC,
+            sortDirection: ModelSortDirection.ASC
         }});
     // @ts-ignore
     return items.data.itemsByName.items;
