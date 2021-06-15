@@ -100,7 +100,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             id: this.props.mealId,
             items: items
         };
-        let result:any = await API.graphql(graphqlOperation(updateMeal, {input: meal}));
+        await API.graphql(graphqlOperation(updateMeal, {input: meal}));
     }
 
     async onReplace() {
