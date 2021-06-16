@@ -52,6 +52,7 @@
   "browserslist": {
     "production": [
       ">0.2%",
+      "ios_saf 9.0-9.6",
       "not dead",
       "not op_mini all"
     ],
