@@ -1,6 +1,7 @@
-import {API} from "aws-amplify";
+import {API, graphqlOperation} from "aws-amplify";
 import * as queries from "./graphql/queries";
 import {ModelSortDirection} from "./API";
+import {updateItem} from "./graphql/mutations";
 
 export async function getSortedItems(userName: string, category: string) {
     const filter = {
@@ -28,4 +29,10 @@ export async function getItem(id: string) {
         }
     });
     return result.data.getItem;
+}
+
+export async function setItem(item: any) {
+    await API.graphql(graphqlOperation(
+        updateItem,
+    { input: { id: item.id, category: item.category, name: item.name, description: item.description, image: item.image }}));
 }

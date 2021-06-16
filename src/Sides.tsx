@@ -88,11 +88,11 @@ export default class Sides extends Component {
                                     </Col>
                                     <Col className="col-1 px-0 my-auto">
                                         <Link to={{pathname: `/item/${item.id}`}}>
-                                            <FontAwesomeIcon className="link-icon" icon={editIcon}/>
+                                            <FontAwesomeIcon className="fa-1pt5x link-icon" icon={editIcon}/>
                                         </Link>
                                     </Col>
                                     <Col className="col-1 px-0 my-auto">
-                                        <FontAwesomeIcon className="link-icon" icon={faMinusCircle}  onClick={() => this.removeItem(item.id)}/>
+                                        <FontAwesomeIcon className="fa-1pt5x link-icon" icon={faMinusCircle}  onClick={() => this.removeItem(item.id)}/>
                                     </Col>
                                 </Row>
                             ))
