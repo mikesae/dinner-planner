@@ -13,6 +13,7 @@ import { faEdit as editIcon } from '@fortawesome/free-solid-svg-icons/faEdit';
 import ImageComponent from "./ImageComponent";
 import AddItemModal from "./AddItemModal";
 import {getSortedItems} from "./itemQueries";
+import {Link} from "react-router-dom";
 
 export default class Sides extends Component {
     state = {
@@ -86,10 +87,12 @@ export default class Sides extends Component {
                                         <div className="text-md-left">{item.name}</div>
                                     </Col>
                                     <Col className="col-1 px-0 my-auto">
-                                        <FontAwesomeIcon className="link-icon" icon={faMinusCircle}  onClick={() => this.removeItem(item.id)}/>
+                                        <Link to={{pathname: `/item/${item.id}`}}>
+                                            <FontAwesomeIcon className="link-icon" icon={editIcon}/>
+                                        </Link>
                                     </Col>
                                     <Col className="col-1 px-0 my-auto">
-                                        <FontAwesomeIcon className="link-icon" icon={editIcon}  onClick={() => this.removeItem(item.id)}/>
+                                        <FontAwesomeIcon className="link-icon" icon={faMinusCircle}  onClick={() => this.removeItem(item.id)}/>
                                     </Col>
                                 </Row>
                             ))

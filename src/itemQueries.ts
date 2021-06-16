@@ -19,3 +19,13 @@ export async function getSortedItems(userName: string, category: string) {
     // @ts-ignore
     return items.data.itemsByName.items;
 }
+
+export async function getItem(id: string) {
+    const result:any = await API.graphql({
+        query: queries.getItem,
+        variables: {
+            id: id
+        }
+    });
+    return result.data.getItem;
+}

@@ -11,6 +11,7 @@ import Col from "react-bootstrap/Col";
 export interface ITopNavBarProps {
     title: string;
     showBackNav: boolean;
+    backNav?: string;
 }
 
 export default class TopNavbar extends Component<ITopNavBarProps> {
@@ -21,7 +22,7 @@ export default class TopNavbar extends Component<ITopNavBarProps> {
                 <Row className="container-fluid no-gutters">
                     <Col className="col-1">
                         {this.props.showBackNav &&
-                        <Link to="/" className="navbar-left-link">
+                        <Link to={this.props.backNav ?? "/"} className="navbar-left-link">
                             <div className="btn">
                                 <FontAwesomeIcon className="link-icon" icon={faChevronLeft}/>
                             </div>

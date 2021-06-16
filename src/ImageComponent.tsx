@@ -12,4 +12,9 @@ const ImageComponent: React.FC<{src:string}> = ({src}) => {
     return <img className="img-item" src={getCloudFrontSrc(src)} alt=""/>;
 }
 
+export const ImageComponentDetail: React.FC<{src:string}> = ({src}) => {
+    return <img className="img-item-large" src={getCloudFrontSrc(src)} alt=""/>;
+}
+
+
 export default ImageComponent;
