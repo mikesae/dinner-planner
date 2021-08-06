@@ -10,7 +10,7 @@ import Planner from './Planner';
 import Mains from './Mains';
 import Sides from './Sides';
 import Profile from './Profile';
-import {ItemDetail} from "./ItemDetail";
+import ItemDetail from "./ItemDetail";
 
 class App extends Component {
     state = {
