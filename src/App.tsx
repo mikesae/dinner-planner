@@ -5,7 +5,7 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import './App.scss';
 import './transitions.scss';
 import { withAuthenticator } from '@aws-amplify/ui-react'
-import {getPreviousMonday} from "./DateFunctions";
+import {getPreviousStartDay} from "./DateFunctions";
 import Planner from './Planner';
 import Mains from './Mains';
 import Sides from './Sides';
@@ -14,7 +14,7 @@ import ItemDetail from "./ItemDetail";
 
 class App extends Component {
     state = {
-        startDate: getPreviousMonday(new Date())
+        startDate: getPreviousStartDay(new Date())
     }
 
     startDateUpdater(date:Date):void {
