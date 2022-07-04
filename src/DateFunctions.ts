@@ -1,5 +1,7 @@
-export function getPreviousMonday(date:Date) {
-    date.setDate(date.getDate() + 1 - (date.getDay() || 7));
+export function getPreviousStartDay(date:Date) {
+    // Don't back date up to a start day. Just use the one passed in.
+    // TODO: Make start day a user preference.
+    // date.setDate(date.getDate() + 1 - (date.getDay() || 7));
     return date;
 }
 
