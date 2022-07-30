@@ -62,7 +62,7 @@ export default class Sides extends Component {
 
     render() {
         return (
-            <div className="page">
+            <div className="page mains-and-sides">
                 <AddItemModal category="Sides" isOpen={this.state.modalIsOpen} onOK={() => this.onItemAdded()} onClose={() => this.onCloseModal()} userName={this.state.userName}/>
                 <TopNavbar title="Sides" showBackNav={true}/>
                 <Container className="container">

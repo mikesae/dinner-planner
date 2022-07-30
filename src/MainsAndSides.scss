@@ -24,18 +24,23 @@
   background-color: white;
 }
 
-.row {
-  margin-top: 5px;
-  input[type=text] {
-    width: 100%;
-  }
-  img.img-item {
-    width: $image-width;
-    height: $image-height;
-    border: 1px solid lightslategray;
-  }
-  .img-col {
-    text-overflow: clip;
+.mains-and-sides {
+  .row {
+    margin-top: 5px;
+
+    input[type=text] {
+      width: 100%;
+    }
+
+    img.img-item {
+      width: $image-width;
+      height: $image-height;
+      border: 1px solid lightslategray;
+    }
+
+    .img-col {
+      text-overflow: clip;
+    }
   }
 }
 

@@ -63,7 +63,7 @@ export default class Mains extends Component {
 
     render() {
         return (
-            <div className="page">
+            <div className="page mains-and-sides">
                 <AddItemModal category="Mains" isOpen={this.state.modalIsOpen} onOK={() => this.onItemAdded()} onClose={() => this.onCloseModal()} userName={this.state.userName}/>
                 <TopNavbar title="Mains" showBackNav={true}/>
                 <Container>
