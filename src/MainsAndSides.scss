@@ -1,5 +1,8 @@
 @import 'theme';
 
+$image-height: calc((100vh - 19em) / 7);
+$image-width: 100%;
+
 .input-file {
   width: 0.1px;
   height: 0.1px;
@@ -34,7 +37,7 @@
 
     img.img-item {
       width: $image-width;
-      height: $image-height;
+      aspect-ratio: $image-aspect-ratio;
       border: 1px solid lightslategray;
     }
 
@@ -49,8 +52,8 @@
 }
 
 .add-item-placeholder {
-  height: $image-height;
   width: $image-width;
+  aspect-ratio: $image-aspect-ratio;
   border: 1px dashed gray;
   background: transparent;
   margin: 0 auto; // horizontal align within container

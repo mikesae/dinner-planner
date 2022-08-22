@@ -7,7 +7,7 @@
   }
   img.img-item-large {
     width: $large-image-width;
-    height: $large-image-height;
+    aspect-ratio: $image-aspect-ratio;
     border: 1px solid lightslategray;
   }
   .img-col {

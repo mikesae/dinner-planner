@@ -2,8 +2,8 @@
 
 .planner-row {
   .meal-placeholder {
-    height: $image-height;
-    width: $image-width;
+    width: 100%;
+    aspect-ratio: $image-aspect-ratio;
     border: 1px dashed gray;
     background: transparent;
     margin: 0 auto;   // horizontal align within container
@@ -15,8 +15,8 @@
     }
   }
   img.img-item {
-    width: $image-width;
-    height: $image-height;
+    width: 100%;
+    aspect-ratio: $image-aspect-ratio;
   }
 
   label.label-day {

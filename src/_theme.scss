@@ -11,8 +11,9 @@ $player-thumbnail-background-color: white;
 
 $navbar-height: 3em;
 $header-height: 3em;
-$image-height: calc((100vh - 6em) / 7);
+
 $image-width: 100%;
+$image-aspect-ratio: 5/4;
 
 $large-image-height: 75%;
 $large-image-width: 100%;
