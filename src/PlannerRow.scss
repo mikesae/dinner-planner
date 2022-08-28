@@ -14,10 +14,7 @@
       color: gray;
     }
   }
-  img.img-item {
-    width: 100%;
-    aspect-ratio: $image-aspect-ratio;
-  }
+
 
   label.label-day {
     margin-top: 0.8em;
@@ -27,16 +24,27 @@
       color: $highlight-color;
     }
   }
+}
 
-  label.label-item {
-    margin: 0;
-    font-weight: normal;
-    font-size: 0.75em;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    width: 100%;
-  }
+img.img-item {
+  width: 100%;
+  max-width: 250px;
+  aspect-ratio: $image-aspect-ratio;
+}
+
+label.label-item {
+  margin: 0;
+  font-weight: normal;
+  font-size: 0.75em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+.drag-handle {
+  float: left;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 $button-height: 64px;
