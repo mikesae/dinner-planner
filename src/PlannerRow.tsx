@@ -1,14 +1,16 @@
-import React, {Component} from 'react';
+import { Component } from 'react';
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faPlusCircle} from '@fortawesome/free-solid-svg-icons/faPlusCircle';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import './PlannerRow.scss';
 import UpdatePlannerModal from "./UpdatePlannerModal";
-import {API, Auth} from "aws-amplify";
+import { API, Auth } from "aws-amplify";
 import * as queries from "./graphql/queries";
-import {dateToExtendedISODate} from "aws-date-utils";
-import ImageComponent from "./ImageComponent";
+import { dateToExtendedISODate } from "aws-date-utils";
+import PlannerItem from './PlannerItem';
+import React from 'react';
+
 
 export interface IPlannerRowProps {
     date: Date;
@@ -40,18 +42,18 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     async updateMealItemIds(items: any) {
         let updatedItems = [];
-        for (let i:number = 0; i < items.length; i += 1) {
-            const result:any = await API.graphql({ query: queries.getItem, variables: { id: items[i]}});
-            const item:any = result.data.getItem;
+        for (let i: number = 0; i < items.length; i += 1) {
+            const result: any = await API.graphql({ query: queries.getItem, variables: { id: items[i] } });
+            const item: any = result.data.getItem;
             if (item !== null) {
                 updatedItems.push(item);
             }
         }
-        this.setState({ items: updatedItems});
+        this.setState({ items: updatedItems });
     }
 
     async updateMeal() {
-        this.setState({loading: true});
+        this.setState({ loading: true });
         const filter = {
             date: {
                 eq: dateToExtendedISODate(this.props.date)
@@ -63,26 +65,26 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                 eq: 'Dinner'
             }
         };
-        const result:any = await API.graphql({query: queries.listMeals, variables: { filter: filter}});
-        const meals:any = result.data.listMeals.items;
+        const result: any = await API.graphql({ query: queries.listMeals, variables: { filter: filter } });
+        const meals: any = result.data.listMeals.items;
 
         if (meals.length > 0) {
             const meal = meals[0];
-            this.setState({ meal: meal});
+            this.setState({ meal: meal });
             await this.updateMealItemIds(meal.items);
         } else {
-            this.setState({ meal: {}});
+            this.setState({ meal: {} });
             await this.updateMealItemIds([]);
         }
 
-        this.setState({loading: false});
+        this.setState({ loading: false });
     }
 
     async componentDidMount() {
         try {
-            this.setState({loading: true});
-            const user = await Auth.currentAuthenticatedUser({bypassCache: true});
-            this.setState({userName: user.username});
+            this.setState({ loading: true });
+            const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+            this.setState({ userName: user.username });
             await this.updateMeal();
         } catch (error) {
             console.log('PlannerRow error: ', error);
@@ -106,39 +108,30 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     ];
 
     async addMeal() {
-        this.setState({modalIsOpen: false});
+        this.setState({ modalIsOpen: false });
         await this.updateMeal();
     }
 
     onOpenModal() {
-        this.setState({modalIsOpen: true});
+        this.setState({ modalIsOpen: true });
     }
 
     onCloseModal() {
-        this.setState({modalIsOpen: false});
+        this.setState({ modalIsOpen: false });
     }
 
-    dayName(date: Date):string {
+    dayName(date: Date): string {
         return this.dayNames[date.getDay()];
     }
 
     onItemClick(id: string) {
-        this.setState({clickedItemId: id});
+        this.setState({ clickedItemId: id });
         this.onOpenModal();
     }
 
     onAddItemClick() {
-        this.setState({clickedItemId: ''});
+        this.setState({ clickedItemId: '' });
         this.onOpenModal();
-    }
-
-    renderItem(item: any, key: number) {
-        return (
-            <Col className="col-3-10th img-col" key={key}  onClick={() => this.onItemClick(item.id)}>
-                <ImageComponent src={item.image}/>
-                <label className="label-item">{item.name}</label>
-            </Col>
-        );
     }
 
     sameDay(dateA: Date, dateB: Date) {
@@ -148,8 +141,10 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     }
 
     render() {
-        const items:any = this.state.items;
-        const isToday:boolean = this.sameDay(this.props.date, this.state.today);
+        const items: any = this.state.items;
+        const isToday: boolean = this.sameDay(this.props.date, this.state.today);
+        const dayName = this.dayName(this.props.date);
+
         return (
             <Row className="planner-row">
                 <UpdatePlannerModal date={this.props.date} mealId={this.state.meal.id} itemId={this.state.clickedItemId} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
@@ -157,15 +152,17 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                     <label className={"label-day" + (isToday ? " label-day-today" : "")}>{this.dayName(this.props.date)}</label>
                 </Col>
                 {
-                    items.map((item:any, index:number) => (
-                        this.renderItem(item, index)
+                    items.map((item: any, index: number) => (
+                        <Col className="col-3-10th img-col" key={index}>
+                            <PlannerItem imageSrc={item.image} name={item.name} />
+                        </Col>
                     ))
                 }
                 {
                     items.length < 3 &&
                     <Col className="col-3-10th">
                         <div className="meal-placeholder">
-                            <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onAddItemClick()}/>
+                            <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
                         </div>
                         <label className="label-item">&nbsp;</label>
                     </Col>

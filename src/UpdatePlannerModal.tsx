@@ -1,16 +1,17 @@
-import React, {Component} from "react";
+import React, { Component } from "react";
 import Rodal from "rodal";
 import 'rodal/lib/rodal.css';
-import {Container, Dropdown, FormGroup, FormLabel} from "react-bootstrap";
+import { Container, Dropdown, FormGroup, FormLabel } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import {API, Auth, graphqlOperation} from "aws-amplify";
-import {createMeal, updateMeal} from './graphql/mutations';
-import {getMeal} from "./graphql/queries";
-import {dateToExtendedISODate} from 'aws-date-utils'
+import { API, Auth, graphqlOperation } from "aws-amplify";
+import { createMeal } from './graphql/mutations';
+import { dateToExtendedISODate } from 'aws-date-utils'
 import './Modal.scss';
 import ImageComponent from "./ImageComponent";
 import Row from "react-bootstrap/Row";
-import {getSortedItems} from "./itemQueries";
+import { getSortedItems } from "./itemQueries";
+import { getMealItemIds, updateMealItems } from "./MealFunctions";
+
 
 export interface IUpdatePlannerModalProps {
     isOpen: boolean;
@@ -49,43 +50,30 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
 
     async componentDidMount() {
         try {
-            const user = await Auth.currentAuthenticatedUser({bypassCache: true});
-            this.setState({userName: user.username});
-            this.setState({mains: await getSortedItems(user.username, 'Mains')});
-            this.setState({sides: await getSortedItems(user.username, 'Sides')});
+            const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+            this.setState({ userName: user.username });
+            this.setState({ mains: await getSortedItems(user.username, 'Mains') });
+            this.setState({ sides: await getSortedItems(user.username, 'Sides') });
         } catch (error) {
             console.log('error: ', error);
         }
     }
 
     onMainPicked(idxItem: number) {
-        this.setState({selectedMain: idxItem, selectedSide: -1});
+        this.setState({ selectedMain: idxItem, selectedSide: -1 });
     }
 
     onSidePicked(idxItem: number) {
-        this.setState({selectedMain: -1, selectedSide: idxItem});
+        this.setState({ selectedMain: -1, selectedSide: idxItem });
     }
 
     getSelectedItem(): IMealItem {
         if (this.state.selectedMain !== -1) {
-            return {...this.state.mains[this.state.selectedMain]};
+            return { ...this.state.mains[this.state.selectedMain] };
         } else if (this.state.selectedSide !== -1) {
-            return {...this.state.sides[this.state.selectedSide]};
+            return { ...this.state.sides[this.state.selectedSide] };
         }
-        return {id: 0, name: '', image: ''};
-    }
-
-    async getMealItemIds() {
-        const result:any = await API.graphql(graphqlOperation(getMeal, { id: this.props.mealId }));
-        return result.data.getMeal.items;
-    }
-
-    async updateMealItems(items: any) {
-        const meal = {
-            id: this.props.mealId,
-            items: items
-        };
-        await API.graphql(graphqlOperation(updateMeal, {input: meal}));
+        return { id: 0, name: '', image: '' };
     }
 
     async onReplace() {
@@ -93,29 +81,29 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
         if (selectedItem.id === 0) {
             return;
         }
-        const itemIds:string[] = await this.getMealItemIds();
-        let newItemIds:string[] = [];
-        itemIds.forEach((itemId:string) => {
+        const itemIds: string[] = await getMealItemIds(this.props.mealId);
+        let newItemIds: string[] = [];
+        itemIds.forEach((itemId: string) => {
             if (itemId === this.props.itemId) {
                 newItemIds.push(String(selectedItem.id));
             } else {
                 newItemIds.push(itemId);
             }
         })
-        await this.updateMealItems(newItemIds);
+        await updateMealItems(newItemIds, this.props.mealId);
         this.props.OnOK();
     }
 
     async onRemove() {
         try {
-            const itemIds = await this.getMealItemIds();
-            let newItemIds:string[] = [];
-            itemIds.forEach((itemId:string) => {
+            const itemIds = await getMealItemIds(this.props.mealId);
+            let newItemIds: string[] = [];
+            itemIds.forEach((itemId: string) => {
                 if (itemId !== this.props.itemId) {
                     newItemIds.push(itemId);
                 }
             });
-            await this.updateMealItems(newItemIds);
+            await updateMealItems(newItemIds);
         } catch (e) {
             console.log(`Error: ${e.toString()}`);
         }
@@ -130,17 +118,17 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
 
         try {
             if (typeof this.props.mealId !== 'undefined') {
-                const itemIds = await this.getMealItemIds();
+                const itemIds = await getMealItemIds(this.props.mealId);
                 itemIds.push(selectedItem.id);
-                await this.updateMealItems(itemIds);
+                await updateMealItems(itemIds, this.props.mealId);
             } else {
                 const meal = {
                     date: dateToExtendedISODate(this.props.date),
                     userName: this.state.userName,
                     type: 'Dinner',
-                    items: [ selectedItem.id]
+                    items: [selectedItem.id]
                 };
-                await API.graphql(graphqlOperation(createMeal, {input: meal}));
+                await API.graphql(graphqlOperation(createMeal, { input: meal }));
             }
         } catch (e) {
             console.log(`Error: ${e.toString()}`);
@@ -159,12 +147,12 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
         if (idxMain === -1) {
             mainTitle = <span>Choose a Main</span>;
         } else {
-            mainTitle = <span><ImageComponent src={this.state.mains[idxMain].image}/>{this.state.mains[idxMain].name}</span>;
+            mainTitle = <span><ImageComponent src={this.state.mains[idxMain].image} />{this.state.mains[idxMain].name}</span>;
         }
         if (idxSide === -1) {
             sideTitle = <span>Choose a Side</span>;
         } else {
-            sideTitle = <span><ImageComponent src={this.state.sides[idxSide].image}/>{this.state.sides[idxSide].name}</span>;
+            sideTitle = <span><ImageComponent src={this.state.sides[idxSide].image} />{this.state.sides[idxSide].name}</span>;
         }
 
         return (
@@ -177,9 +165,9 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                 width={100}
                 height={88}
             >
-                <div className="spacer"/>
+                <div className="spacer" />
                 <Container className="planner-modal">
-                    { !addingItem &&
+                    {!addingItem &&
                         <FormGroup>
                             <button className="btn btn-primary btn-on-bottom" onClick={() => this.onRemove()}>Remove</button>
                             <Row></Row>
@@ -190,7 +178,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                             {
                                 this.state.mains.map((item: any, index: number) => (
                                     <Dropdown.Item key={item.id} onSelect={() => this.onMainPicked(index)}>
-                                        <img className="img-item" src={item.image} alt=""/>{item.name}
+                                        <img className="img-item" src={item.image} alt="" />{item.name}
                                     </Dropdown.Item>
                                 ))
                             }
@@ -204,7 +192,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                             {
                                 this.state.sides.map((item: any, index: number) => (
                                     <Dropdown.Item key={item.id} onSelect={() => this.onSidePicked(index)}>
-                                        <img className="img-item" src={item.image} alt=""/>{item.name}
+                                        <img className="img-item" src={item.image} alt="" />{item.name}
                                     </Dropdown.Item>
                                 ))
                             }
@@ -212,10 +200,10 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                     </FormGroup>
                     <FormGroup className="text-center">
                         {addingItem
-                                ? <button className="btn btn-primary btn-on-bottom"
-                                          onClick={() => this.onAdd()}>Add</button>
-                                : <button className="btn btn-primary btn-on-bottom"
-                                          onClick={() => this.onReplace()}>Replace</button>
+                            ? <button className="btn btn-primary btn-on-bottom"
+                                onClick={() => this.onAdd()}>Add</button>
+                            : <button className="btn btn-primary btn-on-bottom"
+                                onClick={() => this.onReplace()}>Replace</button>
                         }
                     </FormGroup>
                 </Container>
