@@ -143,7 +143,6 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     render() {
         const items: any = this.state.items;
         const isToday: boolean = this.sameDay(this.props.date, this.state.today);
-        const dayName = this.dayName(this.props.date);
 
         return (
             <Row className="planner-row">
@@ -153,7 +152,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                 </Col>
                 {
                     items.map((item: any, index: number) => (
-                        <Col className="col-3-10th img-col" key={index}>
+                        <Col className="col-3-10th img-col" key={index} onClick={() => this.onItemClick(item.id)}>
                             <PlannerItem imageSrc={item.image} name={item.name} />
                         </Col>
                     ))
