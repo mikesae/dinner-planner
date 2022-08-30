@@ -103,7 +103,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                     newItemIds.push(itemId);
                 }
             });
-            await updateMealItems(newItemIds);
+            await updateMealItems(newItemIds, this.props.mealId);
         } catch (e) {
             console.log(`Error: ${e.toString()}`);
         }
