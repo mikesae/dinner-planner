@@ -1,4 +1,4 @@
-@import 'theme';
+@import "theme";
 
 .planner-row {
   .meal-placeholder {
@@ -86,4 +86,9 @@ $button-height: 64px;
     width: 100%;
     height: $button-height;
   }
+}
+
+.drag-box {
+  background: transparent;
+  cursor: move;
 }

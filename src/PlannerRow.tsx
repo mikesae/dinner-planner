@@ -9,7 +9,7 @@ import { API, Auth } from "aws-amplify";
 import * as queries from "./graphql/queries";
 import { dateToExtendedISODate } from "aws-date-utils";
 import PlannerItem from './PlannerItem';
-import React from 'react';
+import Draggable from 'react-draggable';
 
 
 export interface IPlannerRowProps {
@@ -143,7 +143,6 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     render() {
         const items: any = this.state.items;
         const isToday: boolean = this.sameDay(this.props.date, this.state.today);
-        const dayName = this.dayName(this.props.date);
 
         return (
             <Row className="planner-row">
@@ -154,7 +153,11 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                 {
                     items.map((item: any, index: number) => (
                         <Col className="col-3-10th img-col" key={index}>
-                            <PlannerItem imageSrc={item.image} name={item.name} />
+                            <Draggable handle="label">
+                                <div onClick={() => this.onItemClick(item.id)}>
+                                    <PlannerItem imageSrc={item.image} name={item.name}></PlannerItem>
+                                </div>
+                            </Draggable>
                         </Col>
                     ))
                 }
