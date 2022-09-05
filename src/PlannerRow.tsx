@@ -9,8 +9,7 @@ import { API, Auth } from "aws-amplify";
 import * as queries from "./graphql/queries";
 import { dateToExtendedISODate } from "aws-date-utils";
 import PlannerItem from './PlannerItem';
-import React from 'react';
-
+import { DragDropContainer, DropTarget } from "react-drag-drop-container-typescript";
 
 export interface IPlannerRowProps {
     date: Date;
@@ -143,26 +142,35 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     render() {
         const items: any = this.state.items;
         const isToday: boolean = this.sameDay(this.props.date, this.state.today);
+        const dayName = this.dayName(this.props.date);
 
         return (
             <Row className="planner-row">
                 <UpdatePlannerModal date={this.props.date} mealId={this.state.meal.id} itemId={this.state.clickedItemId} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
                 <Col className="col-1-10th">
-                    <label className={"label-day" + (isToday ? " label-day-today" : "")}>{this.dayName(this.props.date)}</label>
+                    <label className={"label-day" + (isToday ? " label-day-today" : "")}>{dayName}</label>
                 </Col>
                 {
                     items.map((item: any, index: number) => (
-                        <Col className="col-3-10th img-col" key={index} onClick={() => this.onItemClick(item.id)}>
-                            <PlannerItem imageSrc={item.image} name={item.name} />
+                        <Col className="col-3-10th img-col" key={index}>
+                            <DragDropContainer targetKey={this.dayNames}>
+                                <div>
+                                    <DropTarget>
+                                        <PlannerItem imageSrc={item.image} name={item.name} />
+                                    </DropTarget>
+                                </div>
+                            </DragDropContainer>
                         </Col>
                     ))
                 }
                 {
                     items.length < 3 &&
                     <Col className="col-3-10th">
-                        <div className="meal-placeholder">
-                            <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
-                        </div>
+                        <DropTarget targetKey={dayName}>
+                            <div className="meal-placeholder">
+                                <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
+                            </div>
+                        </DropTarget>
                         <label className="label-item">&nbsp;</label>
                     </Col>
                 }
