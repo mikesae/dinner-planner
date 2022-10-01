@@ -115,6 +115,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
         if (selectedItem.id === 0) {
             return;
         }
+        let result;
 
         try {
             if (typeof this.props.mealId !== 'undefined') {
@@ -126,9 +127,11 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                     date: dateToExtendedISODate(this.props.date),
                     userName: this.state.userName,
                     type: 'Dinner',
-                    items: [selectedItem.id]
+                    items: [selectedItem.id],
+                    note: ''
                 };
-                await API.graphql(graphqlOperation(createMeal, { input: meal }));
+                const op = graphqlOperation(createMeal, { input: meal });
+                result = await API.graphql(op);
             }
         } catch (e) {
             console.log(`Error: ${e.toString()}`);
