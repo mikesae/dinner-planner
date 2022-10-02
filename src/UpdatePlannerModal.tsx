@@ -3,15 +3,12 @@ import Rodal from "rodal";
 import 'rodal/lib/rodal.css';
 import { Container, Dropdown, FormGroup, FormLabel } from "react-bootstrap";
 import DropdownButton from "react-bootstrap/DropdownButton";
-import { API, Auth, graphqlOperation } from "aws-amplify";
-import { createMeal } from './graphql/mutations';
-import { dateToExtendedISODate } from 'aws-date-utils'
+import { Auth } from "aws-amplify";
 import './Modal.scss';
 import ImageComponent from "./ImageComponent";
 import Row from "react-bootstrap/Row";
 import { getSortedItems } from "./itemQueries";
-import { getMealItemIds, updateMealItems } from "./MealFunctions";
-
+import { getMealItemIds, updateMealItems, addMeal } from "./MealFunctions";
 
 export interface IUpdatePlannerModalProps {
     isOpen: boolean;
@@ -115,26 +112,21 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
         if (selectedItem.id === 0) {
             return;
         }
-        let result;
-
         try {
-            if (typeof this.props.mealId !== 'undefined') {
-                const itemIds = await getMealItemIds(this.props.mealId);
-                itemIds.push(selectedItem.id);
-                await updateMealItems(itemIds, this.props.mealId);
-            } else {
-                const meal = {
-                    date: dateToExtendedISODate(this.props.date),
-                    userName: this.state.userName,
-                    type: 'Dinner',
-                    items: [selectedItem.id],
-                    note: ''
-                };
-                const op = graphqlOperation(createMeal, { input: meal });
-                result = await API.graphql(op);
+            let mealId: string | undefined = this.props.mealId;
+            // We create meal first and then update, since sometimes creates fail silently for no apparent reason.
+            if (typeof mealId === 'undefined') {
+                mealId = await addMeal(this.props.date, this.state.userName);
+                console.log(`creating meal, id: ${mealId}`);
             }
+
+            const itemIds = await getMealItemIds(mealId);
+            itemIds.push(selectedItem.id);
+            await updateMealItems(itemIds, mealId);
+            console.log(`updating meal, id: ${mealId}`)
+
         } catch (e) {
-            console.log(`Error: ${e.toString()}`);
+            console.log('Error: ' + e);
         }
         this.props.OnOK();
     }
