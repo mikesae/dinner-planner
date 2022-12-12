@@ -16,6 +16,9 @@
     },
     "codegen": {
       "useappsyncmodelgenplugin": true
+    },
+    "project": {
+      "overrides": true
     }
   }
 }
