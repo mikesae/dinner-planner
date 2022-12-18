@@ -18,7 +18,6 @@ export interface IPlannerRowProps {
 
 interface IPlannerRowState {
     modalIsOpen: boolean;
-    userName: string;
     items: any[];
     meal: any;
     loading: boolean;
@@ -31,7 +30,6 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         super(props);
         this.state = {
             modalIsOpen: false,
-            userName: '',
             items: [],
             meal: {},
             loading: true,
@@ -52,22 +50,23 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         this.setState({ items: updatedItems });
     }
 
-    async updateMeal() {
+    async updateMeal(date:any) {
+        const user = await Auth.currentAuthenticatedUser({ bypassCache: false });
         this.setState({ loading: true });
+        let isoDate = dateToExtendedISODate(date);
+        isoDate = isoDate.substring(0, isoDate.length-6);
         const filter = {
             date: {
-                eq: dateToExtendedISODate(this.props.date)
+                contains: isoDate
             },
-            userName: {
-                eq: this.state.userName
-            },
+            userName: user.userName,
             type: {
                 eq: 'Dinner'
             }
         };
         const result: any = await API.graphql({ query: queries.listMeals, variables: { filter: filter } });
         const meals: any = result.data.listMeals.items;
-
+        console.info(`date: ${isoDate}, meals: ${meals.length}`);
         if (meals.length > 0) {
             const meal = meals[0];
             this.setState({ meal: meal });
@@ -83,9 +82,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     async componentDidMount() {
         try {
             this.setState({ loading: true });
-            const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
-            this.setState({ userName: user.username });
-            await this.updateMeal();
+            await this.updateMeal(this.props.date);
         } catch (error) {
             console.log('PlannerRow error: ', error);
         }
@@ -93,7 +90,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
     async componentDidUpdate(prevProps: IPlannerRowProps) {
         if (prevProps.date !== this.props.date) {
-            await this.updateMeal();
+            await this.updateMeal(this.props.date);
         }
     }
 
@@ -107,9 +104,9 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         'Sat',
     ];
 
-    async addMeal() {
+    async addMeal(date: any) {
         this.setState({ modalIsOpen: false });
-        await this.updateMeal();
+        await this.updateMeal(date);
     }
 
     onOpenModal() {
@@ -146,7 +143,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
         return (
             <Row className="planner-row">
-                <UpdatePlannerModal date={this.props.date} mealId={this.state.meal.id} itemId={this.state.clickedItemId} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal()} OnClose={() => this.onCloseModal()} />
+                <UpdatePlannerModal date={this.props.date} mealId={this.state.meal.id} itemId={this.state.clickedItemId} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal(this.props.date)} OnClose={() => this.onCloseModal()} />
                 <Col className="col-1-10th">
                     <label className={"label-day" + (isToday ? " label-day-today" : "")}>{this.dayName(this.props.date)}</label>
                 </Col>

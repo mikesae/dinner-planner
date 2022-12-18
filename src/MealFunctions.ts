@@ -13,7 +13,7 @@ export async function updateMealItems(items: any, mealId?: string) {
         id: mealId,
         items: items
     };
-    await API.graphql(graphqlOperation(updateMeal, { input: meal }));
+    return API.graphql(graphqlOperation(updateMeal, { input: meal }));
 }
 
 export async function addMeal(date: Date, userName: string) {
