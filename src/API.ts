@@ -179,7 +179,7 @@ export type ModelItemFilterInput = {
 
 export type ModelItemConnection = {
   __typename: "ModelItemConnection",
-  items?:  Array<Item | null > | null,
+  items:  Array<Item | null >,
   nextToken?: string | null,
 };
 
@@ -197,7 +197,7 @@ export type ModelMealFilterInput = {
 
 export type ModelMealConnection = {
   __typename: "ModelMealConnection",
-  items?:  Array<Meal | null > | null,
+  items:  Array<Meal | null >,
   nextToken?: string | null,
 };
 
@@ -367,7 +367,7 @@ export type ListItemsQueryVariables = {
 export type ListItemsQuery = {
   listItems?:  {
     __typename: "ModelItemConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Item",
       id: string,
       name: string,
@@ -378,7 +378,7 @@ export type ListItemsQuery = {
       userName: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -410,7 +410,7 @@ export type ListMealsQueryVariables = {
 export type ListMealsQuery = {
   listMeals?:  {
     __typename: "ModelMealConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Meal",
       id: string,
       date: string,
@@ -420,7 +420,7 @@ export type ListMealsQuery = {
       note?: string | null,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
@@ -437,7 +437,7 @@ export type ItemsByNameQueryVariables = {
 export type ItemsByNameQuery = {
   itemsByName?:  {
     __typename: "ModelItemConnection",
-    items?:  Array< {
+    items:  Array< {
       __typename: "Item",
       id: string,
       name: string,
@@ -448,7 +448,7 @@ export type ItemsByNameQuery = {
       userName: string,
       createdAt: string,
       updatedAt: string,
-    } | null > | null,
+    } | null >,
     nextToken?: string | null,
   } | null,
 };
