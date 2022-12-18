@@ -17,12 +17,13 @@ export async function updateMealItems(items: any, mealId?: string) {
 }
 
 export async function addMeal(date: Date, userName: string) {
+    const isoDate = dateToExtendedISODate(date);
     const meal = {
-        date: dateToExtendedISODate(date),
+        date: isoDate,
         userName,
         type: 'Dinner',
         items: [],
-        note: ''
+        note: isoDate.substring(0, isoDate.length-6)
     };
     const result: any = await API.graphql(graphqlOperation(createMeal, { input: meal }));
     return result.data.createMeal.id;

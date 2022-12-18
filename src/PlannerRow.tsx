@@ -56,8 +56,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         let isoDate = dateToExtendedISODate(date);
         isoDate = isoDate.substring(0, isoDate.length-6);
         const filter = {
-            date: {
-                contains: isoDate
+            note: {
+                eq: isoDate
             },
             userName: user.userName,
             type: {
