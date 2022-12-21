@@ -56,7 +56,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         let isoDate = dateToExtendedISODate(date);
         isoDate = isoDate.substring(0, isoDate.length-6);
         const filter = {
-            note: {
+            date: {
                 eq: isoDate
             },
             userName: user.userName,
@@ -66,7 +66,6 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         };
         const result: any = await API.graphql({ query: queries.listMeals, variables: { filter: filter } });
         const meals: any = result.data.listMeals.items;
-        console.info(`date: ${isoDate}, meals: ${meals.length}`);
         if (meals.length > 0) {
             const meal = meals[0];
             this.setState({ meal: meal });

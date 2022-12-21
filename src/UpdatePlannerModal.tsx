@@ -117,13 +117,11 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             // We create meal first and then update, since sometimes creates fail silently for no apparent reason.
             if (typeof mealId === 'undefined') {
                 mealId = await addMeal(this.props.date, this.state.userName);
-                console.log(`creating meal, id: ${mealId}`);
             }
 
             const itemIds = await getMealItemIds(mealId);
             itemIds.push(selectedItem.id);
             await updateMealItems(itemIds, mealId);
-            console.log(`updating meal, id: ${mealId}`)
 
         } catch (e) {
             console.log('Error: ' + e);
