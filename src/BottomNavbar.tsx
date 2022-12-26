@@ -7,6 +7,7 @@ import { NavLink } from 'react-router-dom';
 import './BottomNavbar.scss';
 import { faUtensils as MainIcon } from '@fortawesome/free-solid-svg-icons/faUtensils';
 import { faCarrot as SideIcon } from '@fortawesome/free-solid-svg-icons/faCarrot';
+import { faIceCream as DessertIcon} from '@fortawesome/free-solid-svg-icons/faIceCream';
 import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 export default class BottomNavbar extends Component {
@@ -61,6 +62,23 @@ export default class BottomNavbar extends Component {
                         <div className="btn">
                             <FontAwesomeIcon className="link-icon" icon={SideIcon}/>
                             <div className="icon-label">Sides</div>
+                        </div>
+                    </NavLink>
+                </NavItem>
+                <NavItem className="text-center">
+                    <NavLink
+                         to="/desserts"
+                         isActive={match => {
+                             if (!match) {
+                                 return false;
+                             }
+                             return match.isExact;
+                         }}
+                         activeClassName="active"
+                    >
+                        <div className="btn">
+                            <FontAwesomeIcon className="link-icon" icon={DessertIcon}/>
+                            <div className="icon-label">Desserts</div>
                         </div>
                     </NavLink>
                 </NavItem>

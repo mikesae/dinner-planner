@@ -7,10 +7,11 @@ import './transitions.scss';
 import { withAuthenticator } from '@aws-amplify/ui-react'
 import {getPreviousStartDay} from "./DateFunctions";
 import Planner from './Planner';
-import Mains from './Mains';
 import Sides from './Sides';
 import Profile from './Profile';
 import ItemDetail from "./ItemDetail";
+import Mains from './Mains';
+import Desserts from './Desserts';
 
 class App extends Component {
     state = {
@@ -39,6 +40,7 @@ class App extends Component {
                                             </Route>
                                             <Route path="/mains" component={Mains}/>
                                             <Route path="/sides" component={Sides}/>
+                                            <Route path="/desserts" component={Desserts}/>
                                             <Route path="/profile" component={Profile}/>
                                             <Route path="/item/:id" component={ItemDetail}/>
                                         </Switch>
