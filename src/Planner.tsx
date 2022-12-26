@@ -55,7 +55,7 @@ export default class Planner extends Component<IPlannerProps> {
                         customInput={<this.CustomInput/>}
                     />
                 </TopNavbar>
-                <Container className="container">
+                <Container>
                     <PlannerRow date={offsetDate(startDate, 0)}/>
                     <PlannerRow date={offsetDate(startDate, 1)}/>
                     <PlannerRow date={offsetDate(startDate, 2)}/>

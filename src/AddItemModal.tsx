@@ -90,9 +90,8 @@ export default class AddItemModal extends Component<IAddItemModalProps, IAddItem
                 duration={1000}
                 measure="%"
                 width={100}
-                height={88}
+                height={100}
             >
-                <div className="spacer"/>
                 <Container className="planner-modal">
                     <FormGroup>
                         <Row>

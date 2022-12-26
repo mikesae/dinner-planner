@@ -174,7 +174,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                 duration={1000}
                 measure="%"
                 width={100}
-                height={88}
+                height={100}
             >
                 <div className="spacer" />
                 <Container className="planner-modal">

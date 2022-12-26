@@ -215,3 +215,7 @@ and (orientation: portrait)
 amplify-authenticator {
   background: black;
 }
+
+.fixed-top {
+  z-index: 100;
+}
