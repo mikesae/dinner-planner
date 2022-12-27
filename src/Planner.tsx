@@ -56,13 +56,13 @@ export default class Planner extends Component<IPlannerProps> {
                     />
                 </TopNavbar>
                 <Container>
-                    <PlannerRow date={offsetDate(startDate, 0)}/>
-                    <PlannerRow date={offsetDate(startDate, 1)}/>
-                    <PlannerRow date={offsetDate(startDate, 2)}/>
-                    <PlannerRow date={offsetDate(startDate, 3)}/>
-                    <PlannerRow date={offsetDate(startDate, 4)}/>
-                    <PlannerRow date={offsetDate(startDate, 5)}/>
-                    <PlannerRow date={offsetDate(startDate, 6)}/>
+                    <PlannerRow startDateUpdater={this.props.startDateUpdater} date={offsetDate(startDate, 0)}/>
+                    <PlannerRow startDateUpdater={this.props.startDateUpdater} date={offsetDate(startDate, 1)}/>
+                    <PlannerRow startDateUpdater={this.props.startDateUpdater} date={offsetDate(startDate, 2)}/>
+                    <PlannerRow startDateUpdater={this.props.startDateUpdater} date={offsetDate(startDate, 3)}/>
+                    <PlannerRow startDateUpdater={this.props.startDateUpdater} date={offsetDate(startDate, 4)}/>
+                    <PlannerRow startDateUpdater={this.props.startDateUpdater} date={offsetDate(startDate, 5)}/>
+                    <PlannerRow startDateUpdater={this.props.startDateUpdater} date={offsetDate(startDate, 6)}/>
                     <div className="spacer"/>
                 </Container>
             </div>

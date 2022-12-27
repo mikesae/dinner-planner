@@ -14,6 +14,7 @@ import React from 'react';
 
 export interface IPlannerRowProps {
     date: Date;
+    startDateUpdater: (date: Date) => void;
 }
 
 interface IPlannerRowState {
@@ -140,7 +141,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         const isToday: boolean = this.sameDay(date, this.state.today);
         const labelText = this.dayName(date);
         const dateText = `${date.getMonth()+1}/${this.props.date.getDate()}`;
-        return <label className={"label-day" + (isToday ? " label-day-today" : "")}>{labelText}<br/>{dateText}</label>
+        return <label onClick={() => this.props.startDateUpdater(date)} className={"label-day" + (isToday ? " label-day-today" : "")}>{labelText}<br/>{dateText}</label>
     }
 
     render() {
