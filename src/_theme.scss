@@ -12,11 +12,12 @@ $player-thumbnail-background-color: white;
 $navbar-height: 3em;
 $header-height: 3em;
 
-$image-width: 100%;
-$image-aspect-ratio: 5/4;
+// Size image so 7 rows fit on a page minus header, footer and text between
+$image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / 7);
+$image-width: $image-height;
 
-$large-image-height: 75%;
-$large-image-width: 100%;
+$large-image-height: $image-height;
+$large-image-width: $image-height;
 
 :root {
   --amplify-primary-color: #008F8F;

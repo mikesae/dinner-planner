@@ -6,8 +6,8 @@
     width: 100%;
   }
   img.img-item-large {
+    height: $large-image-height;
     width: $large-image-width;
-    aspect-ratio: $image-aspect-ratio;
     border: 1px solid lightslategray;
   }
   .img-col {

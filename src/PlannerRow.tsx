@@ -154,7 +154,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
                     ))
                 }
                 {
-                    items.length < 3 &&
+                    items.length < 4 &&
                     <Col className="col-3-10th">
                         <div className="meal-placeholder">
                             <FontAwesomeIcon className="link-icon" icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
