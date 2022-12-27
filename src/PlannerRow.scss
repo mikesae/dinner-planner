@@ -16,10 +16,10 @@
   }
 
   label.label-day {
-    margin-top: 0.8em;
+    font-size: 0.75em;
+    font-weight: bold;
 
     &.label-day-today {
-      font-weight: bold;
       color: $highlight-color;
     }
   }

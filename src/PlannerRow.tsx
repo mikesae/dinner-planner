@@ -136,15 +136,22 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             && dateA.getFullYear() === dateB.getFullYear()
     }
 
+    dayLabel(date: Date) {
+        const isToday: boolean = this.sameDay(date, this.state.today);
+        const labelText = this.dayName(date);
+        const dateText = `${date.getMonth()+1}/${this.props.date.getDate()}`;
+        return <label className={"label-day" + (isToday ? " label-day-today" : "")}>{labelText}<br/>{dateText}</label>
+    }
+
     render() {
         const items: any = this.state.items;
-        const isToday: boolean = this.sameDay(this.props.date, this.state.today);
+
 
         return (
             <Row className="planner-row">
                 <UpdatePlannerModal date={this.props.date} mealId={this.state.meal.id} itemId={this.state.clickedItemId} isOpen={this.state.modalIsOpen} OnOK={() => this.addMeal(this.props.date)} OnClose={() => this.onCloseModal()} />
                 <Col className="col-1-10th">
-                    <label className={"label-day" + (isToday ? " label-day-today" : "")}>{this.dayName(this.props.date)}</label>
+                    {this.dayLabel(this.props.date)}
                 </Col>
                 {
                     items.map((item: any, index: number) => (
