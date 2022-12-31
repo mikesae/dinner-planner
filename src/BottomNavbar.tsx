@@ -15,23 +15,6 @@ export default class BottomNavbar extends Component {
             <Navbar className="jumbotron-fluid border-top justify-content-center navbar-bottom" fixed="bottom">
                 <NavItem className="text-center">
                     <NavLink
-                        to="/"
-                        isActive={match => {
-                            if (!match) {
-                                return false;
-                            }
-                            return match.isExact;
-                        }}
-                        activeClassName="active"
-                    >
-                        <div className="btn">
-                            <FontAwesomeIcon className="link-icon" icon={faCalendarAlt}/>
-                            <div className="icon-label">Planner</div>
-                        </div>
-                    </NavLink>
-                </NavItem>
-                <NavItem className="text-center">
-                    <NavLink
                         to="/mains"
                         isActive={match => {
                             if (!match) {
