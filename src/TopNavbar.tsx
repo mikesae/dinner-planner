@@ -3,7 +3,8 @@ import './TopNavbar.scss';
 import Navbar from 'react-bootstrap/Navbar';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faHomeAlt, faUser, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
+import Image from "react-bootstrap/Image";
+import { faUser, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
@@ -26,11 +27,7 @@ export default class TopNavbar extends Component<ITopNavBarProps> {
                                     <FontAwesomeIcon className="link-icon" icon={faChevronLeft}/>
                                 </div>
                             </Link> :
-                            <Link to="/">
-                                <div className="btn">
-                                    <FontAwesomeIcon className="link-icon" icon={faHomeAlt}/>
-                                </div>
-                            </Link>
+                            <Image fluid src="/logo.png"/>
                         }
                     </Col>
                     <Col className="col-10 navbar-content">
@@ -42,7 +39,7 @@ export default class TopNavbar extends Component<ITopNavBarProps> {
                     <Col className="col-1">
                         <Link to="/profile">
                             <div className="btn">
-                            <FontAwesomeIcon className="link-icon" icon={faUser}/>
+                            <FontAwesomeIcon className="link-icon fa-1pt5x" icon={faUser}/>
                         </div>
                         </Link>
                     </Col>

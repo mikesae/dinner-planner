@@ -11,13 +11,12 @@
 }
 
 .navbar-top {
-  padding-right: 1em;
+  padding: 0 1em;
   height: $navbar-height;
-  .col-image {
-    img {
-      height: 2em;
-      width: 2em;
-    }
+
+  img {
+    height: 2em;
+    width: 2em;
   }
 }
 

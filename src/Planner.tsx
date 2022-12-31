@@ -22,14 +22,16 @@ export default class Planner extends Component<IPlannerProps> {
         return(
             <div className="date-picker" ref={ref}>
                 <button className="btn" onClick={() => this.onPreviousWeek()}>
-                    <FontAwesomeIcon className="link-icon" icon={faChevronUp}/>
+                    <FontAwesomeIcon className="link-icon fa-1pt5x" icon={faChevronUp}/>
                 </button>
-                <span>&nbsp;{props.value}&nbsp;</span>
-                <button className="btn btn-date-picker" onClick={props.onClick}>
-                    <FontAwesomeIcon className="link-icon" icon={faCalendarAlt}/>
-                </button>
+                <span onClick={props.onClick}>
+                    &nbsp;{props.value}&nbsp;
+                    <button className="btn btn-date-picker">
+                        <FontAwesomeIcon className="link-icon fa-1pt5x" icon={faCalendarAlt}/>
+                    </button>
+                </span>
                 <button className="btn" onClick={() => this.onNextWeek()}>
-                    <FontAwesomeIcon className="link-icon" icon={faChevronDown}/>
+                    <FontAwesomeIcon className="link-icon fa-1pt5x" icon={faChevronDown}/>
                 </button>
             </div>
         );
