@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './TopNavbar.scss';
 import Navbar from "react-bootstrap/Navbar";
-import {Link} from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faChevronLeft} from "@fortawesome/free-solid-svg-icons/faChevronLeft";
 import Image from "react-bootstrap/Image";
@@ -35,8 +35,10 @@ export default class TopNavbar extends Component<ITopNavBarProps> {
                             {this.props.children}
                         </div>
                     </Col>
-                    <Col className="col-2 col-image">
-                        <Image thumbnail fluid src="/logo.png"/>
+                    <Col className="col-1 col-image">
+                        <NavLink to="/profile">
+                            <Image fluid src="/logo.png"/>
+                        </NavLink>
                     </Col>
                 </Row>
             </Navbar>
