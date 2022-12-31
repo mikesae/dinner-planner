@@ -4,13 +4,18 @@
   .meal-placeholder {
     width: $image-width;
     height: $image-height;
+    @media only screen and (orientation: portrait) {
+      width: $portrait-image-width;
+      height: $portrait-image-height;
+    }
+
     border: 1px dashed gray;
     background: transparent;
     margin: 0 auto;   // horizontal align within container
-    padding: 20%;
 
     .link-icon {
-      height: 100%;   // vertical center within container
+      height: 100%;
+      width: 100%;
       color: gray;
     }
   }
@@ -28,6 +33,13 @@
 img.img-item {
   width: $image-width;
   height: $image-height;
+}
+
+@media only screen and (orientation: portrait) {
+  img.img-item {
+    width: $portrait-image-width;
+    height: $portrait-image-height;
+  }
 }
 
 label.label-item {
