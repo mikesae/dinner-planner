@@ -8,14 +8,15 @@
       width: $portrait-image-width;
       height: $portrait-image-height;
     }
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     border: 1px dashed gray;
     background: transparent;
     margin: 0 auto;   // horizontal align within container
 
     .link-icon {
-      height: 100%;
-      width: 100%;
       color: gray;
     }
   }

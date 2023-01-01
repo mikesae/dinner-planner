@@ -55,8 +55,11 @@
   background: transparent;
   margin: 0 auto; // horizontal align within container
 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
   .link-icon {
-    height: 100%; // vertical center within container
     color: gray;
   }
 }
