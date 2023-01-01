@@ -12,6 +12,7 @@ import Profile from './Profile';
 import ItemDetail from "./ItemDetail";
 import Mains from './Mains';
 import Desserts from './Desserts';
+import Vegetables from './Vegetables';
 
 class App extends Component {
     state = {
@@ -40,6 +41,7 @@ class App extends Component {
                                             </Route>
                                             <Route path="/mains" component={Mains}/>
                                             <Route path="/sides" component={Sides}/>
+                                            <Route path="/vegetables" component={Vegetables}/>
                                             <Route path="/desserts" component={Desserts}/>
                                             <Route path="/profile" component={Profile}/>
                                             <Route path="/item/:id" component={ItemDetail}/>

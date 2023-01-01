@@ -61,7 +61,7 @@ const ItemDetail: FunctionComponent = (props: any) => {
                 :
                 <>
                     <TopNavbar title={name} showBackNav={true}
-                               backNav={category === 'Mains' ? '/mains' : '/sides'}/>
+                               backNav={`/${category.toLowerCase()}`}/>
                     <Container>
                         <FormGroup>
                             <Row className="px-3 py-3">

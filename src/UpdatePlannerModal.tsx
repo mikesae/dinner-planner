@@ -29,9 +29,11 @@ interface IUpdatePlannerModalState {
     userName: string;
     selectedMain: number;
     selectedSide: number;
+    selectedVegetable: number;
     selectedDessert: number;
     mains: IMealItem[];
     sides: IMealItem[];
+    vegetables: IMealItem[];
     desserts: IMealItem[];
 }
 
@@ -45,8 +47,10 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             selectedMain: NOT_SELECTED,
             selectedSide: NOT_SELECTED,
             selectedDessert: NOT_SELECTED,
+            selectedVegetable: NOT_SELECTED,
             mains: [],
             sides: [],
+            vegetables: [],
             desserts: []
         };
     }
@@ -57,6 +61,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             this.setState({ userName: user.username });
             this.setState({ mains: await getSortedItems(user.username, 'Mains') });
             this.setState({ sides: await getSortedItems(user.username, 'Sides') });
+            this.setState({ vegetables: await getSortedItems(user.username, 'Vegetables') });
             this.setState({ desserts: await getSortedItems(user.username, 'Desserts') });
         } catch (error) {
             console.log('error: ', error);
@@ -64,22 +69,28 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     }
 
     onMainPicked(idxItem: number) {
-        this.setState({ selectedMain: idxItem, selectedSide: NOT_SELECTED, selectedDessert: NOT_SELECTED });
+        this.setState({ selectedMain: idxItem, selectedSide: NOT_SELECTED, selectedVegetable: NOT_SELECTED, selectedDessert: NOT_SELECTED });
     }
 
     onSidePicked(idxItem: number) {
-        this.setState({ selectedMain: NOT_SELECTED, selectedSide: idxItem, selectedDessert: NOT_SELECTED });
+        this.setState({ selectedMain: NOT_SELECTED, selectedSide: idxItem, selectedVegetable: NOT_SELECTED, selectedDessert: NOT_SELECTED });
+    }
+
+    onVegetablePicked(idxItem: number) {
+        this.setState({ selectedMain: NOT_SELECTED, selectedSide: NOT_SELECTED, selectedVegetable: idxItem, selectedDessert: NOT_SELECTED });
     }
 
     onDessertPicked(idxItem: number) {
-        this.setState({selectedMain: NOT_SELECTED, selectedSide: NOT_SELECTED, selectedDessert: idxItem});
+        this.setState({selectedMain: NOT_SELECTED, selectedSide: NOT_SELECTED, selectedVegetable: NOT_SELECTED, selectedDessert: idxItem});
     }
 
     getSelectedItem(): IMealItem {
         if (this.state.selectedMain !== NOT_SELECTED) {
             return { ...this.state.mains[this.state.selectedMain] };
         } else if (this.state.selectedSide !== NOT_SELECTED) {
-            return { ...this.state.sides[this.state.selectedSide] };
+            return {...this.state.sides[this.state.selectedSide]};
+        } else if (this.state.selectedVegetable !== NOT_SELECTED) {
+            return { ...this.state.vegetables[this.state.selectedVegetable] };
         } else if (this.state.selectedDessert !== NOT_SELECTED) {
             return {...this.state.desserts[this.state.selectedDessert] };
         }
@@ -143,10 +154,12 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     render() {
         let mainTitle;
         let sideTitle;
+        let vegetableTitle;
         let dessertTitle;
 
         const idxMain = this.state.selectedMain;
         const idxSide = this.state.selectedSide;
+        const idxVegetable = this.state.selectedVegetable;
         const idxDessert = this.state.selectedDessert;
         const addingItem = this.props.itemId === '';
 
@@ -159,6 +172,11 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             sideTitle = <span>Choose a Side</span>;
         } else {
             sideTitle = <span><ImageComponent src={this.state.sides[idxSide].image} />{this.state.sides[idxSide].name}</span>;
+        }
+        if (idxVegetable === NOT_SELECTED) {
+            vegetableTitle = <span>Choose a Vegetable</span>;
+        } else {
+            vegetableTitle = <span><ImageComponent src={this.state.vegetables[idxVegetable].image} />{this.state.vegetables[idxVegetable].name}</span>;
         }
         if (idxDessert === NOT_SELECTED) {
             dessertTitle = <span>Choose a Dessert</span>;
@@ -203,6 +221,20 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
                             {
                                 this.state.sides.map((item: any, index: number) => (
                                     <Dropdown.Item key={item.id} onSelect={() => this.onSidePicked(index)}>
+                                        <img className="img-item" src={item.image} alt="" />{item.name}
+                                    </Dropdown.Item>
+                                ))
+                            }
+                        </DropdownButton>
+                    </FormGroup>
+                    <FormGroup className="text-center">
+                        <FormLabel>OR</FormLabel>
+                    </FormGroup>
+                    <FormGroup>
+                        <DropdownButton title={vegetableTitle}>
+                            {
+                                this.state.vegetables.map((item: any, index: number) => (
+                                    <Dropdown.Item key={item.id} onSelect={() => this.onVegetablePicked(index)}>
                                         <img className="img-item" src={item.image} alt="" />{item.name}
                                     </Dropdown.Item>
                                 ))
