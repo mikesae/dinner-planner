@@ -12,15 +12,12 @@ $player-thumbnail-background-color: white;
 $navbar-height: 3em;
 $header-height: 3em;
 
-$image-height: 3em;
-$image-width: 3em;
+$min-image-height: 3em;
+$min-image-width: 3em;
 
-// For portrait, size image so 7 rows fit on a page minus header, footer and text between
-$portrait-image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / 7);
-$portrait-image-width: $portrait-image-height;
-
-$large-image-height: $image-height;
-$large-image-width: $image-height;
+// Size image so 7 rows fit on a page minus header, footer and text between
+$image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / 7);
+$image-width: $image-height;
 
 :root {
   --amplify-primary-color: #008F8F;

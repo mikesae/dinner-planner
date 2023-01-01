@@ -63,3 +63,19 @@
     color: gray;
   }
 }
+
+// iPhone 6, 6S, 7 and 8 Landscape
+@media only screen
+and (min-device-width: 375px)
+and (max-device-width: 667px)
+and (-webkit-min-device-pixel-ratio: 2)
+and (orientation: landscape) {
+  .mains-and-sides {
+    .row {
+      img.img-item {
+        width: $min-image-width;
+        height: $min-image-height;
+      }
+    }
+  }
+}
