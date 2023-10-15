@@ -1,15 +1,14 @@
-import { Component } from 'react';
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { API, Auth } from "aws-amplify";
+import { dateToExtendedISODate } from "aws-date-utils";
+import { Component } from 'react';
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import PlannerItem from './PlannerItem';
 import './PlannerRow.scss';
 import UpdatePlannerModal from "./UpdatePlannerModal";
-import { API, Auth } from "aws-amplify";
 import * as queries from "./graphql/queries";
-import { dateToExtendedISODate } from "aws-date-utils";
-import PlannerItem from './PlannerItem';
-import React from 'react';
 
 
 export interface IPlannerRowProps {
@@ -60,7 +59,9 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
             date: {
                 eq: isoDate
             },
-            userName: user.userName,
+            userName: {
+                eq: user.username
+            },
             type: {
                 eq: 'Dinner'
             }

@@ -137,7 +137,8 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
             return;
         }
         try {
-            let mealId: string | undefined = this.props.mealId;if (typeof mealId === 'undefined') {
+            let mealId: string | undefined = this.props.mealId;
+            if (typeof mealId === 'undefined') {
                 mealId = await addMeal(this.props.date, this.state.userName);
             }
 
