@@ -1,37 +1,37 @@
 {
-  "auth": {
-    "dinnerplannerb3682242": {
-      "service": "Cognito",
-      "providerPlugin": "awscloudformation",
-      "dependsOn": [],
-      "customAuth": false
-    }
-  },
-  "storage": {
-    "ImageStorage": {
-      "service": "S3",
-      "providerPlugin": "awscloudformation"
-    }
-  },
   "api": {
     "dinnerplannergql": {
-      "service": "AppSync",
-      "providerPlugin": "awscloudformation",
+      "dependsOn": [],
       "output": {
         "authConfig": {
+          "additionalAuthenticationProviders": [],
           "defaultAuthentication": {
             "authenticationType": "API_KEY",
             "apiKeyConfig": {
               "apiKeyExpirationDays": 365,
-              "apiKeyExpirationDate": "2023-12-21T01:19:12.659Z",
+              "apiKeyExpirationDate": "2024-10-20T21:08:12.696Z",
               "description": "ApiKey"
             }
-          },
-          "additionalAuthenticationProviders": []
+          }
         }
       },
-      "dependsOn": []
+      "providerPlugin": "awscloudformation",
+      "service": "AppSync"
     }
   },
-  "hosting": {}
+  "auth": {
+    "dinnerplannerb3682242": {
+      "customAuth": false,
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito"
+    }
+  },
+  "hosting": {},
+  "storage": {
+    "ImageStorage": {
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
+    }
+  }
 }
