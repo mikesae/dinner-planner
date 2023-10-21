@@ -1,4 +1,10 @@
 export type AmplifyDependentResourcesAttributes = {
+    "api": {
+        "dinnerplannergql": {
+            "GraphQLAPIIdOutput": "string",
+            "GraphQLAPIEndpointOutput": "string"
+        }
+    },
     "auth": {
         "dinnerplannerb3682242": {
             "IdentityPoolId": "string",
@@ -14,12 +20,6 @@ export type AmplifyDependentResourcesAttributes = {
         "ImageStorage": {
             "BucketName": "string",
             "Region": "string"
-        }
-    },
-    "api": {
-        "dinnerplannergql": {
-            "GraphQLAPIIdOutput": "string",
-            "GraphQLAPIEndpointOutput": "string"
         }
     }
 }
