@@ -57,13 +57,13 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
         isoDate = isoDate.substring(0, isoDate.length-6);
         const filter = {
             date: {
-                contains: isoDate
+                eq: isoDate
             },
             userName: {
-                contains: user.username
+                eq: user.username
             },
             type: {
-                contains: 'Dinner'
+                eq: 'Dinner'
             }
         };
         const result: any = await API.graphql({ query: queries.listMeals, variables: { filter: filter } });
