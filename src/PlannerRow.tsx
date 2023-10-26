@@ -75,7 +75,7 @@ export default class PlannerRow extends Component<
 		};
 		const result: any = await API.graphql<GraphQLQuery<ListMealsQuery>>({
 			query: queries.listMeals,
-			variables: { filter: filter },
+			variables: { filter: filter, limit: 365, nextToken: null },
 		});
 		const meals: any = result.data.listMeals.items;
 		if (meals.length > 0) {
