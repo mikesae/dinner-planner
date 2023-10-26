@@ -152,7 +152,7 @@ export default class UpdatePlannerModal extends Component<
 				}
 			});
 			await updateMealItems(newItemIds, this.props.mealId);
-		} catch (e) {
+		} catch (e: any) {
 			console.log(`Error: ${e.toString()}`);
 		}
 		this.props.OnOK();
@@ -191,7 +191,7 @@ export default class UpdatePlannerModal extends Component<
 		const addingItem = this.props.itemId === '';
 
 		if (idxMain === NOT_SELECTED) {
-			mainTitle = <span>Choose a Main</span>;
+			mainTitle = <span>Main</span>;
 		} else {
 			mainTitle = (
 				<span>
@@ -201,7 +201,7 @@ export default class UpdatePlannerModal extends Component<
 			);
 		}
 		if (idxSide === NOT_SELECTED) {
-			sideTitle = <span>Choose a Side</span>;
+			sideTitle = <span>Side</span>;
 		} else {
 			sideTitle = (
 				<span>
@@ -211,7 +211,7 @@ export default class UpdatePlannerModal extends Component<
 			);
 		}
 		if (idxVegetable === NOT_SELECTED) {
-			vegetableTitle = <span>Choose a Vegetable</span>;
+			vegetableTitle = <span>Vegetable</span>;
 		} else {
 			vegetableTitle = (
 				<span>
@@ -221,7 +221,7 @@ export default class UpdatePlannerModal extends Component<
 			);
 		}
 		if (idxDessert === NOT_SELECTED) {
-			dessertTitle = <span>Choose a Dessert</span>;
+			dessertTitle = <span>Dessert</span>;
 		} else {
 			dessertTitle = (
 				<span>
@@ -254,6 +254,9 @@ export default class UpdatePlannerModal extends Component<
 							<Row />
 						</FormGroup>
 					)}
+					<FormGroup className='text-center'>
+						<FormLabel>Choose a Main, Side, Vegetable, or Dessert</FormLabel>
+					</FormGroup>
 					<FormGroup>
 						<DropdownButton title={mainTitle}>
 							{this.state.mains.map((item: any, index: number) => (
@@ -266,9 +269,6 @@ export default class UpdatePlannerModal extends Component<
 								</Dropdown.Item>
 							))}
 						</DropdownButton>
-					</FormGroup>
-					<FormGroup className='text-center'>
-						<FormLabel>OR</FormLabel>
 					</FormGroup>
 					<FormGroup>
 						<DropdownButton title={sideTitle}>
@@ -283,9 +283,6 @@ export default class UpdatePlannerModal extends Component<
 							))}
 						</DropdownButton>
 					</FormGroup>
-					<FormGroup className='text-center'>
-						<FormLabel>OR</FormLabel>
-					</FormGroup>
 					<FormGroup>
 						<DropdownButton title={vegetableTitle}>
 							{this.state.vegetables.map((item: any, index: number) => (
@@ -298,9 +295,6 @@ export default class UpdatePlannerModal extends Component<
 								</Dropdown.Item>
 							))}
 						</DropdownButton>
-					</FormGroup>
-					<FormGroup className='text-center'>
-						<FormLabel>OR</FormLabel>
 					</FormGroup>
 					<FormGroup>
 						<DropdownButton title={dessertTitle}>
