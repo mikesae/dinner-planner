@@ -1,3 +1,6 @@
+# About
+
+This is a progressive web application, designed for mobile devices.
 
 # Getting Started with Create React App
 
@@ -29,8 +32,6 @@ The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
 See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
 
 ## Learn More
 
