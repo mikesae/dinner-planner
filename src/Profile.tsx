@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import TopNavbar from './TopNavbar';
-import './Profile.scss';
-import { Container, FormGroup } from 'react-bootstrap';
 import { Authenticator } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 import { Auth } from 'aws-amplify';
+import { Component } from 'react';
+import { Container, FormGroup } from 'react-bootstrap';
+import './Profile.scss';
+import TopNavbar from './TopNavbar';
 
 export default class Profile extends Component {
 	state = {
@@ -37,7 +38,12 @@ export default class Profile extends Component {
 					<Authenticator>
 						{({ signOut }) => (
 							<FormGroup>
-								<button onClick={signOut}>Sign out</button>
+								<button
+									className='amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth'
+									onClick={signOut}
+								>
+									Sign out
+								</button>
 							</FormGroup>
 						)}
 					</Authenticator>
