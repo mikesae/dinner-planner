@@ -1,6 +1,6 @@
 # About
 
-This is a progressive web application, designed for mobile devices.
+Plan your weekly dinner menu with this app.
 
 # Getting Started with Create React App
 
