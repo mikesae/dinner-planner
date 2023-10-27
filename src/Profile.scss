@@ -3,3 +3,14 @@
 .row {
   margin-top: 5px;
 }
+
+[data-amplify-authenticator] {
+  .amplify-field__show-password {
+    background-color: var(--amplify-components-button-primary-background-color);
+    border-style: none;
+  }
+
+  .amplify-icon {
+    color: var(--amplify-white);
+  }
+}

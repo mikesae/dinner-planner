@@ -23,8 +23,17 @@ $image-width: $image-height;
   --amplify-primary-color: #008F8F;
   --amplify-primary-tint: white;
   --amplify-primary-shade: white;
-  --amplify-white: black;
+  --amplify-white: white;
+  --amplify-black: black;
   --amplify-secondary-color: white;
   --amplify-primary-contrast: white;
   --amplify-grey: white;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+      --amplify-components-authenticator-router-background-color: var(--amplify-black);
+      --amplify-components-authenticator-state-inactive-background-color:var(--amplify-black);
+      --amplify-components-field-label-color: var(--amplify-white);
+    }
 }
