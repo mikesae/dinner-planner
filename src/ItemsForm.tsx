@@ -15,7 +15,6 @@ import { getSortedItems } from './itemQueries';
 
 export class ItemsForm extends Component<{
 	category: string;
-	userName?: string;
 }> {
 	state = {
 		items: [],
@@ -24,12 +23,8 @@ export class ItemsForm extends Component<{
 	};
 	async componentDidMount() {
 		try {
-			if (this.props.userName) {
-				this.setState({ userName: this.props.userName });
-			} else {
-				const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
-				this.setState({ userName: user.username });
-			}
+			const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+			this.setState({ userName: user.username });
 			await this.listItems();
 		} catch (error) {
 			console.log('ItemsForm listItems error: ', error);
