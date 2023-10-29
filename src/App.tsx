@@ -14,7 +14,7 @@ import Sides from './Sides';
 import Vegetables from './Vegetables';
 import './transitions.scss';
 
-class App extends Component {
+export class UnauthenticatedApp extends Component {
 	state = {
 		startDate: getPreviousStartDay(new Date()),
 	};
@@ -60,4 +60,4 @@ class App extends Component {
 	}
 }
 
-export default withAuthenticator(App);
+export default withAuthenticator(UnauthenticatedApp);

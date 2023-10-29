@@ -1,5 +1,4 @@
 import { Authenticator } from '@aws-amplify/ui-react';
-import '@aws-amplify/ui-react/styles.css';
 import { Auth } from 'aws-amplify';
 import { Component } from 'react';
 import { Container, FormGroup } from 'react-bootstrap';
