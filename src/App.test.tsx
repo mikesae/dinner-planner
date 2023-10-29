@@ -6,9 +6,6 @@ describe('App component', () => {
 	const authenticatedUserMock = jest.spyOn(Auth, 'currentAuthenticatedUser');
 	const consoleLogMock = jest.spyOn(console, 'log');
 	const consoleWarnMock = jest.spyOn(console, 'warn');
-	function withAuthenticator(element: any) {
-		return element;
-	}
 
 	beforeEach(() => {
 		authenticatedUserMock.mockClear();
