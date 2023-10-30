@@ -1,4 +1,4 @@
-import { act, render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Auth } from 'aws-amplify';
 import { BrowserRouter } from 'react-router-dom';
 import ItemDetail from './ItemDetail';
@@ -34,22 +34,18 @@ describe('Item detail component', () => {
 	it('Renders item details correctly.', async () => {
 		// Arrange
 		const props: any = { match: { params: { id: '44' } } };
-		let renderResult: any = {};
 
-		// Act
-		await act(async () => {
-			// Render
-			renderResult = render(
-				<BrowserRouter>
-					<ItemDetail {...props} />
-				</BrowserRouter>
-			);
-		});
+		// Render
+		render(
+			<BrowserRouter>
+				<ItemDetail {...props} />
+			</BrowserRouter>
+		);
 
 		// Assert
-		const nameElement = renderResult.getByText(testItem.name);
-		expect(nameElement).toBeInTheDocument();
-		const descriptionElement = renderResult.getByText(testItem.name);
-		expect(descriptionElement).toBeInTheDocument();
+		expect(await screen.findByText(testItem.name)).not.toBeNull();
+		expect(
+			await screen.findAllByDisplayValue(testItem.description)
+		).not.toBeNull();
 	});
 });
