@@ -14,11 +14,11 @@ const ItemDetail: FunctionComponent = (props: any) => {
 	const [description, setDescription] = useState('');
 	const [image, setImage] = useState('');
 	const [category, setCategory] = useState('');
+	const { id } = props.match.params;
 
 	useEffect(() => {
 		(async () => {
 			try {
-				const { id } = props.match.params;
 				const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
 				setUserName(user.username);
 				const item = await getItem(id);
@@ -30,7 +30,7 @@ const ItemDetail: FunctionComponent = (props: any) => {
 				console.log('Error getting item details.', error);
 			}
 		})();
-	}, [props.match.params]);
+	}, [id]);
 
 	async function onImageChange(event: any) {
 		const {
