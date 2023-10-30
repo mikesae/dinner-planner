@@ -16,20 +16,22 @@ const ItemDetail: FunctionComponent = (props: any) => {
     const [category, setCategory] = useState('');
 
     useEffect(() => {
-            (async function useEffect() {
-                    const {id} = props.match.params;
-                    try {
-                        const user = await Auth.currentAuthenticatedUser({bypassCache: true});
-                        setUserName(user.username);
-                        const item = await getItem(id);
-                        setName(item.name);
-                        setDescription(item.description);
-                        setImage(item.image);
-                        setCategory(item.category);
-                    } catch (error) {
-                        console.log('Mains error: ', error);
-                    }
+            (async () => {
+                const { id } = props.match.params;
+                try
+                {
+                    const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+                    setUserName(user.username);
+                    const item = await getItem(id);
+                    setName(item.name);
+                    setDescription(item.description);
+                    setImage(item.image);
+                    setCategory(item.category);
+                } catch (error)
+                {
+                    console.log('Mains error: ', error);
                 }
+            }
             )();
         }, [ props.match.params ]
     );
