@@ -1,4 +1,5 @@
 import { withAuthenticator } from '@aws-amplify/ui-react';
+import { type } from 'os';
 import { Component, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
@@ -7,7 +8,7 @@ import BottomNavbar from './BottomNavbar';
 import { getPreviousStartDay } from './DateFunctions';
 import Desserts from './Desserts';
 import ItemDetail from './ItemDetail';
-import Mains from './Mains';
+import { ItemsFormContainer } from './ItemsFormContainer';
 import Planner from './Planner';
 import Profile from './Profile';
 import Sides from './Sides';
@@ -42,10 +43,18 @@ export class UnauthenticatedApp extends Component {
 												startDateUpdater={(date) => this.startDateUpdater(date)}
 											/>
 										</Route>
-										<Route path='/mains' component={Mains} />
-										<Route path='/sides' component={Sides} />
-										<Route path='/vegetables' component={Vegetables} />
-										<Route path='/desserts' component={Desserts} />
+										<Route path='/mains'>
+											<ItemsFormContainer category='Mains' />
+										</Route>
+										<Route path='/sides'>
+											<ItemsFormContainer category='Sides' />
+										</Route>
+										<Route path='/vegetables'>
+											<ItemsFormContainer category='Vegetables' />
+										</Route>
+										<Route path='/desserts'>
+											<ItemsFormContainer category='Desserts' />
+										</Route>
 										<Route path='/profile' component={Profile} />
 										<Route path='/item/:id' component={ItemDetail} />
 									</Switch>
