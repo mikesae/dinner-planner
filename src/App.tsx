@@ -1,18 +1,14 @@
 import { withAuthenticator } from '@aws-amplify/ui-react';
-import { type } from 'os';
 import { Component, Suspense } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 import './App.scss';
 import BottomNavbar from './BottomNavbar';
 import { getPreviousStartDay } from './DateFunctions';
-import Desserts from './Desserts';
 import ItemDetail from './ItemDetail';
 import { ItemsFormContainer } from './ItemsFormContainer';
 import Planner from './Planner';
 import Profile from './Profile';
-import Sides from './Sides';
-import Vegetables from './Vegetables';
 import './transitions.scss';
 
 export class UnauthenticatedApp extends Component {
