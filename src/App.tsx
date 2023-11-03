@@ -37,6 +37,7 @@ export class UnauthenticatedApp extends Component {
 											<Planner
 												startDate={this.state.startDate}
 												startDateUpdater={(date) => this.startDateUpdater(date)}
+												desiredRowCount={7}
 											/>
 										</Route>
 										<Route path='/mains'>
