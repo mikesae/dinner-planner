@@ -2,13 +2,11 @@
 
 body {
   background-color: transparent;
+  user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
   -webkit-touch-callout: none;
-}
-
-.jumbotron-fluid {
-  background-color: white;
+  background-color: var(--body-background-color);
 }
 
 .header-row {
@@ -47,7 +45,6 @@ body {
 }
 
 .spacer {
-  background-color: white;
   height: $navbar-height;
 }
 
@@ -105,22 +102,34 @@ a {
 
     &:hover {
       color: white;
-      //background: black;
     }
   }
 }
 
+body {
+  overflow-y: hidden;
+}
 
 .page {
   height: 100vh;
-  overflow-y: auto;
-  overflow-x: hidden;
-  position: fixed;
-  width: 100vw;
+  background-color: white;
+
+  .container {
+    position: absolute;
+    top: $navbar-height;
+    height: calc(100vh - 2*$navbar-height);
+    max-width: 100%;
+    overflow-y: auto;
+    background-color: white;
+  }
+}
+
+.navbar {
+  background-color: white;
 }
 
 @media (prefers-color-scheme: dark) {
-  body {
+  .page {
     background-color: black;
     color: white;
   }

@@ -16,7 +16,8 @@ $min-image-height: 3em;
 $min-image-width: 3em;
 
 // Size image so 7 rows fit on a page minus header, footer and text between
-$image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / 7);
+//$image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / 7);
+$image-height: 3em;
 $image-width: $image-height;
 
 :root {
@@ -28,12 +29,16 @@ $image-width: $image-height;
   --amplify-secondary-color: white;
   --amplify-primary-contrast: white;
   --amplify-grey: white;
+  --body-background-color: #e4e4e4;
+  --default-text-color: white;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
       --amplify-components-authenticator-router-background-color: var(--amplify-black);
       --amplify-components-authenticator-state-inactive-background-color:var(--amplify-black);
-      --amplify-components-field-label-color: var(--amplify-white);
+      --amplify-components-field-label-color: white;
+      --body-background-color: black;
+      --default-text-color: black;
     }
 }

@@ -75,10 +75,7 @@ export default class Planner extends Component<IPlannerProps> {
 						customInput={<this.CustomInput />}
 					/>
 				</TopNavbar>
-				<Container>
-					<>{this.plannerRows()}</>
-					<div className='spacer' />
-				</Container>
+				<Container>{this.plannerRows()}</Container>
 			</div>
 		);
 	}
