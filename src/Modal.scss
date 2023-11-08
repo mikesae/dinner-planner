@@ -1,17 +1,14 @@
-
-@media (prefers-color-scheme: dark) {
-  .rodal-dialog {
-    background: black;
-  }
+.rodal-dialog {
+	background: var(--mikesae-components-color-background-default);
 }
 
 .rodal-close {
-  height: 32px;
-  width: 32px;
+	height: 32px;
+	width: 32px;
 }
 
 .dropdown-menu {
-  height: 400px;
-  width: 100%;
-  overflow-y: scroll;
+	height: 400px;
+	width: 100%;
+	overflow-y: scroll;
 }

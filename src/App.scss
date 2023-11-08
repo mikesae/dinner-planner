@@ -1,221 +1,155 @@
 @import 'theme';
 
 body {
-  background-color: transparent;
-  -webkit-user-select: none;
-  -webkit-tap-highlight-color: transparent;
-  -webkit-touch-callout: none;
-}
-
-.jumbotron-fluid {
-  background-color: white;
-}
-
-.header-row {
-  top: $navbar-height;
-  margin: 0;
-  height: $header-height;
-  background-color: #CCCCCC !important;
-
-  .btn {
-    color: black;
-    padding: 0 0.5em 0 0;
-    background: none;
-    overflow: hidden;
-    text-overflow: ellipsis;
-
-    svg {
-      margin-left: 0.25em;
-    }
-  }
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-touch-callout: none;
+	color: var(--mikesae-components-color-text-default);
 }
 
 .container {
-  .img-col {
-    text-align: center;
-  }
+	.img-col {
+		text-align: center;
+	}
 }
 
-@media (prefers-color-scheme: dark) {
-  .header-row {
-    background-color: #333333 !important;
+.navbar {
+	background-color: var(--mikesae-components-color-background-default);
 
-    .btn {
-      color: white;
-    }
-  }
+	.btn {
+		background-color: transparent;
+		color: var(--mikesae-components-color-link-default);
+
+		&:active {
+			color: var(--mikesae-components-color-primary-default);
+		}
+	}
+	.btn-date-picker:focus {
+		color: var(--mikesae-components-color-primary-default);
+	}
 }
 
 .spacer {
-  background-color: white;
-  height: $navbar-height;
+	background-color: var(--mikesae-components-color-background-default);
+	height: $navbar-height;
 }
 
 .spacer-for-header {
-  background-color: white;
-  height: $header-height;
+	background-color: var(--mikesae-components-color-background-default);
+	height: $header-height;
 }
 
 .nav-item {
-  a {
-    color: $icon-color;
-  }
+	a {
+		color: var(--mikesae-components-color-icon-default);
+	}
 }
 
 a {
-  color: $link-color;
+	color: var(--mikesae-components-color-link-default);
 
-  &.btn-link {
-    color: $highlight-color;
-    text-decoration: none;
+	&.btn-link {
+		color: var(--mikesae-components-color-primary-default);
+		text-decoration: none;
 
-    &:hover {
-      color: $highlight-color;
-      text-decoration: underline;
-    }
-  }
+		&:hover {
+			color: var(--mikesae-components-color-primary-default);
+			text-decoration: underline;
+		}
+	}
 
-  &:hover {
-    color: $highlight-color;
-    text-decoration: none;
-  }
+	&:hover {
+		color: var(--mikesae-components-color-primary-default);
+		text-decoration: none;
+	}
 }
 
 .nav-item {
-  .link-icon {
-    font-size: 1em;
-    vertical-align: -0.25em;
-  }
+	.link-icon {
+		font-size: 1em;
+		vertical-align: -0.25em;
+	}
 
-  .icon-label {
-    margin-top: 0;
-    font-size: 0.75em;
-  }
+	.icon-label {
+		margin-top: 0;
+		font-size: 0.75em;
+	}
 }
 
 .btn-primary {
-  background: $highlight-color;
+	background: var(--mikesae-components-color-primary-default);
 }
 
-@media (prefers-color-scheme: dark) {
-  .btn {
-    color: black;
-    background: none;
-    border: none;
+.btn {
+	color: var(--mikesae-components-color-button-text-default);
+	background: var(--mikesae-components-color-primary-default);
+	border: none;
 
-    &:hover {
-      color: white;
-      //background: black;
-    }
-  }
+	&:hover {
+		color: var(--mikesae-components-color-background-default);
+	}
 }
-
 
 .page {
-  height: 100vh;
-  overflow-y: hidden;
-  overflow-x: hidden;
-  position: fixed;
-  width: 100vw;
+	height: 100vh;
+	width: 100vw;
+	overflow-y: hidden;
+	overflow-x: hidden;
+	position: fixed;
+	background-color: var(--mikesae-components-color-background-default);
 }
 
-@media (prefers-color-scheme: dark) {
-  body {
-    background-color: black;
-    color: white;
-  }
+.jumbotron-fluid {
+	&.border-bottom {
+		border-bottom-color: var(--mikesae-components-color-border-default) !important;
+	}
 
-  .navbar-brand {
-    color: white !important;
-  }
-
-  .jumbotron-fluid.border-bottom {
-    border-bottom-color: $navbar-separator-color !important;
-  }
-
-  .jumbotron-fluid.border-top {
-    border-top-color: $navbar-separator-color !important;
-  }
-
-  .nav-item {
-    a {
-      color: $dark-mode-icon-color;
-    }
-  }
-
-  a {
-    color: $invert-link-color;
-  }
-
-  .spacer, .spacer-for-header {
-    background-color: black;
-  }
-
-  .btn {
-    background-color: $highlight-color;
-    color: white;
-  }
-
-  .navbar {
-    background-color: $navbar-dark-background;
-    .btn {
-      background-color: transparent;
-      color: white;
-
-      &:active {
-        color: $highlight-color;
-      }
-    }
-    .btn-date-picker:focus {
-      color: $highlight-color;
-    }
-  }
+	&.border-top {
+		border-top-color: var(--mikesae-components-color-border-default) !important;
+	}
 }
 
 .spinner-container {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-orient: horizontal;
-  -webkit-box-direction: normal;
-  -ms-flex-direction: row;
-  flex-direction: row;
-  -ms-flex-wrap: wrap;
-  flex-wrap: wrap;
-  -ms-flex-pack: distribute;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  min-width: 300px;
-  width: 100%;
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: row;
+	flex-direction: row;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+	-ms-flex-pack: distribute;
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+	min-width: 300px;
+	width: 100%;
 }
 
 .img-thumbnail {
-  border: none;
+	border: none;
 }
 
 // All landscape
-@media only screen and (orientation: landscape)  {
-  .spinner-container {
-    max-width: 100%;
-  }
+@media only screen and (orientation: landscape) {
+	.spinner-container {
+		max-width: 100%;
+	}
 }
 
 // iPad
-@media only screen
-and (min-device-width : 768px)
-and (max-device-width : 1024px)
-and (orientation: portrait)
-{
-  .spinner-container {
-    max-width: 100%;
-  }
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) and (orientation: portrait) {
+	.spinner-container {
+		max-width: 100%;
+	}
 }
 
 amplify-authenticator {
-  background: black;
+	background: black;
 }
 
 .fixed-top {
-  z-index: 100;
+	z-index: 100;
 }

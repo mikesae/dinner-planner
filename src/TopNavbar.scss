@@ -1,36 +1,31 @@
 @import 'theme';
 
 .navbar-left-link {
-  .btn {
-    font-size: 1.5em;
+	.btn {
+		font-size: 1.5em;
 
-    &:hover, &:active {
-      color: $highlight-color;
-    }
-  }
+		&:hover,
+		&:active {
+			color: var(--mikesae-components-color-primary-default);
+		}
+	}
 }
 
 .navbar-top {
-  padding: 0 1em;
-  height: $navbar-height;
+	padding: 0 1em;
+	height: $navbar-height;
 
-  img {
-    height: 2em;
-    width: 2em;
-  }
+	img {
+		height: 2em;
+		width: 2em;
+	}
 }
 
 .navbar-content {
-  text-align: center;
-  font-size: 1.25em;
-}
-
-@media (prefers-color-scheme: dark) {
-  .navbar-top {
-    background-color: $navbar-dark-background;
-  }
+	text-align: center;
+	font-size: 1.25em;
 }
 
 .img-thumbnail {
-  background: transparent;
+	background: transparent;
 }

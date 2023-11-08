@@ -1,39 +1,32 @@
-$highlight-color: #008F8F;
-$highlight-color-background: rgba(0, 128, 0, 0.5);
-$icon-color: #444444;
-$dark-mode-icon-color: #cccccc;
-$link-color: black;
-$invert-link-color: white;
-$navbar-separator-color: #333333;
-$navbar-dark-background: #222222;
-$navbar-light-background: #DDDDDD;
-$player-thumbnail-background-color: white;
-
 $navbar-height: 3em;
 $header-height: 3em;
 
 $min-image-height: 3em;
 $min-image-width: 3em;
 
-// Size image so 7 rows fit on a page minus header, footer and text between
-$image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / 7);
+// Size image so 7 rows fit on a page minus header, footer and text between.
+$rows-per-planner: 7;
+$image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / $rows-per-planner);
 $image-width: $image-height;
 
 :root {
-  --amplify-primary-color: #008F8F;
-  --amplify-primary-tint: white;
-  --amplify-primary-shade: white;
-  --amplify-white: white;
-  --amplify-black: black;
-  --amplify-secondary-color: white;
-  --amplify-primary-contrast: white;
-  --amplify-grey: white;
+	--mikesae-components-color-background-default: white;
+	--mikesae-components-color-background-secondary: #eeeee;
+	--mikesae-components-color-text-default: black;
+	--mikesae-components-color-button-text-default: white;
+	--mikesae-components-color-link-default: black;
+	--mikesae-components-color-icon-default: #444444;
+	--mikesae-components-color-primary-default: #008f8f;
+	--mikesae-components-color-border-default: #cccccc;
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
-      --amplify-components-authenticator-router-background-color: var(--amplify-black);
-      --amplify-components-authenticator-state-inactive-background-color:var(--amplify-black);
-      --amplify-components-field-label-color: var(--amplify-white);
-    }
+	:root {
+		--mikesae-components-color-background-default: black;
+		--mikesae-components-color-background-secondary: #111111;
+		--mikesae-components-color-text-default: white;
+		--mikesae-components-color-link-default: white;
+		--mikesae-components-color-icon-default: #cccccc;
+		--mikesae-components-color-border-default: #333333;
+	}
 }

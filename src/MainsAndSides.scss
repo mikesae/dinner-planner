@@ -1,81 +1,77 @@
 @import 'theme';
 
 .input-file {
-  width: 0.1px;
-  height: 0.1px;
-  opacity: 0;
-  overflow: hidden;
-  position: absolute;
-  z-index: -1;
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
 }
 
 .input-file + label {
-  color: white;
-  background-color: black;
-  display: inline-block;
-  .link-icon {
-    height: $image-height;
-    width: $image-width;
-  }
+	color: var(--mikesae-components-color-primary-default);
+	display: inline-block;
+	.link-icon {
+		height: $image-height;
+		width: $image-width;
+	}
 }
 
 .input-file:focus + label,
-.input-file + label:hover {
-  background-color: white;
+.input-file:hover + label {
+	// TODO: Need a toke for focus color.
+	color: var(--mikesae-components-color-primary-default);
 }
 
 .mains-and-sides {
-  .row {
-    margin-top: 5px;
+	.row {
+		margin-top: 5px;
 
-    input[type=text] {
-      width: 100%;
-    }
+		input[type='text'] {
+			width: 100%;
+		}
 
-    img.img-item {
-      height: $image-height;
-      width: $image-width;
-      border: 1px solid lightslategray;
-    }
+		img.img-item {
+			height: $image-height;
+			width: $image-width;
+			border: 1px solid var(--mikesae-components-color-border-default);
+		}
 
-    .img-col {
-      text-overflow: clip;
-    }
-  }
+		.img-col {
+			text-overflow: clip;
+		}
+	}
 }
 
 .fa-1pt5x {
-  font-size: 1.5em;
+	font-size: 1.5em;
 }
 
 .add-item-placeholder {
-  height: $image-height;
-  width: $image-width;
-  border: 1px dashed gray;
-  background: transparent;
-  margin: 0 auto; // horizontal align within container
+	height: $image-height;
+	width: $image-width;
+	border: 1px dashed var(--mikesae-components-color-border-default);
+	background: transparent;
+	margin: 0 auto; // horizontal align within container
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+	display: flex;
+	align-items: center;
+	justify-content: center;
 
-  .link-icon {
-    color: gray;
-  }
+	.link-icon {
+		color: var(--mikesae-components-color-border-default);
+	}
 }
 
 // iPhone 6, 6S, 7 and 8 Landscape
-@media only screen
-and (min-device-width: 375px)
-and (max-device-width: 667px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
-  .mains-and-sides {
-    .row {
-      img.img-item {
-        width: $min-image-width;
-        height: $min-image-height;
-      }
-    }
-  }
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+	.mains-and-sides {
+		.row {
+			img.img-item {
+				width: $min-image-width;
+				height: $min-image-height;
+			}
+		}
+	}
 }

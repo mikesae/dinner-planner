@@ -1,109 +1,98 @@
 @import 'theme';
 
 .planner-row {
-  .meal-placeholder {
-    width: $image-width;
-    height: $image-height;
+	.meal-placeholder {
+		width: $image-width;
+		height: $image-height;
 
-    display: flex;
-    align-items: center;
-    justify-content: center;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 
-    border: 1px dashed gray;
-    background: transparent;
-    margin: 0 auto;   // horizontal align within container
+		border: 1px dashed var(--mikesae-components-color-border-default);
+		background: transparent;
+		margin: 0 auto; // horizontal align within container
 
-    .link-icon {
-      color: gray;
-    }
-  }
+		.link-icon {
+			color: var(--mikesae-components-color-border-default);
+		}
+	}
 
-  label.label-day {
-    font-size: 0.75em;
-    font-weight: bold;
+	label.label-day {
+		font-size: 0.75em;
+		font-weight: bold;
 
-    &.label-day-today {
-      color: $highlight-color;
-    }
-  }
+		&.label-day-today {
+			color: var(--mikesae-components-color-primary-default);
+		}
+	}
 }
 
 img.img-item {
-  width: $image-width;
-  height: $image-height;
+	width: $image-width;
+	height: $image-height;
 }
 
-
 // iPhone 6, 6S, 7 and 8 Landscape
-@media only screen
-and (min-device-width: 375px)
-and (max-device-width: 667px)
-and (-webkit-min-device-pixel-ratio: 2)
-and (orientation: landscape) {
-  img.img-item {
-    width: $min-image-width;
-    height: $min-image-height;
-  }
-  .planner-row {
-    .meal-placeholder {
-      width: $min-image-width;
-      height: $min-image-height;
-    }
-  }
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+	img.img-item {
+		width: $min-image-width;
+		height: $min-image-height;
+	}
+	.planner-row {
+		.meal-placeholder {
+			width: $min-image-width;
+			height: $min-image-height;
+		}
+	}
 }
 
 label.label-item {
-  margin: 0;
-  font-weight: bold;
-  font-size: 0.75em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
+	margin: 0;
+	font-weight: bold;
+	font-size: 0.75em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	width: 100%;
 }
 .drag-handle {
-  float: left;
-  font-size: 24px;
-  font-weight: bold;
+	float: left;
+	font-size: 24px;
+	font-weight: bold;
 }
 
 $button-height: 64px;
 
-@media (prefers-color-scheme: dark) {
-  .planner-modal {
-    background: black;
-    color: white;
-    .dropdown {
-      .dropdown-menu {
-        background: black;
-        border: 1px solid lightslategray;
-
-        .dropdown-item {
-          background: black;
-          color: white;
-        }
-      }
-    }
-  }
-}
-
 .planner-modal {
-  margin: 0;
-  width: 100%;
-  height: 100%;
+	margin: auto;
+	width: 100%;
+	height: 100%;
+	background: var(--mikesae-components-color-background-default);
+	color: var(--mikesae-components-color-text-default);
 
-  img.img-item {
-    width: 3em;
-    height: 3em;
-    margin-right: 10px;
-  }
+	.dropdown {
+		.dropdown-menu {
+			background: var(--mikesae-components-color-background-default);
+			border: 1px solid var(--mikesae-components-color-border-default);
+		}
+		.dropdown-item {
+			color: var(--mikesae-components-color-text-default);
+		}
+	}
 
-  .btn-on-bottom {
-    margin-top: 1em;
-  }
+	img.img-item {
+		width: 3em;
+		height: 3em;
+		margin-right: 10px;
+	}
 
-  button {
-    width: 100%;
-    height: $button-height;
-  }
+	.btn-on-bottom {
+		margin-top: 1em;
+	}
+
+	button {
+		width: 100%;
+		height: $button-height;
+	}
 }
