@@ -18,10 +18,8 @@ $image-width: $image-height;
 	--mikesae-components-color-icon-default: #444444;
 	--mikesae-components-color-primary-default: #008f8f;
 	--mikesae-components-color-border-default: #cccccc;
-}
 
-@media (prefers-color-scheme: dark) {
-	:root {
+	@media (prefers-color-scheme: dark) {
 		--mikesae-components-color-background-default: black;
 		--mikesae-components-color-background-secondary: #111111;
 		--mikesae-components-color-text-default: white;
