@@ -26,10 +26,7 @@ interface IPlannerRowState {
 	clickedItemId: string;
 }
 
-export default class PlannerRow extends Component<
-	IPlannerRowProps,
-	IPlannerRowState
-> {
+export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowState> {
 	constructor(props: IPlannerRowProps) {
 		super(props);
 		this.state = {
@@ -147,10 +144,7 @@ export default class PlannerRow extends Component<
 		const labelText = this.dayName(date);
 		const dateText = `${date.getMonth() + 1}/${this.props.date.getDate()}`;
 		return (
-			<label
-				onClick={() => this.props.startDateUpdater(date)}
-				className={'label-day' + (isToday ? ' label-day-today' : '')}
-			>
+			<label onClick={() => this.props.startDateUpdater(date)} className={'label-day' + (isToday ? ' label-day-today' : '')}>
 				{labelText}
 				<br />
 				{dateText}
@@ -173,22 +167,14 @@ export default class PlannerRow extends Component<
 				/>
 				<Col className='col-1-10th'>{this.dayLabel(this.props.date)}</Col>
 				{items.map((item: any, index: number) => (
-					<Col
-						className='col-3-10th img-col'
-						key={index}
-						onClick={() => this.onItemClick(item.id)}
-					>
+					<Col className='col-3-10th img-col' key={index} onClick={() => this.onItemClick(item.id)}>
 						<PlannerItem imageSrc={item.image} name={item.name} />
 					</Col>
 				))}
 				{items.length < 4 && (
 					<Col className='col-3-10th'>
 						<div className='meal-placeholder'>
-							<FontAwesomeIcon
-								className='link-icon'
-								icon={faPlusCircle}
-								onClick={() => this.onAddItemClick()}
-							/>
+							<FontAwesomeIcon className='link-icon' icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
 						</div>
 						<label className='label-item'>&nbsp;</label>
 					</Col>

@@ -2,15 +2,13 @@
 
 .planner-row {
 	.meal-placeholder {
-		width: $image-width;
 		height: $image-height;
+		border-radius: 4px;
+		border: 1px dashed var(--mikesae-components-color-border-default);
 
 		display: flex;
 		align-items: center;
 		justify-content: center;
-
-		border: 1px dashed var(--mikesae-components-color-border-default);
-		background: transparent;
 		margin: 0 auto; // horizontal align within container
 
 		.link-icon {
@@ -26,22 +24,30 @@
 			color: var(--mikesae-components-color-primary-default);
 		}
 	}
-}
 
-img.img-item,
-.meal-placeholder {
-	width: $image-width;
-	height: $image-height;
-	min-width: $min-image-width;
-	min-height: $min-image-height;
+	.planner-item {
+		border-radius: 4px;
+		margin: 0 4px;
+		padding: 4px 4px 0 0;
+		background-color: var(--mikesae-components-color-background-default);
+		height: $image-height;
+		box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+		-webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+
+		img.img-item {
+			display: block;
+			height: calc(100% - 20px);
+			margin: 0 auto 4px auto;
+		}
+	}
 }
 
 // iPhone 6, 6S, 7 and 8 Landscape
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
-	img.img-item,
+	.planner-item,
 	.meal-placeholder {
-		width: $min-image-width;
-		height: $min-image-height;
+		min-width: $min-image-width;
+		min-height: $min-image-height;
 	}
 }
 
