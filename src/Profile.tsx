@@ -14,9 +14,7 @@ export default class Profile extends Component {
 	componentDidMount() {
 		Auth.currentAuthenticatedUser({
 			bypassCache: true,
-		}).then((user) =>
-			this.setState({ userName: user.username, email: user.attributes.email })
-		);
+		}).then((user) => this.setState({ userName: user.username, email: user.attributes.email }));
 	}
 
 	render() {
@@ -46,7 +44,6 @@ export default class Profile extends Component {
 							</FormGroup>
 						)}
 					</Authenticator>
-					<div className='spacer' />
 				</Container>
 			</div>
 		);

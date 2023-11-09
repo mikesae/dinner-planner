@@ -39,10 +39,7 @@ interface IUpdatePlannerModalState {
 
 const NOT_SELECTED: number = -1;
 
-export default class UpdatePlannerModal extends Component<
-	IUpdatePlannerModalProps,
-	IUpdatePlannerModalState
-> {
+export default class UpdatePlannerModal extends Component<IUpdatePlannerModalProps, IUpdatePlannerModalState> {
 	constructor(props: IUpdatePlannerModalProps) {
 		super(props);
 		this.state = {
@@ -241,14 +238,10 @@ export default class UpdatePlannerModal extends Component<
 				width={100}
 				height={100}
 			>
-				<div className='spacer' />
 				<Container className='planner-modal'>
 					{!addingItem && (
 						<FormGroup>
-							<button
-								className='btn btn-primary'
-								onClick={() => this.onRemove()}
-							>
+							<button className='btn btn-primary' onClick={() => this.onRemove()}>
 								Remove
 							</button>
 							<Row />
@@ -260,10 +253,7 @@ export default class UpdatePlannerModal extends Component<
 					<FormGroup>
 						<DropdownButton title={mainTitle}>
 							{this.state.mains.map((item: any, index: number) => (
-								<Dropdown.Item
-									key={item.id}
-									onSelect={() => this.onMainPicked(index)}
-								>
+								<Dropdown.Item key={item.id} onSelect={() => this.onMainPicked(index)}>
 									<img className='img-item' src={item.image} alt='' />
 									{item.name}
 								</Dropdown.Item>
@@ -273,10 +263,7 @@ export default class UpdatePlannerModal extends Component<
 					<FormGroup>
 						<DropdownButton title={sideTitle}>
 							{this.state.sides.map((item: any, index: number) => (
-								<Dropdown.Item
-									key={item.id}
-									onSelect={() => this.onSidePicked(index)}
-								>
+								<Dropdown.Item key={item.id} onSelect={() => this.onSidePicked(index)}>
 									<img className='img-item' src={item.image} alt='' />
 									{item.name}
 								</Dropdown.Item>
@@ -286,10 +273,7 @@ export default class UpdatePlannerModal extends Component<
 					<FormGroup>
 						<DropdownButton title={vegetableTitle}>
 							{this.state.vegetables.map((item: any, index: number) => (
-								<Dropdown.Item
-									key={item.id}
-									onSelect={() => this.onVegetablePicked(index)}
-								>
+								<Dropdown.Item key={item.id} onSelect={() => this.onVegetablePicked(index)}>
 									<img className='img-item' src={item.image} alt='' />
 									{item.name}
 								</Dropdown.Item>
@@ -299,10 +283,7 @@ export default class UpdatePlannerModal extends Component<
 					<FormGroup>
 						<DropdownButton title={dessertTitle}>
 							{this.state.desserts.map((item: any, index: number) => (
-								<Dropdown.Item
-									key={item.id}
-									onSelect={() => this.onDessertPicked(index)}
-								>
+								<Dropdown.Item key={item.id} onSelect={() => this.onDessertPicked(index)}>
 									<img className='img-item' src={item.image} alt='' />
 									{item.name}
 								</Dropdown.Item>
@@ -311,17 +292,11 @@ export default class UpdatePlannerModal extends Component<
 					</FormGroup>
 					<FormGroup className='text-center'>
 						{addingItem ? (
-							<button
-								className='btn btn-primary btn-on-bottom'
-								onClick={() => this.onAdd()}
-							>
+							<button className='btn btn-primary btn-on-bottom' onClick={() => this.onAdd()}>
 								Add
 							</button>
 						) : (
-							<button
-								className='btn btn-primary btn-on-bottom'
-								onClick={() => this.onReplace()}
-							>
+							<button className='btn btn-primary btn-on-bottom' onClick={() => this.onReplace()}>
 								Replace
 							</button>
 						)}

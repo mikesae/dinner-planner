@@ -27,17 +27,11 @@ export default class Planner extends Component<IPlannerProps> {
 				<span onClick={props.onClick}>
 					&nbsp;{props.value}&nbsp;
 					<button className='btn btn-date-picker'>
-						<FontAwesomeIcon
-							className='link-icon fa-1pt5x'
-							icon={faCalendarAlt}
-						/>
+						<FontAwesomeIcon className='link-icon fa-1pt5x' icon={faCalendarAlt} />
 					</button>
 				</span>
 				<button className='btn' onClick={() => this.onNextWeek()}>
-					<FontAwesomeIcon
-						className='link-icon fa-1pt5x'
-						icon={faChevronDown}
-					/>
+					<FontAwesomeIcon className='link-icon fa-1pt5x' icon={faChevronDown} />
 				</button>
 			</div>
 		);
@@ -69,15 +63,12 @@ export default class Planner extends Component<IPlannerProps> {
 				<TopNavbar title={''} showBackNav={false}>
 					<DatePicker
 						selected={startDate}
-						onChange={(date: Date) =>
-							this.props.startDateUpdater(getPreviousStartDay(date))
-						}
+						onChange={(date: Date) => this.props.startDateUpdater(getPreviousStartDay(date))}
 						customInput={<this.CustomInput />}
 					/>
 				</TopNavbar>
 				<Container>
 					<>{this.plannerRows()}</>
-					<div className='spacer' />
 				</Container>
 			</div>
 		);

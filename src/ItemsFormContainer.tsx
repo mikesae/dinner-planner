@@ -14,7 +14,6 @@ export const ItemsFormContainer: FunctionComponent<Props> = ({ category }) => {
 			<TopNavbar title={category} showBackNav={true} />
 			<Container>
 				<ItemsForm category={category} />
-				<div className='spacer' />
 			</Container>
 		</div>
 	);

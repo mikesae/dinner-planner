@@ -53,16 +53,11 @@ const ItemDetail: FunctionComponent = (props: any) => {
 					<TopNavbar title='' showBackNav={false} />
 					<Container className='container'>
 						<FormGroup>Loading...</FormGroup>
-						<div className='spacer' />
 					</Container>
 				</>
 			) : (
 				<>
-					<TopNavbar
-						title={name}
-						showBackNav={true}
-						backNav={`/${category.toLowerCase()}`}
-					/>
+					<TopNavbar title={name} showBackNav={true} backNav={`/${category.toLowerCase()}`} />
 					<Container>
 						<FormGroup>
 							<Row className='px-3 py-3'>
@@ -101,16 +96,11 @@ const ItemDetail: FunctionComponent = (props: any) => {
 								/>
 							</Row>
 							<Row className='px-3 pb-3'>
-								<button
-									style={{ width: '100%' }}
-									className='btn btn-primary'
-									onClick={() => updateItem()}
-								>
+								<button style={{ width: '100%' }} className='btn btn-primary' onClick={() => updateItem()}>
 									Update
 								</button>
 							</Row>
 						</FormGroup>
-						<div className='spacer' />
 					</Container>
 				</>
 			)}

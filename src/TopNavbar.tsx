@@ -44,7 +44,6 @@ export default class TopNavbar extends Component<ITopNavBarProps> {
 						</Col>
 					</Row>
 				</Navbar>
-				<div className='spacer' />
 			</>
 		);
 	}

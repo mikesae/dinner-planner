@@ -30,16 +30,6 @@ body {
 	}
 }
 
-.spacer {
-	background-color: var(--mikesae-components-color-background-default);
-	height: $navbar-height;
-}
-
-.spacer-for-header {
-	background-color: var(--mikesae-components-color-background-default);
-	height: $header-height;
-}
-
 .nav-item {
 	a {
 		color: var(--mikesae-components-color-icon-default);
@@ -98,6 +88,14 @@ a {
 	overflow-x: hidden;
 	position: fixed;
 	background-color: var(--mikesae-components-color-background-default);
+
+	.container {
+		position: absolute;
+		top: $navbar-height;
+		height: calc(100vh - 2 * $navbar-height);
+		max-width: 100%;
+		overflow-y: auto;
+	}
 }
 
 .jumbotron-fluid {
