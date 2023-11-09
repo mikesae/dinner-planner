@@ -4,9 +4,9 @@ $header-height: 3em;
 $min-image-height: 3em;
 $min-image-width: 3em;
 
-// Size image so 7 rows fit on a page minus header, footer and text between.
+// Size image so specified rows fit on a page minus header, footer and text between.
 $rows-per-planner: 7;
-$image-height: calc((100vh - 3em - 3em - 12em - 0.5em) / $rows-per-planner);
+$image-height: calc((100vh - 3em - 3em - 12em - 1em) / $rows-per-planner);
 $image-width: $image-height;
 
 :root {
