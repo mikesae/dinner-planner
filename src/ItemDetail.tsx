@@ -61,7 +61,7 @@ const ItemDetail: FunctionComponent = (props: any) => {
 					<Container>
 						<FormGroup>
 							<Row className='px-3 py-3'>
-								<Col>
+								<Col className='img-col'>
 									<input
 										type='file'
 										name='file'
