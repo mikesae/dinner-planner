@@ -1,11 +1,14 @@
 @import 'theme';
 
 .planner-row {
-	.meal-placeholder {
+	.planner-row-item {
 		height: $image-height;
 		border-radius: 4px;
-		border: 1px dashed var(--mikesae-components-color-border-default);
+		box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+		-webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+	}
 
+	.meal-placeholder {
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -30,9 +33,6 @@
 		margin: 0 4px;
 		padding: 4px 4px 0 0;
 		background-color: var(--mikesae-components-color-background-default);
-		height: $image-height;
-		box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
-		-webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
 
 		img.img-item {
 			display: block;

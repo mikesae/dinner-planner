@@ -8,7 +8,7 @@ interface Props {
 
 const PlannerItem: FunctionComponent<Props> = ({ imageSrc, name }) => {
 	return (
-		<div className='planner-item'>
+		<div className='planner-item planner-row-item'>
 			<ImageComponent src={imageSrc} />
 			<label className='label-item'>{name}</label>
 		</div>

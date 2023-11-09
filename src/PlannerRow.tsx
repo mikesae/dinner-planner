@@ -173,7 +173,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 				))}
 				{items.length < 4 && (
 					<Col className='col-3-10th'>
-						<div className='meal-placeholder'>
+						<div className='meal-placeholder planner-row-item'>
 							<FontAwesomeIcon className='link-icon' icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
 						</div>
 						<label className='label-item'>&nbsp;</label>
