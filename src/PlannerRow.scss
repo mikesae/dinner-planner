@@ -28,22 +28,20 @@
 	}
 }
 
-img.img-item {
+img.img-item,
+.meal-placeholder {
 	width: $image-width;
 	height: $image-height;
+	min-width: $min-image-width;
+	min-height: $min-image-height;
 }
 
 // iPhone 6, 6S, 7 and 8 Landscape
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
-	img.img-item {
+	img.img-item,
+	.meal-placeholder {
 		width: $min-image-width;
 		height: $min-image-height;
-	}
-	.planner-row {
-		.meal-placeholder {
-			width: $min-image-width;
-			height: $min-image-height;
-		}
 	}
 }
 
