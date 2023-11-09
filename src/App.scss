@@ -8,12 +8,6 @@ body {
 	color: var(--mikesae-components-color-text-default);
 }
 
-.container {
-	.img-col {
-		text-align: center;
-	}
-}
-
 .navbar {
 	background-color: var(--mikesae-components-color-background-default);
 
@@ -82,19 +76,29 @@ a {
 }
 
 .page {
+	position: fixed;
 	height: 100vh;
 	width: 100vw;
 	overflow-y: auto;
 	overflow-x: hidden;
-	position: fixed;
+	background-color: var(--mikesae-components-color-background-default);
+}
+
+.container {
+	position: absolute;
+	top: $navbar-height;
+	height: calc(100vh - 2 * $navbar-height);
+	max-width: 100%;
+	overflow-y: auto;
 	background-color: var(--mikesae-components-color-background-default);
 
-	.container {
-		position: absolute;
-		top: $navbar-height;
-		height: calc(100vh - 2 * $navbar-height);
-		max-width: 100%;
-		overflow-y: auto;
+	.img-col {
+		text-align: center;
+	}
+
+	.form-group {
+		max-width: 640px;
+		margin: auto;
 	}
 }
 
