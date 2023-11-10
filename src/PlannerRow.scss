@@ -1,8 +1,18 @@
 @import 'theme';
 
+// Size image so specified rows fit on a page minus header, footer and space between.
+$rows-per-planner: 7;
+$total-vertical-space-between-rows: 60px;
+$planner-row-item-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner);
+$planner-row-item-min-height: calc(640px / $rows-per-planner);
+
 .planner-row {
+	height: $planner-row-item-height;
+	min-height: $planner-row-item-min-height;
+
 	.planner-row-item {
-		height: $image-height;
+		height: $planner-row-item-height;
+		min-height: $planner-row-item-min-height;
 		border-radius: 4px;
 		box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
 		-webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
@@ -12,7 +22,7 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin: 0 auto; // horizontal align within container
+		margin: auto; // horizontal align within container
 
 		.link-icon {
 			color: var(--mikesae-components-color-border-default);
@@ -30,14 +40,13 @@
 
 	.planner-item {
 		border-radius: 4px;
-		margin: 0 4px;
-		padding: 4px 4px 0 0;
+		padding: 4px;
 		background-color: var(--mikesae-components-color-background-default);
 
 		img.img-item {
 			display: block;
-			height: calc(100% - 20px);
-			margin: 0 auto 4px auto;
+			height: calc(100% - 24px);
+			margin: 4px auto;
 		}
 	}
 }
@@ -59,11 +68,6 @@ label.label-item {
 	overflow: hidden;
 	text-overflow: ellipsis;
 	width: 100%;
-}
-.drag-handle {
-	float: left;
-	font-size: 24px;
-	font-weight: bold;
 }
 
 $button-height: 64px;
