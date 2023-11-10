@@ -166,8 +166,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 					OnClose={() => this.onCloseModal()}
 				/>
 				<Col className='col-1-10th'>{this.dayLabel(this.props.date)}</Col>
-				{items.map((item: any, index: number) => (
-					<Col className='col-3-10th img-col' key={index} onClick={() => this.onItemClick(item.id)}>
+				{items.map((item: any) => (
+					<Col className='col-3-10th img-col' key={item.id} onClick={() => this.onItemClick(item.id)}>
 						<PlannerItem imageSrc={item.image} name={item.name} />
 					</Col>
 				))}
