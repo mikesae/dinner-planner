@@ -46,6 +46,8 @@ $planner-row-item-min-height: calc(640px / $rows-per-planner);
 		img.img-item {
 			display: block;
 			height: calc(100% - 24px);
+			aspect-ratio: 3/2;
+			max-width: 100%;
 			margin: 4px auto;
 		}
 	}
