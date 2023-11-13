@@ -1,5 +1,8 @@
 @import 'theme';
 
+$image-height: 4em;
+$dish-image-aspect-ratio: $img-aspect-ratio;
+
 .input-file {
 	width: 0.1px;
 	height: 0.1px;
@@ -14,7 +17,7 @@
 	display: inline-block;
 	.link-icon {
 		height: $image-height;
-		width: $image-width;
+		aspect-ratio: $dish-image-aspect-ratio;
 	}
 }
 
@@ -34,12 +37,12 @@
 
 		img.img-item {
 			height: $image-height;
-			width: $image-width;
+			aspect-ratio: $dish-image-aspect-ratio;
 			border: 1px solid var(--mikesae-components-color-border-default);
 		}
 
 		.img-col {
-			text-overflow: clip;
+			overflow: clip;
 		}
 	}
 }
@@ -50,7 +53,7 @@
 
 .add-item-placeholder {
 	height: $image-height;
-	width: $image-width;
+	aspect-ratio: $dish-image-aspect-ratio;
 	border: 1px dashed var(--mikesae-components-color-border-default);
 	background: transparent;
 	margin: 0 auto; // horizontal align within container
@@ -70,7 +73,7 @@
 		.row {
 			img.img-item {
 				width: $min-image-width;
-				height: $min-image-height;
+				aspect-ratio: $dish-image-aspect-ratio;
 			}
 		}
 	}

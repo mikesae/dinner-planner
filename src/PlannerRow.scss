@@ -4,7 +4,7 @@
 $rows-per-planner: 7;
 $total-vertical-space-between-rows: 60px;
 $planner-row-item-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner);
-$planner-row-item-min-height: calc(640px / $rows-per-planner);
+$planner-row-item-min-height: calc(512px / $rows-per-planner);
 
 .planner-row {
 	height: $planner-row-item-height;
@@ -46,7 +46,7 @@ $planner-row-item-min-height: calc(640px / $rows-per-planner);
 		img.img-item {
 			display: block;
 			height: calc(100% - 24px);
-			aspect-ratio: 3/2;
+			aspect-ratio: $img-aspect-ratio;
 			max-width: 100%;
 			margin: 4px auto;
 		}
@@ -80,6 +80,10 @@ $button-height: 64px;
 	height: 100%;
 	background: var(--mikesae-components-color-background-default);
 	color: var(--mikesae-components-color-text-default);
+
+	&.container {
+		position: relative;
+	}
 
 	.dropdown {
 		.dropdown-menu {
