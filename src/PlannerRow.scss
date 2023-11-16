@@ -2,13 +2,16 @@
 
 // Size image so specified rows fit on a page minus header, footer and space between.
 $rows-per-planner: 7;
-$total-vertical-space-between-rows: 60px;
-$planner-row-item-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner);
-$planner-row-item-min-height: calc(512px / $rows-per-planner);
+$item-margin: 0.5em;
+$total-vertical-space-between-rows: $item-margin * ($rows-per-planner - 2);
+$planner-row-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner);
+$planner-row-min-height: calc(512px / $rows-per-planner);
+$planner-row-item-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner - $item-margin);
+$planner-row-item-min-height: $planner-row-min-height;
 
 .planner-row {
-	height: $planner-row-item-height;
-	min-height: $planner-row-item-min-height;
+	height: $planner-row-height;
+	min-height: $planner-row-min-height;
 
 	.planner-row-item {
 		height: $planner-row-item-height;
@@ -16,13 +19,15 @@ $planner-row-item-min-height: calc(512px / $rows-per-planner);
 		border-radius: 4px;
 		box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
 		-webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+		margin-right: $item-margin/2;
+		margin-left: $item-margin/2;
 	}
 
 	.meal-placeholder {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		margin: auto; // horizontal align within container
+		margin: auto $item-margin/2; // horizontal align within container
 
 		.link-icon {
 			color: var(--mikesae-components-color-border-default);
