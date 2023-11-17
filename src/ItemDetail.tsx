@@ -8,13 +8,24 @@ import './ItemDetail.scss';
 import TopNavbar from './TopNavbar';
 import { getItem, setItem } from './itemQueries';
 
+type ItemDetails = {
+	id: string;
+	name: string;
+	description: string;
+	image: string;
+	category?: string;
+};
+
 const ItemDetail: FunctionComponent = (props: any) => {
 	const [userName, setUserName] = useState('');
-	const [name, setName] = useState('');
-	const [description, setDescription] = useState('');
-	const [image, setImage] = useState('');
-	const [category, setCategory] = useState('');
 	const { id } = props.match.params;
+	const [itemDetails, setItemDetails] = useState({
+		id: props.match.params,
+		name: '',
+		description: '',
+		image: '',
+		category: '',
+	});
 
 	useEffect(() => {
 		(async () => {
@@ -22,10 +33,7 @@ const ItemDetail: FunctionComponent = (props: any) => {
 				const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
 				setUserName(user.username);
 				const item = await getItem(id);
-				setName(item.name);
-				setDescription(item.description);
-				setImage(item.image);
-				setCategory(item.category);
+				setItemDetails(item);
 			} catch (error) {
 				console.log('Error getting item details.', error);
 			}
@@ -37,18 +45,17 @@ const ItemDetail: FunctionComponent = (props: any) => {
 			target: { files },
 		} = event;
 		const fileForUpload = files[0];
-
-		setImage(await storeImage(fileForUpload, userName, name));
+		const image = await storeImage(fileForUpload, userName, itemDetails.name);
+		setItemDetails({ ...itemDetails, image });
 	}
 
 	async function updateItem() {
-		const { id } = props.match.params;
-		await setItem({ id, name, description, image, category });
+		await setItem(itemDetails);
 	}
 
 	return (
 		<>
-			{name === '' ? (
+			{itemDetails.name === '' ? (
 				<>
 					<TopNavbar title='' showBackNav={false} />
 					<Container className='container'>
@@ -57,7 +64,7 @@ const ItemDetail: FunctionComponent = (props: any) => {
 				</>
 			) : (
 				<>
-					<TopNavbar title={name} showBackNav={true} backNav={`/${category.toLowerCase()}`} />
+					<TopNavbar title={itemDetails.name} showBackNav={true} backNav={`/${itemDetails.category.toLowerCase()}`} />
 					<Container className='item-detail-container'>
 						<FormGroup>
 							<Row className='px-3 py-3'>
@@ -71,7 +78,7 @@ const ItemDetail: FunctionComponent = (props: any) => {
 										accept='image/png, image/jpeg'
 									/>
 									<label htmlFor='file'>
-										<ImageComponentDetail src={image} />
+										<ImageComponentDetail src={itemDetails.image} />
 									</label>
 								</Col>
 							</Row>
@@ -81,8 +88,8 @@ const ItemDetail: FunctionComponent = (props: any) => {
 									type='text'
 									placeholder='Name'
 									className=''
-									value={name ?? ''}
-									onChange={(e) => setName(e.target.value)}
+									value={itemDetails.name ?? ''}
+									onChange={(e) => setItemDetails({ ...itemDetails, name: e.target.value })}
 								/>
 							</Row>
 							<Row className='px-3 pb-3'>
@@ -91,8 +98,8 @@ const ItemDetail: FunctionComponent = (props: any) => {
 									type='text'
 									placeholder='Description'
 									className=''
-									value={description ?? ''}
-									onChange={(e) => setDescription(e.target.value)}
+									value={itemDetails.description ?? ''}
+									onChange={(e) => setItemDetails({ ...itemDetails, description: e.target.value })}
 								/>
 							</Row>
 							<Row className='px-3 pb-3'>
