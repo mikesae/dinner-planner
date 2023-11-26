@@ -9,110 +9,129 @@ import TopNavbar from './TopNavbar';
 import { getItem, setItem } from './itemQueries';
 
 type ItemDetails = {
-	id: string;
-	name: string;
-	description: string;
-	image: string;
-	category?: string;
+  id: string;
+  name: string;
+  description: string;
+  image: string;
+  category: string;
 };
 
 const ItemDetail: FunctionComponent = (props: any) => {
-	const [userName, setUserName] = useState('');
-	const { id } = props.match.params;
-	const [itemDetails, setItemDetails] = useState({
-		id: props.match.params,
-		name: '',
-		description: '',
-		image: '',
-		category: '',
-	});
+  const { id } = props.match.params;
+  const [itemDetails, setItemDetails] = useState<ItemDetails>({
+    id: props.match.params,
+    name: '',
+    description: '',
+    image: '',
+    category: '',
+  });
 
-	useEffect(() => {
-		(async () => {
-			try {
-				const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
-				setUserName(user.username);
-				const item = await getItem(id);
-				setItemDetails(item);
-			} catch (error) {
-				console.log('Error getting item details.', error);
-			}
-		})();
-	}, [id]);
+  useEffect(() => {
+    try {
+      requestItemDetails(id);
+    } catch (error) {
+      console.log('Error getting item details.', error);
+    }
 
-	async function onImageChange(event: any) {
-		const {
-			target: { files },
-		} = event;
-		const fileForUpload = files[0];
-		const image = await storeImage(fileForUpload, userName, itemDetails.name);
-		setItemDetails({ ...itemDetails, image });
-	}
+    async function requestItemDetails(id: string) {
+      const item = await getItem(id);
+      setItemDetails(item);
+    }
+  }, [id]);
 
-	async function updateItem() {
-		await setItem(itemDetails);
-	}
+  async function onImageChange(event: any) {
+    const {
+      target: { files },
+    } = event;
+    const fileForUpload = files[0];
+    const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+    const image = await storeImage(
+      fileForUpload,
+      user.userName,
+      itemDetails.name
+    );
+    setItemDetails({ ...itemDetails, image });
+  }
 
-	return (
-		<>
-			{itemDetails.name === '' ? (
-				<>
-					<TopNavbar title='' showBackNav={false} />
-					<Container className='container'>
-						<FormGroup>Loading...</FormGroup>
-					</Container>
-				</>
-			) : (
-				<>
-					<TopNavbar title={itemDetails.name} showBackNav={true} backNav={`/${itemDetails.category.toLowerCase()}`} />
-					<Container className='item-detail-container'>
-						<FormGroup>
-							<Row className='px-3 py-3'>
-								<Col className='img-col'>
-									<input
-										type='file'
-										name='file'
-										id='file'
-										className='input-file'
-										onChange={(event) => onImageChange(event)}
-										accept='image/png, image/jpeg'
-									/>
-									<label htmlFor='file'>
-										<ImageComponentDetail src={itemDetails.image} />
-									</label>
-								</Col>
-							</Row>
-							<Row className='px-3 pb-3'>
-								<FormLabel>Name</FormLabel>
-								<input
-									type='text'
-									placeholder='Name'
-									className=''
-									value={itemDetails.name ?? ''}
-									onChange={(e) => setItemDetails({ ...itemDetails, name: e.target.value })}
-								/>
-							</Row>
-							<Row className='px-3 pb-3'>
-								<FormLabel>Description</FormLabel>
-								<input
-									type='text'
-									placeholder='Description'
-									className=''
-									value={itemDetails.description ?? ''}
-									onChange={(e) => setItemDetails({ ...itemDetails, description: e.target.value })}
-								/>
-							</Row>
-							<Row className='px-3 pb-3'>
-								<button style={{ width: '100%' }} className='btn btn-primary' onClick={() => updateItem()}>
-									Update
-								</button>
-							</Row>
-						</FormGroup>
-					</Container>
-				</>
-			)}
-		</>
-	);
+  async function updateItem() {
+    await setItem(itemDetails);
+  }
+
+  return (
+    <>
+      {itemDetails.name === '' ? (
+        <>
+          <TopNavbar title='' showBackNav={false} />
+          <Container className='container'>
+            <FormGroup>Loading...</FormGroup>
+          </Container>
+        </>
+      ) : (
+        <>
+          <TopNavbar
+            title={itemDetails.name}
+            showBackNav={true}
+            backNav={`/${itemDetails.category.toLowerCase()}`}
+          />
+          <Container className='item-detail-container'>
+            <FormGroup>
+              <Row className='px-3 py-3'>
+                <Col className='img-col'>
+                  <input
+                    type='file'
+                    name='file'
+                    id='file'
+                    className='input-file'
+                    onChange={(event) => onImageChange(event)}
+                    accept='image/png, image/jpeg'
+                  />
+                  <label htmlFor='file'>
+                    <ImageComponentDetail src={itemDetails.image} />
+                  </label>
+                </Col>
+              </Row>
+              <Row className='px-3 pb-3'>
+                <FormLabel>Name</FormLabel>
+                <input
+                  type='text'
+                  placeholder='Name'
+                  className=''
+                  value={itemDetails.name ?? ''}
+                  onChange={(e) =>
+                    setItemDetails({ ...itemDetails, name: e.target.value })
+                  }
+                />
+              </Row>
+              <Row className='px-3 pb-3'>
+                <FormLabel>Description</FormLabel>
+                <input
+                  type='text'
+                  placeholder='Description'
+                  className=''
+                  value={itemDetails.description ?? ''}
+                  onChange={(e) =>
+                    setItemDetails({
+                      ...itemDetails,
+                      description: e.target.value,
+                    })
+                  }
+                />
+              </Row>
+              <Row className='px-3 pb-3'>
+                <button
+                  style={{ width: '100%' }}
+                  className='btn btn-primary'
+                  onClick={() => updateItem()}
+                >
+                  Update
+                </button>
+              </Row>
+            </FormGroup>
+          </Container>
+        </>
+      )}
+    </>
+  );
 };
 
 export default ItemDetail;
