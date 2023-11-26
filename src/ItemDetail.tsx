@@ -1,5 +1,6 @@
 import { Auth } from 'aws-amplify';
 import { FunctionComponent, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import { Container, FormGroup, FormLabel, Row } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
 import { ImageComponentDetail } from './ImageComponent';
@@ -16,10 +17,10 @@ type ItemDetails = {
   category: string;
 };
 
-const ItemDetail: FunctionComponent = (props: any) => {
-  const { id } = props.match.params;
+const ItemDetail: FunctionComponent = () => {
+  const { id } = useParams<any>();
   const [itemDetails, setItemDetails] = useState<ItemDetails>({
-    id: props.match.params,
+    id: id,
     name: '',
     description: '',
     image: '',
