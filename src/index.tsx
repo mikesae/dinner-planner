@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
-import App from './App';
+import { AuthenticatedApp } from './App';
 import { Amplify } from 'aws-amplify';
 import config from './aws-exports';
 //import reportWebVitals from './reportWebVitals';
 
 Amplify.configure(config);
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<AuthenticatedApp />, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
