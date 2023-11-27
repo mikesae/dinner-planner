@@ -8,7 +8,7 @@ import { ItemsFormContainer } from './ItemsFormContainer';
 import Planner from './Planner';
 import Profile from './Profile';
 
-export const UnauthentictedApp: FunctionComponent = () => {
+export const UnauthenticatedApp: FunctionComponent = () => {
   const [startDate, setStartDate] = useState(getPreviousStartDay(new Date()));
 
   return (
@@ -55,4 +55,4 @@ export const UnauthentictedApp: FunctionComponent = () => {
   );
 };
 
-export default UnauthentictedApp;
+export default UnauthenticatedApp;

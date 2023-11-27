@@ -1,7 +1,7 @@
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import { Auth } from 'aws-amplify';
 import { FunctionComponent, useEffect, useState } from 'react';
-import { UnauthentictedApp } from './UnauthenticatedApp';
+import { UnauthenticatedApp } from './UnauthenticatedApp';
 import './App.scss';
 import AuthenticatedUserContext from './AuthenticatedUserContext';
 import './transitions.scss';
@@ -19,7 +19,7 @@ export const AuthenticatedApp: FunctionComponent = () => {
 
   return (
     <AuthenticatedUserContext.Provider value={user}>
-      <UnauthentictedApp />
+      <UnauthenticatedApp />
     </AuthenticatedUserContext.Provider>
   );
 };

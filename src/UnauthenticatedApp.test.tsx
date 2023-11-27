@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import { Auth } from 'aws-amplify';
-import UnauthentictedApp from './UnauthenticatedApp';
+import UnauthenticatedApp from './UnauthenticatedApp';
 
 describe('UnauthenticatedApp component', () => {
   const authenticatedUserMock = jest.spyOn(Auth, 'currentAuthenticatedUser');
@@ -19,7 +19,7 @@ describe('UnauthenticatedApp component', () => {
 
   it('Renders all needed button names', async () => {
     // Render
-    render(<UnauthentictedApp />);
+    render(<UnauthenticatedApp />);
 
     // Assert
     expect(await screen.findByText(/Mains/i)).not.toBeNull();
