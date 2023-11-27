@@ -50,7 +50,7 @@ const ItemDetail: FunctionComponent = () => {
     const fileForUpload = files[0];
     const image = await storeImage(
       fileForUpload,
-      user.userName,
+      user.username,
       itemDetails.name
     );
     setItemDetails({ ...itemDetails, image });
