@@ -1,17 +1,14 @@
-import { withAuthenticator } from '@aws-amplify/ui-react';
 import { FunctionComponent, Suspense, useState } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
-import './App.scss';
+import { CSSTransitionGroup } from 'react-transition-group';
 import BottomNavbar from './BottomNavbar';
 import { getPreviousStartDay } from './DateFunctions';
 import ItemDetail from './ItemDetail';
 import { ItemsFormContainer } from './ItemsFormContainer';
 import Planner from './Planner';
 import Profile from './Profile';
-import './transitions.scss';
 
-export const App: FunctionComponent = () => {
+export const UnauthentictedApp: FunctionComponent = () => {
   const [startDate, setStartDate] = useState(getPreviousStartDay(new Date()));
 
   return (
@@ -58,4 +55,4 @@ export const App: FunctionComponent = () => {
   );
 };
 
-export const AuthenticatedApp = withAuthenticator(App);
+export default UnauthentictedApp;

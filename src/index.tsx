@@ -1,10 +1,9 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import './index.css';
-import { AuthenticatedApp } from './App';
 import { Amplify } from 'aws-amplify';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactDOM from 'react-dom';
 import config from './aws-exports';
+import './index.css';
+import AuthenticatedApp from './AuthenticatedApp';
 //import reportWebVitals from './reportWebVitals';
 
 Amplify.configure(config);

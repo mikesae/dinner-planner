@@ -1,5 +1,4 @@
-import { Auth } from 'aws-amplify';
-import { FunctionComponent, useEffect, useState } from 'react';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { Container, FormGroup, FormLabel, Row } from 'react-bootstrap';
 import Col from 'react-bootstrap/Col';
@@ -8,6 +7,7 @@ import { storeImage } from './ImageUtility';
 import './ItemDetail.scss';
 import TopNavbar from './TopNavbar';
 import { getItem, setItem } from './itemQueries';
+import AuthenticatedUserContext from './AuthenticatedUserContext';
 
 type ItemDetails = {
   id: string;
@@ -27,6 +27,8 @@ const ItemDetail: FunctionComponent = () => {
     category: '',
   });
 
+  const user = useContext<any>(AuthenticatedUserContext);
+
   useEffect(() => {
     try {
       requestItemDetails(id);
@@ -44,8 +46,8 @@ const ItemDetail: FunctionComponent = () => {
     const {
       target: { files },
     } = event;
+
     const fileForUpload = files[0];
-    const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
     const image = await storeImage(
       fileForUpload,
       user.userName,
