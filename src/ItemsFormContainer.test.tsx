@@ -26,6 +26,8 @@ describe('Items form container component', () => {
     },
   ];
 
+  const testUser: any = { username: 'testy' };
+
   beforeEach(() => {
     consoleLogMock.mockClear();
     consoleWarnMock.mockClear();
@@ -37,11 +39,10 @@ describe('Items form container component', () => {
   it('Renders category correctly.', async () => {
     // Arrange
     const expectedCategory = 'A test category; Really, anything.';
-    const user: any = { username: 'testy' };
 
     // Render
     render(
-      <AuthenticatedUserContext.Provider value={user}>
+      <AuthenticatedUserContext.Provider value={testUser}>
         <BrowserRouter>
           <ItemsFormContainer category={expectedCategory} />
         </BrowserRouter>
@@ -55,11 +56,10 @@ describe('Items form container component', () => {
   it('Renders items correctly.', async () => {
     // Arrange
     const expectedCategory = 'A test category; Really, anything.';
-    const user: any = { username: 'testy' };
 
     // Render
     render(
-      <AuthenticatedUserContext.Provider value={user}>
+      <AuthenticatedUserContext.Provider value={testUser}>
         <BrowserRouter>
           <ItemsFormContainer category={expectedCategory} />
         </BrowserRouter>
