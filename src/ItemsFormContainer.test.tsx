@@ -1,48 +1,73 @@
 import { render, screen } from '@testing-library/react';
-import { Auth } from 'aws-amplify';
 import { BrowserRouter } from 'react-router-dom';
+import AuthenticatedUserContext from './AuthenticatedUserContext';
 import { ItemsFormContainer } from './ItemsFormContainer';
 import * as itemQueries from './itemQueries';
 
 describe('Items form container component', () => {
-	const authenticatedUserMock = jest.spyOn(Auth, 'currentAuthenticatedUser');
-	const consoleLogMock = jest.spyOn(console, 'log');
-	const consoleWarnMock = jest.spyOn(console, 'warn');
-	const getItemMock = jest.spyOn(itemQueries, 'getItem');
+  const consoleLogMock = jest.spyOn(console, 'log');
+  const consoleWarnMock = jest.spyOn(console, 'warn');
+  const getSortedItemsMock = jest.spyOn(itemQueries, 'getSortedItems');
 
-	const testItem = {
-		id: '42',
-		name: 'some food',
-		description: 'really good',
-		image: '',
-		category: 'Dinner',
-	};
+  const testItems = [
+    {
+      id: '42',
+      name: 'item #1',
+      description: 'really good',
+      image: '',
+      category: 'Dinner',
+    },
+    {
+      id: '43',
+      name: 'item #2',
+      description: 'meh',
+      image: '',
+      category: 'Dinner',
+    },
+  ];
 
-	beforeEach(() => {
-		authenticatedUserMock.mockClear();
-		consoleLogMock.mockClear();
-		consoleWarnMock.mockClear();
-		getItemMock.mockClear();
+  beforeEach(() => {
+    consoleLogMock.mockClear();
+    consoleWarnMock.mockClear();
+    getSortedItemsMock.mockClear();
 
-		authenticatedUserMock.mockReturnValue(
-			Promise.resolve({ username: 'testy' })
-		);
+    getSortedItemsMock.mockReturnValue(Promise.resolve(testItems));
+  });
 
-		getItemMock.mockReturnValue(Promise.resolve(testItem));
-	});
+  it('Renders category correctly.', async () => {
+    // Arrange
+    const expectedCategory = 'A test category; Really, anything.';
+    const user: any = { username: 'testy' };
 
-	it('Renders category correctly.', async () => {
-		// Arrange
-		const expectedCategory = 'A test category; Really, anything.';
+    // Render
+    render(
+      <AuthenticatedUserContext.Provider value={user}>
+        <BrowserRouter>
+          <ItemsFormContainer category={expectedCategory} />
+        </BrowserRouter>
+      </AuthenticatedUserContext.Provider>
+    );
 
-		// Render
-		render(
-			<BrowserRouter>
-				<ItemsFormContainer category={expectedCategory} />
-			</BrowserRouter>
-		);
+    // Assert
+    expect(await screen.findByText(expectedCategory)).not.toBeNull();
+  });
 
-		// Assert
-		expect(await screen.findByText(expectedCategory)).not.toBeNull();
-	});
+  it('Renders items correctly.', async () => {
+    // Arrange
+    const expectedCategory = 'A test category; Really, anything.';
+    const user: any = { username: 'testy' };
+
+    // Render
+    render(
+      <AuthenticatedUserContext.Provider value={user}>
+        <BrowserRouter>
+          <ItemsFormContainer category={expectedCategory} />
+        </BrowserRouter>
+      </AuthenticatedUserContext.Provider>
+    );
+
+    // Assert
+    expect(await screen.findByText(testItems[0].name)).not.toBeNull();
+    expect(await screen.findByText(testItems[1].name)).not.toBeNull();
+  });
 });
