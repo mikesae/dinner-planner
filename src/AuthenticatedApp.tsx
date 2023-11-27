@@ -11,7 +11,7 @@ export const AuthenticatedApp: FunctionComponent = () => {
 
   useEffect(() => {
     setCurrentUser();
-  });
+  }, []);
 
   async function setCurrentUser() {
     setUser(await Auth.currentAuthenticatedUser({ bypassCache: true }));
