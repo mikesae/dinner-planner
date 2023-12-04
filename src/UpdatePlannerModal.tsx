@@ -39,10 +39,7 @@ interface IUpdatePlannerModalState {
 
 const NOT_SELECTED: number = -1;
 
-export default class UpdatePlannerModal extends Component<
-  IUpdatePlannerModalProps,
-  IUpdatePlannerModalState
-> {
+export default class UpdatePlannerModal extends Component<IUpdatePlannerModalProps, IUpdatePlannerModalState> {
   constructor(props: IUpdatePlannerModalProps) {
     super(props);
     this.state = {
@@ -257,15 +254,9 @@ export default class UpdatePlannerModal extends Component<
             <FormLabel>Choose a Main, Side, Vegetable, or Dessert</FormLabel>
           </FormGroup>
           <FormGroup>
-            <DropdownButton
-              className='amplify-button amplify-button--primary amplify-button--fullwidth'
-              title={mainTitle}
-            >
+            <DropdownButton className='amplify-button amplify-button--primary amplify-button--fullwidth' title={mainTitle}>
               {this.state.mains.map((item: any, index: number) => (
-                <Dropdown.Item
-                  key={item.id}
-                  onSelect={() => this.onMainPicked(index)}
-                >
+                <Dropdown.Item key={item.id} onSelect={() => this.onMainPicked(index)}>
                   <img className='img-item' src={item.image} alt='' />
                   {item.name}
                 </Dropdown.Item>
@@ -273,15 +264,9 @@ export default class UpdatePlannerModal extends Component<
             </DropdownButton>
           </FormGroup>
           <FormGroup>
-            <DropdownButton
-              className='amplify-button amplify-button--primary amplify-button--fullwidth'
-              title={sideTitle}
-            >
+            <DropdownButton className='amplify-button amplify-button--primary amplify-button--fullwidth' title={sideTitle}>
               {this.state.sides.map((item: any, index: number) => (
-                <Dropdown.Item
-                  key={item.id}
-                  onSelect={() => this.onSidePicked(index)}
-                >
+                <Dropdown.Item key={item.id} onSelect={() => this.onSidePicked(index)}>
                   <img className='img-item' src={item.image} alt='' />
                   {item.name}
                 </Dropdown.Item>
@@ -289,15 +274,9 @@ export default class UpdatePlannerModal extends Component<
             </DropdownButton>
           </FormGroup>
           <FormGroup>
-            <DropdownButton
-              className='amplify-button amplify-button--primary amplify-button--fullwidth'
-              title={vegetableTitle}
-            >
+            <DropdownButton className='amplify-button amplify-button--primary amplify-button--fullwidth' title={vegetableTitle}>
               {this.state.vegetables.map((item: any, index: number) => (
-                <Dropdown.Item
-                  key={item.id}
-                  onSelect={() => this.onVegetablePicked(index)}
-                >
+                <Dropdown.Item key={item.id} onSelect={() => this.onVegetablePicked(index)}>
                   <img className='img-item' src={item.image} alt='' />
                   {item.name}
                 </Dropdown.Item>
@@ -305,15 +284,9 @@ export default class UpdatePlannerModal extends Component<
             </DropdownButton>
           </FormGroup>
           <FormGroup>
-            <DropdownButton
-              className='amplify-button amplify-button--primary amplify-button--fullwidth'
-              title={dessertTitle}
-            >
+            <DropdownButton className='amplify-button amplify-button--primary amplify-button--fullwidth' title={dessertTitle}>
               {this.state.desserts.map((item: any, index: number) => (
-                <Dropdown.Item
-                  key={item.id}
-                  onSelect={() => this.onDessertPicked(index)}
-                >
+                <Dropdown.Item key={item.id} onSelect={() => this.onDessertPicked(index)}>
                   <img className='img-item' src={item.image} alt='' />
                   {item.name}
                 </Dropdown.Item>
@@ -323,7 +296,7 @@ export default class UpdatePlannerModal extends Component<
           <FormGroup className='text-center'>
             {addingItem ? (
               <button
-                className='amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidthbtn-on-bottom'
+                className='amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth btn-on-bottom'
                 onClick={() => this.onAdd()}
               >
                 Add
