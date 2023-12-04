@@ -123,7 +123,7 @@ const ItemDetail: FunctionComponent = () => {
               <Row className='px-3 pb-3'>
                 <button
                   style={{ width: '100%' }}
-                  className='btn btn-primary'
+                  className='amplify-button amplify-field-group__control amplify-button--primary amplify-button--fullwidth'
                   onClick={() => updateItem()}
                 >
                   Update

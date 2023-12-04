@@ -115,8 +115,16 @@ $button-height: 64px;
     margin-top: 1em;
   }
 
-  button {
+  .dropdown-toggle {
     width: 100%;
-    height: $button-height;
+
+    &.btn,
+    &.btn:active,
+    &.btn:focus,
+    &.btn:hover {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      font-weight: bold;
+    }
   }
 }
