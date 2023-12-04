@@ -18,9 +18,11 @@ body {
     &:active {
       color: var(--mikesae-components-color-primary-default);
     }
-  }
-  .btn-date-picker:focus {
-    color: var(--mikesae-components-color-primary-default);
+
+    &:hover {
+      cursor: pointer;
+      color: var(--mikesae-components-color-primary-default);
+    }
   }
 }
 

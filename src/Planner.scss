@@ -10,12 +10,34 @@
   }
 }
 
-.btn-date-picker {
-  cursor: pointer;
-  padding: 0 5px;
-  border: 0;
-  border-radius: 4px;
-  margin-bottom: 4px;
+.date-picker {
+  button {
+    &:focus {
+      color: var(--mikesae-components-color-primary-default);
+    }
+    color: var(--mikesae-components-color-link-default);
+
+    &:hover {
+      cursor: pointer;
+      color: var(--mikesae-components-color-primary-default);
+    }
+
+    &.no-focus:focus,
+    &.no-focus:active {
+      color: var(--mikesae-components-color-link-default);
+    }
+
+    &.button-date-picker:focus {
+      color: var(--mikesae-components-color-primary-default);
+    }
+
+    background: none;
+    padding: 0 5px;
+    border: 0;
+    outline: none;
+    border-radius: 4px;
+    margin-bottom: 4px;
+  }
 }
 
 .col-1-10th {
