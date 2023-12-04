@@ -95,7 +95,9 @@ a {
   background-color: var(--mikesae-components-color-background-default);
 
   .img-col {
-    text-align: center;
+    .label-item {
+      text-align: center;
+    }
   }
 
   .form-group {
