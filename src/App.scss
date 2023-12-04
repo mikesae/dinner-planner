@@ -24,6 +24,10 @@ body {
       color: var(--mikesae-components-color-primary-default);
     }
   }
+
+  .pull-right {
+    float: right;
+  }
 }
 
 .nav-item {
@@ -101,11 +105,13 @@ a {
 }
 
 .jumbotron-fluid {
-	&.border-bottom {
-		border-bottom-color: var(--mikesae-components-color-border-default) !important;
-	}
+  &.border-bottom {
+    border-bottom-color: var(
+      --mikesae-components-color-border-default
+    ) !important;
+  }
 
-	&.border-top {
+  &.border-top {
     border-top-color: var(--mikesae-components-color-border-default) !important;
   }
 }

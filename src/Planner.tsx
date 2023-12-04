@@ -21,23 +21,17 @@ export default class Planner extends Component<IPlannerProps> {
   CustomInput = React.forwardRef<HTMLInputElement>((props: any, ref: any) => {
     return (
       <div className='date-picker' ref={ref}>
-        <button className='no-focus' onClick={() => this.onPreviousWeek()}>
+        <button className='no-focus nudge-top' onClick={() => this.onPreviousWeek()}>
           <FontAwesomeIcon className='link-icon fa-1pt5x' icon={faChevronUp} />
         </button>
         <span onClick={props.onClick}>
           &nbsp;{props.value}&nbsp;
           <button className='button-date-picker'>
-            <FontAwesomeIcon
-              className='link-icon fa-1pt5x'
-              icon={faCalendarAlt}
-            />
+            <FontAwesomeIcon className='link-icon fa-1pt5x' icon={faCalendarAlt} />
           </button>
         </span>
         <button className='no-focus' onClick={() => this.onNextWeek()}>
-          <FontAwesomeIcon
-            className='link-icon fa-1pt5x'
-            icon={faChevronDown}
-          />
+          <FontAwesomeIcon className='link-icon fa-1pt5x' icon={faChevronDown} />
         </button>
       </div>
     );
@@ -69,9 +63,7 @@ export default class Planner extends Component<IPlannerProps> {
         <TopNavbar title={''} showBackNav={false}>
           <DatePicker
             selected={startDate}
-            onChange={(date: Date) =>
-              this.props.startDateUpdater(getPreviousStartDay(date))
-            }
+            onChange={(date: Date) => this.props.startDateUpdater(getPreviousStartDay(date))}
             customInput={<this.CustomInput />}
           />
         </TopNavbar>

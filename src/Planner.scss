@@ -12,6 +12,17 @@
 
 .date-picker {
   button {
+    background: none;
+    padding: 0 5px;
+    border: 0;
+    outline: none;
+    margin-bottom: 4px;
+
+    &.nudge-top {
+      position: relative;
+      top: 4px;
+    }
+
     &:focus {
       color: var(--mikesae-components-color-primary-default);
     }
@@ -30,13 +41,6 @@
     &.button-date-picker:focus {
       color: var(--mikesae-components-color-primary-default);
     }
-
-    background: none;
-    padding: 0 5px;
-    border: 0;
-    outline: none;
-    border-radius: 4px;
-    margin-bottom: 4px;
   }
 }
 
