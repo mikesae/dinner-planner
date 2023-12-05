@@ -68,36 +68,34 @@ export const ItemsForm: FunctionComponent<Props> = ({ category }) => {
         onClose={() => onCloseModal()}
         userName={user.username}
       />
-      <FormGroup>
-        <Row onClick={() => onOpenModal()}>
-          <Col className='col-3 p-2'>
-            <div className='add-item-placeholder'>
-              <FontAwesomeIcon className='link-icon' icon={faPlusCircle} />
-            </div>
+      <Row onClick={() => onOpenModal()}>
+        <Col className='col-3 p-2'>
+          <div className='add-item-placeholder'>
+            <FontAwesomeIcon className='link-icon' icon={faPlusCircle} />
+          </div>
+        </Col>
+        <Col className='col-7 my-auto'>
+          <div className='text-md-left'>Add...</div>
+        </Col>
+      </Row>
+      {items.map((item: any) => (
+        <Row key={item.id}>
+          <Col className='col-3 p-2 img-col'>
+            <ImageComponent src={item.image} />
           </Col>
-          <Col className='col-7 my-auto'>
-            <div className='text-md-left'>Add...</div>
+          <Col className='col-7 px-3 my-auto'>
+            <div className='text-md-left'>{item.name}</div>
+          </Col>
+          <Col className='col-1 px-0 my-auto'>
+            <Link to={{ pathname: `/item/${item.id}` }}>
+              <FontAwesomeIcon className='fa-1pt5x link-icon' icon={editIcon} />
+            </Link>
+          </Col>
+          <Col className='col-1 px-0 my-auto'>
+            <FontAwesomeIcon className='fa-1pt5x link-icon' icon={faMinusCircle} onClick={() => removeItem(item.id)} />
           </Col>
         </Row>
-        {items.map((item: any) => (
-          <Row key={item.id}>
-            <Col className='col-3 p-2 img-col'>
-              <ImageComponent src={item.image} />
-            </Col>
-            <Col className='col-7 px-3 my-auto'>
-              <div className='text-md-left'>{item.name}</div>
-            </Col>
-            <Col className='col-1 px-0 my-auto'>
-              <Link to={{ pathname: `/item/${item.id}` }}>
-                <FontAwesomeIcon className='fa-1pt5x link-icon' icon={editIcon} />
-              </Link>
-            </Col>
-            <Col className='col-1 px-0 my-auto'>
-              <FontAwesomeIcon className='fa-1pt5x link-icon' icon={faMinusCircle} onClick={() => removeItem(item.id)} />
-            </Col>
-          </Row>
-        ))}
-      </FormGroup>
+      ))}
     </>
   );
 };

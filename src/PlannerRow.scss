@@ -4,14 +4,9 @@
 $rows-per-planner: 7;
 $item-margin: 0.25em;
 $total-vertical-space-between-rows: $item-margin * 2 * ($rows-per-planner + 1);
-$planner-row-height: calc(
-  (100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner
-);
+$planner-row-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner);
 $planner-row-min-height: calc(512px / $rows-per-planner);
-$planner-row-item-height: calc(
-  (100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner -
-    $item-margin
-);
+$planner-row-item-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner - $item-margin);
 $planner-row-item-min-height: $planner-row-min-height;
 
 .planner-row {
@@ -21,7 +16,7 @@ $planner-row-item-min-height: $planner-row-min-height;
   .planner-row-item {
     height: $planner-row-item-height;
     min-height: $planner-row-item-min-height;
-    border-radius: 4px;
+    border-radius: $border-radius;
     box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
     -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
     margin-right: $item-margin;
@@ -49,7 +44,7 @@ $planner-row-item-min-height: $planner-row-min-height;
   }
 
   .planner-item {
-    border-radius: 4px;
+    border-radius: $border-radius;
     padding: 4px;
     background-color: var(--mikesae-components-color-background-default);
 

@@ -23,14 +23,14 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
 
 .input-file:focus + label,
 .input-file:hover + label {
-  // TODO: Need a toke for focus color.
+  // TODO: Need a token for focus color.
   color: var(--mikesae-components-color-primary-default);
 }
 
-.mains-and-sides {
+.items-form-container {
   .row {
     margin: 8px 0;
-
+    border-radius: $border-radius;
     box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
     -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
 
@@ -38,31 +38,30 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
       width: 100%;
     }
 
-    img.img-item {
+    img.img-item,
+    .add-item-placeholder {
       height: $image-height;
       aspect-ratio: $dish-image-aspect-ratio;
-      border: 1px solid var(--mikesae-components-color-border-default);
+      border-radius: $border-radius;
+    }
+
+    .add-item-placeholder {
+      border: 1px dotted var(--mikesae-components-color-border-default);
+      background: transparent;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      .link-icon {
+        color: var(--mikesae-components-color-border-default);
+      }
     }
   }
 }
 
 .fa-1pt5x {
   font-size: 1.5em;
-}
-
-.add-item-placeholder {
-  height: $image-height;
-  aspect-ratio: $dish-image-aspect-ratio;
-  border: 1px dotted var(--mikesae-components-color-border-default);
-  background: transparent;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .link-icon {
-    color: var(--mikesae-components-color-border-default);
-  }
 }
 
 // iPhone 6, 6S, 7 and 8 Landscape

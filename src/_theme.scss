@@ -4,23 +4,24 @@ $header-height: 3em;
 $min-image-height: 3em;
 $min-image-width: 3em;
 $img-aspect-ratio: 1.25;
+$border-radius: 4px;
 
 :root {
-	--mikesae-components-color-background-default: white;
-	--mikesae-components-color-background-secondary: #eeeee;
-	--mikesae-components-color-text-default: black;
-	--mikesae-components-color-button-text-default: white;
-	--mikesae-components-color-link-default: black;
-	--mikesae-components-color-icon-default: #444444;
-	--mikesae-components-color-primary-default: #008f8f;
-	--mikesae-components-color-border-default: #cccccc;
+  --mikesae-components-color-background-default: white;
+  --mikesae-components-color-background-secondary: #eeeee;
+  --mikesae-components-color-text-default: black;
+  --mikesae-components-color-button-text-default: white;
+  --mikesae-components-color-link-default: black;
+  --mikesae-components-color-icon-default: #444444;
+  --mikesae-components-color-primary-default: #008f8f;
+  --mikesae-components-color-border-default: #cccccc;
 
-	@media (prefers-color-scheme: dark) {
-		--mikesae-components-color-background-default: black;
-		--mikesae-components-color-background-secondary: #111111;
-		--mikesae-components-color-text-default: white;
-		--mikesae-components-color-link-default: white;
-		--mikesae-components-color-icon-default: #cccccc;
-		--mikesae-components-color-border-default: #333333;
-	}
+  @media (prefers-color-scheme: dark) {
+    --mikesae-components-color-background-default: black;
+    --mikesae-components-color-background-secondary: #111111;
+    --mikesae-components-color-text-default: white;
+    --mikesae-components-color-link-default: white;
+    --mikesae-components-color-icon-default: #cccccc;
+    --mikesae-components-color-border-default: #333333;
+  }
 }
