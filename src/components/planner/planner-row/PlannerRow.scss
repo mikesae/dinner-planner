@@ -1,0 +1,126 @@
+@import 'src/themes/theme';
+
+// Size image so specified rows fit on a page minus header, footer and space between.
+$rows-per-planner: 7;
+$item-margin: 0.25em;
+$total-vertical-space-between-rows: $item-margin * 2 * ($rows-per-planner + 1);
+$planner-row-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner);
+$planner-row-min-height: calc(512px / $rows-per-planner);
+$planner-row-item-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner - $item-margin);
+$planner-row-item-min-height: $planner-row-min-height;
+
+.planner-row {
+  height: $planner-row-height;
+  min-height: $planner-row-min-height;
+
+  .planner-row-item {
+    height: $planner-row-item-height;
+    min-height: $planner-row-item-min-height;
+    border-radius: $border-radius;
+    box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+    -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+    margin-right: $item-margin;
+    margin-left: $item-margin;
+  }
+
+  .meal-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto $item-margin; // horizontal align within container
+
+    .link-icon {
+      color: var(--mikesae-components-color-border-default);
+    }
+  }
+
+  label.label-day {
+    font-size: 0.75em;
+    font-weight: bold;
+
+    &.label-day-today {
+      color: var(--mikesae-components-color-primary-default);
+    }
+  }
+
+  .planner-item {
+    border-radius: $border-radius;
+    padding: 4px;
+    background-color: var(--mikesae-components-color-background-default);
+
+    img.img-item {
+      display: block;
+      height: calc(100% - 24px);
+      aspect-ratio: $img-aspect-ratio;
+      max-width: 100%;
+      margin: 4px auto;
+      border-radius: $border-radius;
+    }
+  }
+}
+
+// iPhone 6, 6S, 7 and 8 Landscape
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+  .planner-item,
+  .meal-placeholder {
+    min-width: $min-image-width;
+    min-height: $min-image-height;
+  }
+}
+
+label.label-item {
+  margin: 0;
+  font-weight: bold;
+  font-size: 0.75em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 100%;
+}
+
+$button-height: 64px;
+
+.planner-modal {
+  margin: auto;
+  width: 100%;
+  height: 100%;
+  background: var(--mikesae-components-color-background-default);
+  color: var(--mikesae-components-color-text-default);
+
+  &.container {
+    position: relative;
+  }
+
+  .dropdown {
+    .dropdown-menu {
+      background: var(--mikesae-components-color-background-default);
+      border: 1px solid var(--mikesae-components-color-border-default);
+    }
+    .dropdown-item {
+      color: var(--mikesae-components-color-text-default);
+    }
+  }
+
+  img.img-item {
+    width: 3em;
+    height: 3em;
+    margin-right: 10px;
+  }
+
+  .btn-on-bottom {
+    margin-top: 1em;
+  }
+
+  .dropdown-toggle {
+    width: 100%;
+
+    &.btn,
+    &.btn:active,
+    &.btn:focus,
+    &.btn:hover {
+      background-color: transparent !important;
+      box-shadow: none !important;
+      font-weight: bold;
+    }
+  }
+}

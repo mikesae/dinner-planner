@@ -1,0 +1,35 @@
+@import 'src/themes/theme';
+
+.nav-item {
+  padding: 0 0.5em;
+  .link-icon,
+  .icon-label {
+    color: var(--mikesae-components-color-icon-default);
+  }
+
+  a.active {
+    .link-icon,
+    .icon-label {
+      font-weight: bold;
+      color: var(--mikesae-components-color-primary-default);
+    }
+
+    .btn:hover {
+      color: var(--mikesae-components-color-primary-default);
+    }
+  }
+}
+
+.navbar-bottom {
+  height: $navbar-height;
+
+  .btn {
+    padding-top: 0;
+    padding-bottom: 0;
+
+    &:hover {
+      color: var(--mikesae-components-color-link-default);
+      background: none;
+    }
+  }
+}

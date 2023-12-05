@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactDOM from 'react-dom';
 import config from './aws-exports';
 import './index.css';
-import AuthenticatedApp from './AuthenticatedApp';
+import AuthenticatedApp from './components/app/AuthenticatedApp';
 //import reportWebVitals from './reportWebVitals';
 
 Amplify.configure(config);

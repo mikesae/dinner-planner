@@ -1,0 +1,33 @@
+@import 'src/themes/theme';
+@import '@aws-amplify/ui-react/styles.css';
+
+:root {
+  // Amplify has their own color tokens, mostly used in their authenticator.
+  // We override some of them here, based on our own.
+  --amplify-components-authenticator-router-background-color: var(--mikesae-components-color-background-default);
+  --amplify-components-authenticator-state-inactive-background-color: var(--mikesae-components-color-background-default);
+  --amplify-components-field-label-color: var(--mikesae-components-color-text-default);
+  --amplify-primary-color: var(--mikesae-components-color-primary-default);
+  --amplify-primary-tint: var(--mikesae-components-color-background-default);
+  --amplify-primary-shade: var(--mikesae-components-color-background-default);
+  --amplify-white: var(--mikesae-components-color-background-default);
+  --amplify-black: var(--mikesae-components-color-text-default);
+  --amplify-secondary-color: var(--mikesae-components-color-background-default);
+  --amplify-primary-contrast: var(--mikesae-components-color-background-default);
+  --amplify-grey: var(--mikesae-components-color-background-default);
+}
+
+.row {
+  margin-top: 5px;
+}
+
+[data-amplify-authenticator] {
+  .amplify-field__show-password {
+    background-color: var(--amplify-components-button-primary-background-color);
+    border-style: none;
+  }
+
+  .amplify-icon {
+    color: var(--amplify-white);
+  }
+}
