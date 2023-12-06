@@ -78,7 +78,8 @@ label.label-item {
   width: 100%;
 }
 
-$button-height: 64px;
+$modal-image-height: 3em;
+$modal-dropdown-button-height: calc($modal-image-height + 1em);
 
 .planner-modal {
   margin: auto;
@@ -102,8 +103,9 @@ $button-height: 64px;
   }
 
   img.img-item {
-    width: 3em;
-    height: 3em;
+    width: $modal-image-height;
+    height: $modal-image-height;
+    border-radius: $border-radius;
     margin-right: 10px;
   }
 
@@ -111,16 +113,24 @@ $button-height: 64px;
     margin-top: 1em;
   }
 
-  .dropdown-toggle {
-    width: 100%;
+  .dropdown {
+    padding: 0;
 
-    &.btn,
-    &.btn:active,
-    &.btn:focus,
-    &.btn:hover {
-      background-color: transparent !important;
-      box-shadow: none !important;
-      font-weight: bold;
+    .dropdown-toggle {
+      width: 100%;
+
+      &.btn {
+        height: $modal-dropdown-button-height;
+      }
+
+      &.btn,
+      &.btn:active,
+      &.btn:focus,
+      &.btn:hover {
+        background-color: transparent !important;
+        box-shadow: none !important;
+        font-weight: bold;
+      }
     }
   }
 }
