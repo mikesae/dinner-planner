@@ -55,20 +55,23 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     };
   }
 
-  async componentDidMount() {
-    try {
-      const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
-      this.setState({ userName: user.username });
-      this.setState({ mains: await getSortedItems(user.username, 'Mains') });
-      this.setState({ sides: await getSortedItems(user.username, 'Sides') });
-      this.setState({
-        vegetables: await getSortedItems(user.username, 'Vegetables'),
-      });
-      this.setState({
-        desserts: await getSortedItems(user.username, 'Desserts'),
-      });
-    } catch (error) {
-      console.log('error: ', error);
+  async componentDidUpdate(prevProps: IUpdatePlannerModalProps) {
+    // To minimize service calls, only call them when the modal opens.
+    if (prevProps.isOpen === false && this.props.isOpen) {
+      try {
+        const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+        this.setState({ userName: user.username });
+        this.setState({ mains: await getSortedItems(user.username, 'Mains') });
+        this.setState({ sides: await getSortedItems(user.username, 'Sides') });
+        this.setState({
+          vegetables: await getSortedItems(user.username, 'Vegetables'),
+        });
+        this.setState({
+          desserts: await getSortedItems(user.username, 'Desserts'),
+        });
+      } catch (error) {
+        console.log('error: ', error);
+      }
     }
   }
 
