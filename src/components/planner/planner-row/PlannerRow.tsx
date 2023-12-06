@@ -21,8 +21,6 @@ interface IPlannerRowState {
   modalIsOpen: boolean;
   items: any[];
   meal: any;
-  loading: boolean;
-  today: Date;
   clickedItemId: string;
 }
 
@@ -33,8 +31,6 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
       modalIsOpen: false,
       items: [],
       meal: {},
-      loading: true,
-      today: new Date(),
       clickedItemId: '',
     };
   }
@@ -56,7 +52,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
   async updateMeal(date: any) {
     const user = await Auth.currentAuthenticatedUser({ bypassCache: false });
-    this.setState({ loading: true });
+
     let isoDate = dateToExtendedISODate(date);
     isoDate = isoDate.substring(0, isoDate.length - 6);
     const filter = {
@@ -83,13 +79,10 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
       this.setState({ meal: {} });
       await this.updateMealItemIds([]);
     }
-
-    this.setState({ loading: false });
   }
 
   async componentDidMount() {
     try {
-      this.setState({ loading: true });
       await this.updateMeal(this.props.date);
     } catch (error) {
       console.log('PlannerRow error: ', error);
@@ -104,9 +97,9 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
   dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  async addMeal(date: any) {
-    this.setState({ modalIsOpen: false });
+  async onOkUpdateMeal(date: any) {
     await this.updateMeal(date);
+    this.setState({ modalIsOpen: false });
   }
 
   onOpenModal() {
@@ -140,9 +133,9 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
   }
 
   dayLabel(date: Date) {
-    const isToday: boolean = this.sameDay(date, this.state.today);
+    const isToday: boolean = this.sameDay(date, new Date());
     const labelText = this.dayName(date);
-    const dateText = `${date.getMonth() + 1}/${this.props.date.getDate()}`;
+    const dateText = `${date.getMonth() + 1}/${date.getDate()}`;
     return (
       <label onClick={() => this.props.startDateUpdater(date)} className={'label-day' + (isToday ? ' label-day-today' : '')}>
         {labelText}
@@ -162,7 +155,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
           mealId={this.state.meal.id}
           itemId={this.state.clickedItemId}
           isOpen={this.state.modalIsOpen}
-          OnOK={() => this.addMeal(this.props.date)}
+          OnOK={() => this.onOkUpdateMeal(this.props.date)}
           OnClose={() => this.onCloseModal()}
         />
         <Col className='col-1-10th'>{this.dayLabel(this.props.date)}</Col>
