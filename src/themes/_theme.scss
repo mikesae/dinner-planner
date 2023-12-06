@@ -15,6 +15,7 @@ $border-radius: 4px;
   --mikesae-components-color-icon-default: #444444;
   --mikesae-components-color-primary-default: #008f8f;
   --mikesae-components-color-border-default: #cccccc;
+  --amplify-components-button-primary-background-color: var(--mikesae-components-color-primary-default);
 
   @media (prefers-color-scheme: dark) {
     --mikesae-components-color-background-default: black;
