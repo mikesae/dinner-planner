@@ -1,7 +1,7 @@
 import { Auth } from 'aws-amplify';
 import { ImageComponent } from 'components/image/ImageComponent';
 import { addMeal, getMealItemIds, updateMealItems } from 'data/api/MealFunctions';
-import { getSortedItems } from 'data/api/itemQueries';
+import { getAllSortedItems } from 'data/api/itemQueries';
 import { Component } from 'react';
 import { Container, Dropdown, FormGroup, FormLabel } from 'react-bootstrap';
 import DropdownButton from 'react-bootstrap/DropdownButton';
@@ -23,6 +23,7 @@ interface IMealItem {
   id: number;
   name: string;
   image: string;
+  category: string;
 }
 
 interface IUpdatePlannerModalState {
@@ -60,15 +61,13 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     if (prevProps.isOpen === false && this.props.isOpen) {
       try {
         const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
+        const mealItems: IMealItem[] = await getAllSortedItems(user.username);
+
         this.setState({ userName: user.username });
-        this.setState({ mains: await getSortedItems(user.username, 'Mains') });
-        this.setState({ sides: await getSortedItems(user.username, 'Sides') });
-        this.setState({
-          vegetables: await getSortedItems(user.username, 'Vegetables'),
-        });
-        this.setState({
-          desserts: await getSortedItems(user.username, 'Desserts'),
-        });
+        this.setState({ mains: mealItems.filter((item: IMealItem) => item.category === 'Mains') });
+        this.setState({ sides: mealItems.filter((item: IMealItem) => item.category === 'Sides') });
+        this.setState({ vegetables: mealItems.filter((item: IMealItem) => item.category === 'Vegetables') });
+        this.setState({ desserts: mealItems.filter((item: IMealItem) => item.category === 'Desserts') });
       } catch (error) {
         console.log('error: ', error);
       }
@@ -121,7 +120,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     } else if (this.state.selectedDessert !== NOT_SELECTED) {
       return { ...this.state.desserts[this.state.selectedDessert] };
     }
-    return { id: 0, name: '', image: '' };
+    return { id: 0, name: '', image: '', category: '' };
   }
 
   async onReplace() {
