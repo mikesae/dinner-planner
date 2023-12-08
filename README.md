@@ -20,4 +20,4 @@ Take it for a test drive!
 1. Add yourself as a user - You'll need to provide an email for initial authorization. Use a temporary or throw away one if you want. It's only needed once for verification.
 2. Start adding dishes with photos to your list of mains (entrees), sides, vegetables, or desserts. I like to use my own photos since I'm into food photography but feel free to grab stuff off the web.
 3. Start planning your weekly menu by adding dishes from each of the categories.
-4. Enjoy!  Notice I didn't try and sound all fancy and cliche by writing Bon Apetit! Oh wait.
+4. Enjoy!  Notice I didn't try and sound all fancy and cliche by writing Bon Appetit! Oh wait.
