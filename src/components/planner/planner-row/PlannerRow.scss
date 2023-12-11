@@ -1,21 +1,33 @@
 @import 'src/themes/theme';
 
-// Size image so specified rows fit on a page minus header, footer and space between.
 $rows-per-planner: 7;
 $item-margin: 0.25em;
-$total-vertical-space-between-rows: $item-margin * 2 * ($rows-per-planner + 1);
-$planner-row-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner);
-$planner-row-min-height: calc(512px / $rows-per-planner);
-$planner-row-item-height: calc((100vh - 3em - 3em - $total-vertical-space-between-rows) / $rows-per-planner - $item-margin);
-$planner-row-item-min-height: $planner-row-min-height;
+$navbar-height: 3em;
+$height-threshold: 512px;
+
+// Size image so specified rows fit on a page minus header, footer and space between.
+@function plannerRowHeight() {
+  $plannerAreaHeight: calc(100vh - 2 * $navbar-height);
+  $totalVerticalSpaceBetweenRows: $item-margin * 2 * ($rows-per-planner + 1);
+
+  @return calc(($plannerAreaHeight - $totalVerticalSpaceBetweenRows) / $rows-per-planner);
+}
+
+@function plannerRowItemHeight() {
+  @return calc(plannerRowHeight() - $item-margin);
+}
+
+@function plannerRowMinHeight() {
+  @return calc($height-threshold / $rows-per-planner);
+}
 
 .planner-row {
-  height: $planner-row-height;
-  min-height: $planner-row-min-height;
+  height: plannerRowHeight();
+  min-height: plannerRowMinHeight();
 
   .planner-row-item {
-    height: $planner-row-item-height;
-    min-height: $planner-row-item-min-height;
+    height: plannerRowItemHeight();
+    min-height: plannerRowMinHeight();
     border-radius: $border-radius;
     box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
     -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
