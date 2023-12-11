@@ -29,10 +29,8 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
 
 .items-form-container {
   .row {
+    @include item-border-shadow;
     margin: 8px 0;
-    border-radius: $border-radius;
-    box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
-    -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
 
     input[type='text'] {
       width: 100%;

@@ -26,11 +26,10 @@ $height-threshold: 512px;
   min-height: plannerRowMinHeight();
 
   .planner-row-item {
+    @include item-border-shadow;
+
     height: plannerRowItemHeight();
     min-height: plannerRowMinHeight();
-    border-radius: $border-radius;
-    box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
-    -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
     margin-right: $item-margin;
     margin-left: $item-margin;
   }

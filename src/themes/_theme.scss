@@ -26,3 +26,9 @@ $border-radius: 4px;
     --mikesae-components-color-border-default: #333333;
   }
 }
+
+@mixin item-border-shadow {
+  border-radius: $border-radius;
+  box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+  -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
+}
