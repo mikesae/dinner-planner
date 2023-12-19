@@ -4,14 +4,13 @@ import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { API, graphqlOperation } from 'aws-amplify';
 import { ImageComponent } from 'components/image/ImageComponent';
-import { FunctionComponent, useContext, useEffect, useState } from 'react';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import { Link } from 'react-router-dom';
+import AddItemModal from 'components/modals/add-item/AddItemModal';
 import AuthenticatedUserContext from 'contexts/AuthenticatedUserContext';
 import { getSortedItems } from 'data/api/itemQueries';
 import { deleteItem } from 'data/graphql/mutations';
-import AddItemModal from 'components/modals/add-item/AddItemModal';
+import { FunctionComponent, useContext, useEffect, useState } from 'react';
+import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 interface Props {
   category: string;
@@ -68,29 +67,29 @@ export const ItemsForm: FunctionComponent<Props> = ({ category }) => {
         userName={user.username}
       />
       <Row onClick={() => onOpenModal()}>
-        <Col className='col-3 p-2'>
+        <Col className='col-3 col-sm-2 p-2'>
           <div className='add-item-placeholder'>
             <FontAwesomeIcon className='link-icon' icon={faPlusCircle} />
           </div>
         </Col>
-        <Col className='col-7 my-auto'>
-          <div className='text-md-left'>Add...</div>
+        <Col className='col-5 col-sm-8 px-0 my-auto'>
+          <div>Add...</div>
         </Col>
       </Row>
       {items.map((item: any) => (
         <Row key={item.id}>
-          <Col className='col-3 p-2 img-col'>
+          <Col className='col-3 col-sm-2 p-2'>
             <ImageComponent src={item.image} alt={item.name} />
           </Col>
-          <Col className='col-7 px-3 my-auto'>
-            <div className='text-md-left'>{item.name}</div>
+          <Col className='col-5 col-sm-8 px-0 my-auto'>
+            <div>{item.name}</div>
           </Col>
-          <Col className='col-1 px-0 my-auto'>
+          <Col className='col-2 col-sm-1 my-auto'>
             <Link to={{ pathname: `/item/${item.id}` }}>
               <FontAwesomeIcon className='fa-1pt5x link-icon' icon={editIcon} />
             </Link>
           </Col>
-          <Col className='col-1 px-0 my-auto'>
+          <Col className='col-2 col-sm-1 my-auto'>
             <FontAwesomeIcon className='fa-1pt5x link-icon' icon={faMinusCircle} onClick={() => removeItem(item.id)} />
           </Col>
         </Row>
