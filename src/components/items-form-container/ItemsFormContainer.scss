@@ -38,7 +38,7 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
 
     img.img-item,
     .add-item-placeholder {
-      height: $image-height;
+      //height: $image-height;
       aspect-ratio: $dish-image-aspect-ratio;
       border-radius: $border-radius;
     }
@@ -70,7 +70,8 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
 @media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
   .mains-and-sides {
     .row {
-      img.img-item {
+      img.img-item,
+      .add-item-placeholder {
         width: $min-image-width;
         aspect-ratio: $dish-image-aspect-ratio;
       }
