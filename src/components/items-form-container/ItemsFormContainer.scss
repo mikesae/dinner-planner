@@ -38,7 +38,7 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
 
     img.img-item,
     .add-item-placeholder {
-      //height: $image-height;
+      height: $image-height;
       aspect-ratio: $dish-image-aspect-ratio;
       border-radius: $border-radius;
     }
@@ -50,6 +50,7 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
     .add-item-placeholder {
       border: 1px dotted var(--mikesae-components-color-border-default);
       background: transparent;
+      width: 100%;
 
       display: flex;
       align-items: center;
@@ -72,6 +73,7 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
     .row {
       img.img-item,
       .add-item-placeholder {
+        height: $min-image-height;
         width: $min-image-width;
         aspect-ratio: $dish-image-aspect-ratio;
       }
