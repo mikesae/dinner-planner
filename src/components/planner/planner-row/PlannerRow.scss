@@ -1,44 +1,23 @@
 @import 'src/themes/theme';
 
-$rows-per-planner: 7;
-$item-margin: 0.25em;
-$navbar-height: 3em;
-$height-threshold: 512px;
-
-// Size image so specified rows fit on a page minus header, footer and space between.
-@function plannerRowHeight() {
-  $plannerAreaHeight: calc(100vh - 2 * $navbar-height);
-  $totalVerticalSpaceBetweenRows: $item-margin * 2 * ($rows-per-planner + 1);
-
-  @return calc(($plannerAreaHeight - $totalVerticalSpaceBetweenRows) / $rows-per-planner);
-}
-
-@function plannerRowItemHeight() {
-  @return calc(plannerRowHeight() - $item-margin);
-}
-
-@function plannerRowMinHeight() {
-  @return calc($height-threshold / $rows-per-planner);
-}
-
-.planner-row {
+.row-planner {
   height: plannerRowHeight();
   min-height: plannerRowMinHeight();
+  padding: 0 4px;
 
   .planner-row-item {
     @include item-border-shadow;
 
     height: plannerRowItemHeight();
     min-height: plannerRowMinHeight();
-    margin-right: $item-margin;
-    margin-left: $item-margin;
+    margin-left: 2px;
+    margin-right: 2px;
   }
 
   .meal-placeholder {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: auto $item-margin; // horizontal align within container
 
     .link-icon {
       color: var(--mikesae-components-color-border-default);
@@ -56,14 +35,14 @@ $height-threshold: 512px;
 
   .planner-item {
     border-radius: $border-radius;
-    padding: 4px;
     background-color: var(--mikesae-components-color-background-default);
+    display: flex;
+    flex-flow: column;
+    padding: 0.25em 0.125em;
 
     img.img-item {
-      display: block;
       height: calc(100% - 24px);
       aspect-ratio: $img-aspect-ratio;
-      max-width: 100%;
       margin: 4px auto;
       border-radius: $border-radius;
     }
@@ -79,14 +58,14 @@ $height-threshold: 512px;
   }
 }
 
-label.label-item {
-  margin: 0;
-  font-weight: bold;
-  font-size: 0.75em;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  width: 100%;
+figcaption {
+  label {
+    font-size: 0.8em;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 100%;
+  }
 }
 
 $modal-image-height: 3em;

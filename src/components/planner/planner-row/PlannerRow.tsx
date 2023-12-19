@@ -149,7 +149,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     const items: any = this.state.items;
 
     return (
-      <Row className='planner-row'>
+      <Row className='row-planner'>
         <UpdatePlannerModal
           date={this.props.date}
           mealId={this.state.meal.id}
@@ -158,18 +158,17 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
           OnOK={() => this.onOkUpdateMeal(this.props.date)}
           OnClose={() => this.onCloseModal()}
         />
-        <Col className='col-1-10th'>{this.dayLabel(this.props.date)}</Col>
+        <Col className='col-day'>{this.dayLabel(this.props.date)}</Col>
         {items.map((item: any) => (
-          <Col className='col-3-10th img-col' key={item.id} onClick={() => this.onItemClick(item.id)}>
+          <Col className='col-planner-item img-col' key={item.id} onClick={() => this.onItemClick(item.id)}>
             <PlannerItem imageSrc={item.image} name={item.name} />
           </Col>
         ))}
         {items.length < 4 && (
-          <Col className='col-3-10th'>
+          <Col className='col-planner-item'>
             <div className='meal-placeholder planner-row-item'>
               <FontAwesomeIcon className='link-icon' icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
             </div>
-            <label className='label-item'>&nbsp;</label>
           </Col>
         )}
       </Row>

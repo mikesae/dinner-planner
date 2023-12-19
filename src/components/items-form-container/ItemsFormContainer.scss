@@ -43,6 +43,10 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
       border-radius: $border-radius;
     }
 
+    img.img-item {
+      background-image: url('../../images/lowres.png');
+    }
+
     .add-item-placeholder {
       border: 1px dotted var(--mikesae-components-color-border-default);
       background: transparent;
