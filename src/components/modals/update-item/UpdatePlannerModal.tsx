@@ -194,7 +194,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     } else {
       mainTitle = (
         <span>
-          <ImageComponent src={this.state.mains[idxMain].image} />
+          <ImageComponent src={this.state.mains[idxMain].image} alt={this.state.mains[idxMain].name} />
           {this.state.mains[idxMain].name}
         </span>
       );
@@ -204,7 +204,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     } else {
       sideTitle = (
         <span>
-          <ImageComponent src={this.state.sides[idxSide].image} />
+          <ImageComponent src={this.state.sides[idxSide].image} alt={this.state.sides[idxSide].name} />
           {this.state.sides[idxSide].name}
         </span>
       );
@@ -214,7 +214,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     } else {
       vegetableTitle = (
         <span>
-          <ImageComponent src={this.state.vegetables[idxVegetable].image} />
+          <ImageComponent src={this.state.vegetables[idxVegetable].image} alt={this.state.vegetables[idxVegetable].name} />
           {this.state.vegetables[idxVegetable].name}
         </span>
       );
@@ -224,7 +224,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     } else {
       dessertTitle = (
         <span>
-          <ImageComponent src={this.state.desserts[idxDessert].image} />
+          <ImageComponent src={this.state.desserts[idxDessert].image} alt={this.state.desserts[idxDessert].name} />
           {this.state.desserts[idxDessert].name}
         </span>
       );

@@ -80,7 +80,7 @@ export const ItemsForm: FunctionComponent<Props> = ({ category }) => {
       {items.map((item: any) => (
         <Row key={item.id}>
           <Col className='col-3 p-2 img-col'>
-            <ImageComponent src={item.image} />
+            <ImageComponent src={item.image} alt={item.name} />
           </Col>
           <Col className='col-7 px-3 my-auto'>
             <div className='text-md-left'>{item.name}</div>

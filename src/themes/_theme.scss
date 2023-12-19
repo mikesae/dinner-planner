@@ -32,3 +32,24 @@ $border-radius: 4px;
   box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
   -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
 }
+
+$rows-per-planner: 7;
+$item-margin: 0.25em;
+$navbar-height: 3em;
+$height-threshold: 512px;
+
+// Size image so specified rows fit on a page minus header, footer and space between.
+@function plannerRowHeight() {
+  $plannerAreaHeight: calc(100vh - 2 * $navbar-height);
+  $totalVerticalSpaceBetweenRows: $item-margin * 2 * ($rows-per-planner + 1);
+
+  @return calc(($plannerAreaHeight - $totalVerticalSpaceBetweenRows) / $rows-per-planner);
+}
+
+@function plannerRowItemHeight() {
+  @return calc(plannerRowHeight() - $item-margin);
+}
+
+@function plannerRowMinHeight() {
+  @return calc($height-threshold / $rows-per-planner);
+}

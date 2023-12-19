@@ -81,7 +81,7 @@ const ItemDetail: FunctionComponent = () => {
                     accept='image/png, image/jpeg'
                   />
                   <label htmlFor='file'>
-                    <ImageComponentDetail src={itemDetails.image} />
+                    <ImageComponentDetail src={itemDetails.image} alt={itemDetails.name} />
                   </label>
                 </Col>
               </Row>

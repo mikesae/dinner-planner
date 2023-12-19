@@ -8,6 +8,19 @@ body {
   color: var(--mikesae-components-color-text-default);
 }
 
+img {
+  max-width: 100%;
+  height: auto;
+  font-style: italic;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  &.img-item,
+  &.img-item-large {
+    background-image: url('../../images/lowres.png');
+  }
+}
+
 .navbar {
   background-color: var(--mikesae-components-color-background-default);
 
