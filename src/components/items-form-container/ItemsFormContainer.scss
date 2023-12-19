@@ -66,8 +66,8 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
   font-size: 1.5em;
 }
 
-// iPhone 6, 6S, 7 and 8 Landscape
-@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+// Devices with narrow widths such as iPhone 6, 6S, 7, and 8; both portrait and landscape.
+@media only screen and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) {
   .mains-and-sides {
     .row {
       img.img-item,
