@@ -3,7 +3,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TopNavbar from 'components/navbars/top-navbar/TopNavbar';
-import React, { Component } from 'react';
+import { Component, forwardRef } from 'react';
 import { Container } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -18,7 +18,7 @@ export interface IPlannerProps {
 }
 
 export default class Planner extends Component<IPlannerProps> {
-  CustomInput = React.forwardRef<HTMLInputElement>((props: any, ref: any) => {
+  CustomInput = forwardRef<HTMLInputElement>((props: any, ref: any) => {
     return (
       <div className='date-picker' ref={ref}>
         <button className='no-focus nudge-top' onClick={() => this.onPreviousWeek()}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import { FunctionComponent } from 'react';
 
 const cloudFrontUrl = 'https://d3rdc75t3f75ej.cloudfront.net';
 
@@ -8,10 +8,10 @@ function getCloudFrontSrc(imageUrl: string) {
   return `${cloudFrontUrl}${imageName}`;
 }
 
-export const ImageComponent: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
-  return <img draggable='false' className='img-item' src={getCloudFrontSrc(src)} alt={alt} />;
-};
+export const ImageComponent: FunctionComponent<{ src: string; alt: string }> = ({ src, alt }) => (
+  <img draggable='false' className='img-item' src={getCloudFrontSrc(src)} alt={alt} />
+);
 
-export const ImageComponentDetail: React.FC<{ src: string; alt: string }> = ({ src, alt }) => {
-  return <img draggable='false' className='img-item-large' src={getCloudFrontSrc(src)} alt={alt} />;
-};
+export const ImageComponentDetail: FunctionComponent<{ src: string; alt: string }> = ({ src, alt }) => (
+  <img draggable='false' className='img-item-large' src={getCloudFrontSrc(src)} alt={alt} />
+);

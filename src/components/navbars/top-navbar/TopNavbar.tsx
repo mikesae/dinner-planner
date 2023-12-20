@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import './TopNavbar.scss';
-import Navbar from 'react-bootstrap/Navbar';
-import { Link } from 'react-router-dom';
+import { faChevronLeft, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Image from 'react-bootstrap/Image';
-import { faUser, faChevronLeft } from '@fortawesome/free-solid-svg-icons';
-import Row from 'react-bootstrap/Row';
+import { Component } from 'react';
 import Col from 'react-bootstrap/Col';
+import Image from 'react-bootstrap/Image';
+import Navbar from 'react-bootstrap/Navbar';
+import Row from 'react-bootstrap/Row';
+import { Link } from 'react-router-dom';
+import './TopNavbar.scss';
 
 export interface ITopNavBarProps {
   title: string;
