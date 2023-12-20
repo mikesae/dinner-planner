@@ -138,9 +138,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     const dateText = `${date.getMonth() + 1}/${date.getDate()}`;
     return (
       <label onClick={() => this.props.startDateUpdater(date)} className={'label-day' + (isToday ? ' label-day-today' : '')}>
-        {labelText}
-        <br />
-        {dateText}
+        {labelText} {dateText}
       </label>
     );
   }
