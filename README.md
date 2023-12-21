@@ -1,14 +1,14 @@
 # About
 
-Plan your weekly dinner menu with this app.
+Plan your weekly dinner menu with this PWA.
 
 ## Nature of the Application
 
-This is a web app that runs and looks great on most mobile devices (iPhones, iPads, Android devices, etc). It is also responsive enough to run and look great on a desktop browser.
+This is a progressive web application (PWA) that runs and looks great on most mobile devices (iPhones, iPads, Android devices, etc). It is also responsive so looks great in a browser or stand-alone PWA running on a Windows or Mac desktop. Lastly, I use a service worker to pre-cache build resources for better performance.
 
 ## Stack
 
-React with TypeScript and Sass with design tokens for color  
+React with TypeScript and Sass with design tokens for color
 GraphQL (not REST) service interface to AWS DynamoDB  
 Images stored in AWS S3, accessed in app via AWS Cloudfront
 
@@ -18,6 +18,6 @@ This project was built for and is hosted on AWS amplify, Amazon's cloud-based de
 
 Take it for a test drive!
 1. Add yourself as a user - You'll need to provide an email for initial authorization. Use a temporary or throw away one if you want. It's only needed once for verification.
-2. Start adding dishes with photos to your list of mains (entrees), sides, vegetables, or desserts. I like to use my own photos since I'm into food photography but feel free to grab stuff off the web.
+2. Start adding dishes with photos to your list of mains (entrees), sides, vegetables, or desserts. I like to use my own photos since I'm into food photography, but feel free to grab stuff off the web.
 3. Start planning your weekly menu by adding dishes from each of the categories.
 4. Enjoy!  Notice I didn't try and sound all fancy and cliche by writing Bon Appetit! Oh wait.
