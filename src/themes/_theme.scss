@@ -7,8 +7,8 @@ $img-aspect-ratio: 1.25;
 $border-radius: 4px;
 
 :root {
-  --mikesae-components-color-background-default: white;
-  --mikesae-components-color-background-secondary: #eeeee;
+  --mikesae-components-color-background-default: #efefef;
+  --mikesae-components-color-background-secondary: #ffffff;
   --mikesae-components-color-text-default: black;
   --mikesae-components-color-button-text-default: white;
   --mikesae-components-color-link-default: black;
@@ -19,18 +19,12 @@ $border-radius: 4px;
 
   @media (prefers-color-scheme: dark) {
     --mikesae-components-color-background-default: black;
-    --mikesae-components-color-background-secondary: #111111;
+    --mikesae-components-color-background-secondary: #202020;
     --mikesae-components-color-text-default: white;
     --mikesae-components-color-link-default: white;
     --mikesae-components-color-icon-default: #cccccc;
     --mikesae-components-color-border-default: #888888;
   }
-}
-
-@mixin item-border-shadow {
-  border-radius: $border-radius;
-  box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
-  -webkit-box-shadow: 0 0 8px 0 var(--mikesae-components-color-border-default);
 }
 
 $rows-per-planner: 7;

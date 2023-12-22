@@ -29,8 +29,9 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
 
 .items-form-container {
   .row {
-    @include item-border-shadow;
+    background: var(--mikesae-components-color-background-secondary);
     margin: 12px 0;
+    border-radius: $border-radius;
 
     input[type='text'] {
       width: 100%;
@@ -40,7 +41,8 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
     .add-item-placeholder {
       max-height: $image-height;
       aspect-ratio: $dish-image-aspect-ratio;
-      border-radius: $border-radius;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
     }
 
     img.img-item {
@@ -48,7 +50,6 @@ $dish-image-aspect-ratio: $img-aspect-ratio;
     }
 
     .add-item-placeholder {
-      border: 1px dotted var(--mikesae-components-color-border-default);
       background: transparent;
 
       display: flex;

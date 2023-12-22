@@ -67,7 +67,7 @@ export const ItemsForm: FunctionComponent<Props> = ({ category }) => {
         userName={user.username}
       />
       <Row onClick={() => onOpenModal()}>
-        <Col className='col-3 col-sm-2 p-2'>
+        <Col className='col-3 col-sm-2 pl-0 pr-2'>
           <div className='add-item-placeholder'>
             <FontAwesomeIcon className='link-icon' icon={faPlusCircle} />
           </div>
@@ -78,7 +78,7 @@ export const ItemsForm: FunctionComponent<Props> = ({ category }) => {
       </Row>
       {items.map((item: any) => (
         <Row key={item.id}>
-          <Col className='col-3 col-sm-2 p-2'>
+          <Col className='col-3 col-sm-2 pl-0 pr-2'>
             <ImageComponent src={item.image} alt={item.name} />
           </Col>
           <Col className='col-5 col-sm-8 px-0 my-auto'>

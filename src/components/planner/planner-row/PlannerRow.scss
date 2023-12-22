@@ -6,7 +6,11 @@
   padding: 0 4px;
 
   .planner-row-item {
-    @include item-border-shadow;
+    border-radius: $border-radius;
+    background-color: var(--mikesae-components-color-background-secondary);
+    display: flex;
+    flex-flow: column;
+    padding: 0.25em 0.125em;
 
     height: plannerRowItemHeight();
     min-height: plannerRowMinHeight();
@@ -34,11 +38,7 @@
   }
 
   .planner-item {
-    border-radius: $border-radius;
-    background-color: var(--mikesae-components-color-background-default);
-    display: flex;
-    flex-flow: column;
-    padding: 0.25em 0.125em;
+
 
     img.img-item {
       height: calc(100% - 24px);
