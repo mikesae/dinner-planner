@@ -55,8 +55,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test-coverage": "react-scripts test --coverage --watchAll",
+    "test": "react-scripts test --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\"",
+    "test-coverage": "react-scripts test --coverage --watchAll --transformIgnorePatterns \"node_modules/(?!@toolz/allow-react)/\"",
     "eject": "react-scripts eject",
     "buildnserve": "react-scripts build && serve -s build"
   },
