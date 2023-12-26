@@ -1,6 +1,6 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import AddItemModal from './AddItemModal';
+import { fireEvent, render } from '@testing-library/react';
 import * as itemFunctions from 'data/api/itemFunctions';
+import AddItemModal from './AddItemModal';
 
 describe('AddItemModal component', () => {
   const category = 'Sides';
