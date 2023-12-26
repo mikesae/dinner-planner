@@ -3,7 +3,7 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TopNavbar from 'components/navbars/top-navbar/TopNavbar';
-import { Component, forwardRef } from 'react';
+import { FunctionComponent, forwardRef } from 'react';
 import { Container } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -17,11 +17,11 @@ export interface IPlannerProps {
   desiredRowCount: number;
 }
 
-export default class Planner extends Component<IPlannerProps> {
-  CustomInput = forwardRef<HTMLInputElement>((props: any, ref: any) => {
+const Planner: FunctionComponent<IPlannerProps> = ({ startDate, startDateUpdater, desiredRowCount }) => {
+  const CustomInput: any = forwardRef<HTMLInputElement>((props: any, ref: any) => {
     return (
       <div className='date-picker' ref={ref}>
-        <button className='no-focus nudge-top' onClick={() => this.onPreviousWeek()}>
+        <button className='no-focus nudge-top' onClick={() => onPreviousWeek()}>
           <FontAwesomeIcon className='link-icon fa-1pt5x' icon={faChevronUp} />
         </button>
         <span onClick={props.onClick}>
@@ -30,47 +30,45 @@ export default class Planner extends Component<IPlannerProps> {
             <FontAwesomeIcon className='link-icon fa-1pt5x' icon={faCalendarAlt} />
           </button>
         </span>
-        <button className='no-focus' onClick={() => this.onNextWeek()}>
+        <button className='no-focus' onClick={() => onNextWeek()}>
           <FontAwesomeIcon className='link-icon fa-1pt5x' icon={faChevronDown} />
         </button>
       </div>
     );
   });
 
-  onPreviousWeek() {
-    this.props.startDateUpdater(offsetDate(this.props.startDate, -7));
+  function onPreviousWeek() {
+    startDateUpdater(offsetDate(startDate, -7));
   }
 
-  onNextWeek() {
-    this.props.startDateUpdater(offsetDate(this.props.startDate, 7));
+  function onNextWeek() {
+    startDateUpdater(offsetDate(startDate, 7));
   }
 
-  plannerRows() {
-    return Array.from({ length: this.props.desiredRowCount }, (_, offset) => (
+  function plannerRows() {
+    return Array.from({ length: desiredRowCount }, (_, offset) => (
       <PlannerRow
-        key={offsetDate(this.props.startDate, offset).toDateString()}
-        startDateUpdater={this.props.startDateUpdater}
-        date={offsetDate(this.props.startDate, offset)}
+        key={offsetDate(startDate, offset).toDateString()}
+        startDateUpdater={startDateUpdater}
+        date={offsetDate(startDate, offset)}
       />
     ));
   }
 
-  render() {
-    const startDate = this.props.startDate;
+  return (
+    <div className='page'>
+      <TopNavbar title={''} showBackNav={false}>
+        <DatePicker
+          selected={startDate}
+          onChange={(date: Date) => startDateUpdater(getPreviousStartDay(date))}
+          customInput={<CustomInput />}
+        />
+      </TopNavbar>
+      <Container>
+        <>{plannerRows()}</>
+      </Container>
+    </div>
+  );
+};
 
-    return (
-      <div className='page'>
-        <TopNavbar title={''} showBackNav={false}>
-          <DatePicker
-            selected={startDate}
-            onChange={(date: Date) => this.props.startDateUpdater(getPreviousStartDay(date))}
-            customInput={<this.CustomInput />}
-          />
-        </TopNavbar>
-        <Container>
-          <>{this.plannerRows()}</>
-        </Container>
-      </div>
-    );
-  }
-}
+export default Planner;
