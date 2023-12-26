@@ -18,7 +18,7 @@ export interface IAddItemModalProps {
 }
 
 const AddItemModal: FunctionComponent<IAddItemModalProps> = ({ isOpen, onClose, onOK, category, userName }) => {
-  const [file, setFile] = useState<any>(null);
+  const [file, setFile] = useState<File | null>(null);
   const [itemName, setItemName] = useState<string>('');
 
   async function addItem() {
@@ -28,14 +28,17 @@ const AddItemModal: FunctionComponent<IAddItemModalProps> = ({ isOpen, onClose, 
     onOK();
   }
 
-  function handleChange(event: any) {
+  function handleChange(event: React.ChangeEvent<HTMLInputElement>): void {
     const {
       target: { value, files },
     } = event;
-    const fileForUpload = files[0];
 
-    setItemName(fileForUpload.name.split('.')[0]);
-    setFile(fileForUpload || value);
+    if (files && files.length > 0) {
+      const fileForUpload: File = files[0];
+
+      setItemName(fileForUpload.name.split('.')[0]);
+      setFile(fileForUpload || value);
+    }
   }
 
   return (
