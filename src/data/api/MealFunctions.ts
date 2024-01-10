@@ -28,3 +28,13 @@ export async function addMeal(date: Date, userName: string) {
   const result: any = await API.graphql(graphqlOperation(createMeal, { input: meal }));
   return result.data.createMeal.id;
 }
+
+export async function addItemToMeal(mealItemId: number, mealId: string | undefined, date: Date, userName: string) {
+  if (typeof mealId === 'undefined') {
+    mealId = await addMeal(date, userName);
+  }
+
+  const itemIds = await getMealItemIds(mealId);
+  itemIds.push(mealItemId);
+  await updateMealItems(itemIds, mealId);
+}
