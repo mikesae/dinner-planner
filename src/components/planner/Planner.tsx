@@ -63,9 +63,8 @@ const Planner: FunctionComponent<IPlannerProps> = ({ startDate, startDateUpdater
     const fromMealId = e.active.data.current.mealId;
     const fromUpdate = e.active.data.current.updateMeal;
 
-    // non-event (probably a click)
+    // Ignore if just a click and no drag.
     if (e.over === null) {
-      console.log(`onDragEnd: click in place.`);
       return;
     }
 
@@ -73,26 +72,24 @@ const Planner: FunctionComponent<IPlannerProps> = ({ startDate, startDateUpdater
     const toMealId = e.over.data.current.mealId;
     const toUpdate = e.over.data.current.updateMeal;
 
+    // Can't drag item placeholder with same date
     if (fromDate === toDate) {
-      console.log(`Can't drag item placeholder with same date.`);
       return;
     }
 
-    console.log(`Dragging ${e.active.data.current.name} from ${fromDate.toDateString()} to ${toDate.toDateString()}`);
-
     const itemId = e.active.data.current.id;
-
-    // Remove active item from current meal and re-render
-    await removeItemFromMeal(fromMealId, itemId);
-    if (typeof fromUpdate === 'function') {
-      fromUpdate();
-    }
 
     // Add active item to over date.
     const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
     await addItemToMeal(itemId, toMealId, toDate, user.userName);
     if (typeof toUpdate === 'function') {
       toUpdate();
+    }
+
+    // Remove active item from current meal and re-render
+    await removeItemFromMeal(fromMealId, itemId);
+    if (typeof fromUpdate === 'function') {
+      fromUpdate();
     }
   }
 
