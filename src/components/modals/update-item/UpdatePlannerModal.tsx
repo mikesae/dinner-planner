@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 import { ImageComponent } from 'components/image/ImageComponent';
-import { addMeal, getMealItemIds, updateMealItems } from 'data/api/MealFunctions';
+import { addItemToMeal, getMealItemIds, removeItemFromMeal, updateMealItems } from 'data/api/MealFunctions';
 import { getAllSortedItems } from 'data/api/itemQueries';
 import { Component } from 'react';
 import { Container, Dropdown, FormGroup, FormLabel } from 'react-bootstrap';
@@ -143,14 +143,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
 
   async onRemove() {
     try {
-      const itemIds = await getMealItemIds(this.props.mealId);
-      let newItemIds: string[] = [];
-      itemIds.forEach((itemId: string) => {
-        if (itemId !== this.props.itemId) {
-          newItemIds.push(itemId);
-        }
-      });
-      await updateMealItems(newItemIds, this.props.mealId);
+      await removeItemFromMeal(this.props.mealId, this.props.itemId);
     } catch (e: any) {
       console.log(`Error: ${e.toString()}`);
     }
@@ -164,13 +157,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     }
     try {
       let mealId: string | undefined = this.props.mealId;
-      if (typeof mealId === 'undefined') {
-        mealId = await addMeal(this.props.date, this.state.userName);
-      }
-
-      const itemIds = await getMealItemIds(mealId);
-      itemIds.push(selectedItem.id);
-      await updateMealItems(itemIds, mealId);
+      await addItemToMeal(selectedItem.id, mealId, this.props.date, this.state.userName);
     } catch (e) {
       console.log('Error: ' + e);
     }
