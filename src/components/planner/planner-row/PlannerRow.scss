@@ -6,6 +6,7 @@
   padding: 0 4px;
 
   .planner-row-item {
+    position: relative;
     border-radius: $border-radius;
     background-color: var(--mikesae-components-color-background-secondary);
     display: flex;
@@ -38,8 +39,6 @@
   }
 
   .planner-item {
-
-
     img.img-item {
       height: calc(100% - 24px);
       aspect-ratio: $img-aspect-ratio;

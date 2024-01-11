@@ -1,6 +1,4 @@
 import { GraphQLQuery } from '@aws-amplify/api';
-import { faPlusCircle } from '@fortawesome/free-solid-svg-icons/faPlusCircle';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { API, Auth } from 'aws-amplify';
 import { dateToExtendedISODate } from 'aws-date-utils';
 import UpdatePlannerModal from 'components/modals/update-item/UpdatePlannerModal';
@@ -10,6 +8,7 @@ import * as queries from 'data/graphql/queries';
 import { Component } from 'react';
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
+import PlaceholderItem from './PlaceholderItem';
 import './PlannerRow.scss';
 
 export interface IPlannerRowProps {
@@ -50,7 +49,8 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
     this.setState({ items: updatedItems });
   }
 
-  async updateMeal(date: any) {
+  async updateMeal() {
+    const date = this.props.date;
     const user = await Auth.currentAuthenticatedUser({ bypassCache: false });
 
     let isoDate = dateToExtendedISODate(date);
@@ -83,7 +83,7 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
   async componentDidMount() {
     try {
-      await this.updateMeal(this.props.date);
+      await this.updateMeal();
     } catch (error) {
       console.log('PlannerRow error: ', error);
     }
@@ -91,14 +91,14 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
 
   async componentDidUpdate(prevProps: IPlannerRowProps) {
     if (prevProps.date !== this.props.date) {
-      await this.updateMeal(this.props.date);
+      await this.updateMeal();
     }
   }
 
   dayNames = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
-  async onOkUpdateMeal(date: any) {
-    await this.updateMeal(date);
+  async onOkUpdateMeal() {
+    await this.updateMeal();
     this.setState({ modalIsOpen: false });
   }
 
@@ -153,20 +153,18 @@ export default class PlannerRow extends Component<IPlannerRowProps, IPlannerRowS
           mealId={this.state.meal.id}
           itemId={this.state.clickedItemId}
           isOpen={this.state.modalIsOpen}
-          OnOK={() => this.onOkUpdateMeal(this.props.date)}
+          OnOK={() => this.onOkUpdateMeal()}
           OnClose={() => this.onCloseModal()}
         />
         <Col className='col-day'>{this.dayLabel(this.props.date)}</Col>
         {items.map((item: any) => (
           <Col className='col-planner-item img-col' key={item.id} onClick={() => this.onItemClick(item.id)}>
-            <PlannerItem imageSrc={item.image} name={item.name} />
+            <PlannerItem {...item} mealId={this.state.meal.id} date={this.props.date} updateMeal={() => this.updateMeal()} />
           </Col>
         ))}
         {items.length < 4 && (
-          <Col className='col-planner-item'>
-            <div className='meal-placeholder planner-row-item'>
-              <FontAwesomeIcon className='link-icon' icon={faPlusCircle} onClick={() => this.onAddItemClick()} />
-            </div>
+          <Col className='col-planner-item' onClick={() => this.onAddItemClick()}>
+            <PlaceholderItem {...this.props} mealId={this.state.meal.id} updateMeal={() => this.updateMeal()} />
           </Col>
         )}
       </Row>

@@ -38,3 +38,14 @@ export async function addItemToMeal(mealItemId: number, mealId: string | undefin
   itemIds.push(mealItemId);
   await updateMealItems(itemIds, mealId);
 }
+
+export async function removeItemFromMeal(mealId: string | undefined, itemId: string) {
+  const itemIds = await getMealItemIds(mealId);
+  let newItemIds: string[] = [];
+  itemIds.forEach((id: string) => {
+    if (id !== itemId) {
+      newItemIds.push(id);
+    }
+  });
+  await updateMealItems(newItemIds, mealId);
+}

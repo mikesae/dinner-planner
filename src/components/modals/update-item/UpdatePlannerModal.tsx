@@ -1,6 +1,6 @@
 import { Auth } from 'aws-amplify';
 import { ImageComponent } from 'components/image/ImageComponent';
-import { addItemToMeal, getMealItemIds, updateMealItems } from 'data/api/MealFunctions';
+import { addItemToMeal, getMealItemIds, removeItemFromMeal, updateMealItems } from 'data/api/MealFunctions';
 import { getAllSortedItems } from 'data/api/itemQueries';
 import { Component } from 'react';
 import { Container, Dropdown, FormGroup, FormLabel } from 'react-bootstrap';
@@ -143,14 +143,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
 
   async onRemove() {
     try {
-      const itemIds = await getMealItemIds(this.props.mealId);
-      let newItemIds: string[] = [];
-      itemIds.forEach((itemId: string) => {
-        if (itemId !== this.props.itemId) {
-          newItemIds.push(itemId);
-        }
-      });
-      await updateMealItems(newItemIds, this.props.mealId);
+      await removeItemFromMeal(this.props.mealId, this.props.itemId);
     } catch (e: any) {
       console.log(`Error: ${e.toString()}`);
     }
