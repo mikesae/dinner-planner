@@ -4,12 +4,12 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import TopNavbar from 'components/navbars/top-navbar/TopNavbar';
-import { addItemToMeal, removeItemFromMeal } from 'data/api/MealFunctions';
 import { FunctionComponent, forwardRef } from 'react';
 import { Container } from 'react-bootstrap';
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import { getPreviousStartDay, offsetDate } from 'utils/DateFunctions';
+import { onDragEnd } from 'utils/DragAndDrop';
 import './Planner.scss';
 import PlannerRow from './planner-row/PlannerRow';
 
@@ -57,47 +57,13 @@ const Planner: FunctionComponent<IPlannerProps> = ({ startDate, startDateUpdater
     ));
   }
 
-  async function onDragEnd(e: any) {
-    const fromDate = e.active.data.current.date;
-    const fromMealId = e.active.data.current.mealId;
-    const fromUpdate = e.active.data.current.updateMeal;
-
-    // Ignore if just a click and no drag.
-    if (e.over === null) {
-      return;
-    }
-
-    const toDate = e.over.data.current.date;
-    const toMealId = e.over.data.current.mealId;
-    const toUpdate = e.over.data.current.updateMeal;
-
-    // Can't drag item placeholder with same date
-    if (fromDate === toDate) {
-      return;
-    }
-
-    const itemId = e.active.data.current.id;
-
-    // Add active item to over date.
-
-    await addItemToMeal(itemId, toMealId, toDate);
-    if (typeof toUpdate === 'function') {
-      toUpdate();
-    }
-
-    // Remove active item from current meal and re-render
-    await removeItemFromMeal(fromMealId, itemId);
-    if (typeof fromUpdate === 'function') {
-      fromUpdate();
-    }
-  }
-
   const mouseSensor = useSensor(MouseSensor, {
     // Require the mouse to move by 10 pixels before activating
     activationConstraint: {
       distance: 10,
     },
   });
+
   const touchSensor = useSensor(TouchSensor, {
     // Press delay of 250ms, with tolerance of 5px of movement
     activationConstraint: {
@@ -105,6 +71,7 @@ const Planner: FunctionComponent<IPlannerProps> = ({ startDate, startDateUpdater
       tolerance: 5,
     },
   });
+
   const sensors = useSensors(mouseSensor, touchSensor);
 
   return (
