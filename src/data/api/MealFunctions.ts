@@ -1,4 +1,5 @@
-import { API, graphqlOperation } from 'aws-amplify';
+import { CognitoUser } from '@aws-amplify/auth';
+import { API, Auth, graphqlOperation } from 'aws-amplify';
 import { dateToExtendedISODate } from 'aws-date-utils';
 import { createMeal, updateMeal } from 'data/graphql/mutations';
 import { getMeal } from 'data/graphql/queries';
@@ -29,9 +30,10 @@ export async function addMeal(date: Date, userName: string) {
   return result.data.createMeal.id;
 }
 
-export async function addItemToMeal(mealItemId: number, mealId: string | undefined, date: Date, userName: string) {
+export async function addItemToMeal(mealItemId: number, mealId: string | undefined, date: Date) {
   if (typeof mealId === 'undefined') {
-    mealId = await addMeal(date, userName);
+    const user: CognitoUser = await Auth.currentAuthenticatedUser({ bypassCache: true });
+    mealId = await addMeal(date, user.getUsername());
   }
 
   const itemIds = await getMealItemIds(mealId);

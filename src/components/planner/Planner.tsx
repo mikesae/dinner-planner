@@ -3,7 +3,6 @@ import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import { faChevronUp } from '@fortawesome/free-solid-svg-icons/faChevronUp';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Auth } from 'aws-amplify';
 import TopNavbar from 'components/navbars/top-navbar/TopNavbar';
 import { addItemToMeal, removeItemFromMeal } from 'data/api/MealFunctions';
 import { FunctionComponent, forwardRef } from 'react';
@@ -80,8 +79,8 @@ const Planner: FunctionComponent<IPlannerProps> = ({ startDate, startDateUpdater
     const itemId = e.active.data.current.id;
 
     // Add active item to over date.
-    const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
-    await addItemToMeal(itemId, toMealId, toDate, user.userName);
+
+    await addItemToMeal(itemId, toMealId, toDate);
     if (typeof toUpdate === 'function') {
       toUpdate();
     }

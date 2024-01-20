@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Rodal from 'rodal';
 import 'rodal/lib/rodal.css';
 import '../Modal.scss';
+import { CognitoUser } from '@aws-amplify/auth';
 
 export interface IUpdatePlannerModalProps {
   isOpen: boolean;
@@ -27,7 +28,6 @@ interface IMealItem {
 }
 
 interface IUpdatePlannerModalState {
-  userName: string;
   selectedMain: number;
   selectedSide: number;
   selectedVegetable: number;
@@ -44,7 +44,6 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
   constructor(props: IUpdatePlannerModalProps) {
     super(props);
     this.state = {
-      userName: '',
       selectedMain: NOT_SELECTED,
       selectedSide: NOT_SELECTED,
       selectedDessert: NOT_SELECTED,
@@ -60,10 +59,9 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     // To minimize service calls, only call them when the modal opens.
     if (prevProps.isOpen === false && this.props.isOpen) {
       try {
-        const user = await Auth.currentAuthenticatedUser({ bypassCache: true });
-        const mealItems: IMealItem[] = await getAllSortedItems(user.username);
+        const user: CognitoUser = await Auth.currentAuthenticatedUser({ bypassCache: true });
+        const mealItems: IMealItem[] = await getAllSortedItems(user.getUsername());
 
-        this.setState({ userName: user.username });
         this.setState({ mains: mealItems.filter((item: IMealItem) => item.category === 'Mains') });
         this.setState({ sides: mealItems.filter((item: IMealItem) => item.category === 'Sides') });
         this.setState({ vegetables: mealItems.filter((item: IMealItem) => item.category === 'Vegetables') });
@@ -157,7 +155,7 @@ export default class UpdatePlannerModal extends Component<IUpdatePlannerModalPro
     }
     try {
       let mealId: string | undefined = this.props.mealId;
-      await addItemToMeal(selectedItem.id, mealId, this.props.date, this.state.userName);
+      await addItemToMeal(selectedItem.id, mealId, this.props.date);
     } catch (e) {
       console.log('Error: ' + e);
     }
