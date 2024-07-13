@@ -16,6 +16,8 @@ export async function getSortedItems(userName: string, category: string) {
       category: category,
       filter: filter,
       sortDirection: ModelSortDirection.ASC,
+      limit: 10000, // use a large number; graphql will stop even searching if not large enough
+      nextToken: null,
     },
   });
   // @ts-ignore
@@ -28,6 +30,8 @@ export async function getAllSortedItems(userName: string) {
     variables: {
       userName: userName,
       sortDirection: ModelSortDirection.ASC,
+      limit: 10000, // use a large number; graphql will stop even searching if not large enough
+      nextToken: null,
     },
   });
   // @ts-ignore
