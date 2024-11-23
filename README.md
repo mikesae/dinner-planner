@@ -8,9 +8,9 @@ This is a progressive web application (PWA) that runs and looks great on most mo
 
 ## Stack
 
-React with TypeScript and Sass with design tokens for color
-GraphQL (not REST) service interface to AWS DynamoDB  
-Images stored in AWS S3, accessed in app via AWS Cloudfront
+- React with TypeScript and Sass with design tokens for color
+- GraphQL (not REST) service interface to AWS DynamoDB  
+- Images stored in AWS S3, accessed in app via AWS Cloudfront
 
 ## Environment
 
